@@ -1,0 +1,117 @@
+﻿<Page
+    x:Class="MovieNight.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:MovieNight.Core.Models"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid
+        x:Name="ContentArea"
+        Margin="{StaticResource MediumLeftRightMargin}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="mediatype.(RelativePanel.AlignRightWithPanel)" Value="true" />
+                        <Setter Target="mediatype.(RelativePanel.AlignTopWithPanel)" Value="true" />
+                        <Setter Target="title.(RelativePanel.Below)" Value="mediatype" />
+                        <Setter Target="title.(RelativePanel.RightOf)" Value="poster" />
+                        <Setter Target="overviewGroup.(RelativePanel.Below)" Value="title" />
+                        <Setter Target="overviewGroup.(RelativePanel.RightOf)" Value="poster" />
+                        <Setter Target="voteAverageGroup.(RelativePanel.AlignBottomWithPanel)" Value="true" />
+                        <Setter Target="voteAverageGroup.(RelativePanel.RightOf)" Value="poster" />
+                        <Setter Target="voteCountGroup.(RelativePanel.AlignBottomWithPanel)" Value="true" />
+                        <Setter Target="voteCountGroup.(RelativePanel.RightOf)" Value="voteCountGroup" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.-->
+        <ScrollViewer>
+            <StackPanel>
+                <StackPanel x:Name="search" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="{StaticResource MediumTopBottomMargin}">
+                    <AutoSuggestBox x:Name="searchBox"
+                        PlaceholderText="Search Movies, TV Shows, People" QueryIcon="Find" Width="400"
+                        QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                        TextChanged="AutoSuggestBox_TextChanged"
+                        Margin="{StaticResource XSmallLeftTopRightBottomMargin}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <controls:AdaptiveGridView
+                        Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
+                        ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                        ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
+                        StretchContentForSingleRow="False"
+                        SelectionMode="None"
+                        IsItemClickEnabled="True"
+                        animations:Connected.ListItemElementName="itemThumbnail"
+                        animations:Connected.ListItemKey="animationKeyPopular_Movies"
+                        Margin="{StaticResource MediumBottomMargin}"
+                        DesiredWidth="1200"
+                        MaxWidth="1200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:MultiSearchItem">
+                                <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    <RelativePanel>
+                                        <Grid
+                                            RelativePanel.AlignTopWithPanel="True"
+                                            RelativePanel.AlignLeftWithPanel="True"
+                                            x:Name="poster"
+                                            Width="250"
+                                            Height="375"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Margin="{StaticResource MediumRightMargin}">
+                                            <Image Source="{x:Bind getPoster}"/>
+                                        </Grid>
+
+                                        <StackPanel Name="mediatype" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="{StaticResource MediumRightMargin}">
+                                            <TextBlock
+                                                Margin="{StaticResource SmallTopBottomMargin}"
+                                                Text="{x:Bind getMediaType}"
+                                                Style="{StaticResource DetailSubTitleStyle}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Name="title" RelativePanel.RightOf="poster" RelativePanel.Below="mediatype" Margin="{StaticResource MediumBottomMargin}">
+                                            <TextBlock
+                                                Text="{x:Bind getTitle}"
+                                                Style="{ThemeResource TitleTextBlockStyle}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Name="overviewGroup" RelativePanel.RightOf="poster" RelativePanel.Below="title" Margin="{StaticResource MediumRightMargin}">
+                                            <TextBlock x:Name="overview" Text="{x:Bind getOverviewTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource SmallTopBottomMargin}"/>
+                                            <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind getOverview}" />
+                                        </StackPanel>
+
+                                        <StackPanel x:Name="voteAverageGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="poster" Margin="0, 0, 30, 50">
+                                            <TextBlock Text="{x:Bind getVoteAverageTitle}" Style="{StaticResource DetailSubTitleStyle}" />
+                                            <TextBlock Text="{x:Bind getVoteAverage}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                        </StackPanel>
+
+                                        <StackPanel x:Name="voteCountGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="voteAverageGroup" Margin="0, 0, 30, 50">
+                                            <TextBlock Text="{x:Bind getVoteCountTitle}" Style="{StaticResource DetailSubTitleStyle}" />
+                                            <TextBlock Text="{x:Bind getVoteCount}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                        </StackPanel>
+
+                                    </RelativePanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
