@@ -1,10 +1,18 @@
-﻿using System;
+﻿using MovieNight.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
 namespace MovieNight.Core.Models
 {
+    public class TVShowsResponse
+    {
+        public int page { get; set; }
+        public int total_results { get; set; }
+        public int total_pages { get; set; }
+        public List<TVShow> results { get; set; }
+    }
     public class TVShow
     {
         private string Backdrop_path;
@@ -12,7 +20,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Backdrop_path;
+                return "https://image.tmdb.org/t/p/" + APICalls.BACKDROP_SIZE + "/" + Backdrop_path;
             }
             set
             {
@@ -193,7 +201,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                    return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + Poster_path;
                 }
             }
             set
@@ -400,7 +408,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Still_path;
+                return "https://image.tmdb.org/t/p/" + APICalls.STILL_SIZE + "/" + Still_path;
             }
             set
             {
@@ -426,7 +434,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Still_path;
+                return "https://image.tmdb.org/t/p/" + APICalls.STILL_SIZE + "/" + Still_path;
             }
             set
             {
@@ -472,7 +480,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Path;
+                return "https://image.tmdb.org/t/p/" + APICalls.LOGO_SIZE + "/" + Path;
             }
             set
             {
@@ -499,7 +507,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                    return "https://image.tmdb.org/t/p/" + APICalls.PROFILE_SIZE + "/" + Profile_path;
                 }
             }
             set
@@ -518,7 +526,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Logo_path;
+                return "https://image.tmdb.org/t/p/" + APICalls.LOGO_SIZE + "/" + Logo_path;
             }
             set
             {
@@ -546,7 +554,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                    return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + Poster_path;
                 }
             }
             set

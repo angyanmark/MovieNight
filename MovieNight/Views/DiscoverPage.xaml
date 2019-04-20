@@ -10,25 +10,19 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid
-        x:Name="ContentArea">
+        x:Name="ContentArea"
+        Margin="{StaticResource SmallLeftRightMargin}"
+        KeyDown="Grid_KeyDown">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
                         <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="800" />
+                        <AdaptiveTrigger MinWindowWidth="900" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <!--<Setter Target="mediatype.(RelativePanel.AlignRightWithPanel)" Value="true" />
-                        <Setter Target="mediatype.(RelativePanel.AlignTopWithPanel)" Value="true" />
-                        <Setter Target="title.(RelativePanel.Below)" Value="mediatype" />
-                        <Setter Target="title.(RelativePanel.RightOf)" Value="poster" />
-                        <Setter Target="overviewGroup.(RelativePanel.Below)" Value="title" />
-                        <Setter Target="overviewGroup.(RelativePanel.RightOf)" Value="poster" />
-                        <Setter Target="voteAverageGroup.(RelativePanel.AlignBottomWithPanel)" Value="true" />
-                        <Setter Target="voteAverageGroup.(RelativePanel.RightOf)" Value="poster" />
-                        <Setter Target="voteCountGroup.(RelativePanel.AlignBottomWithPanel)" Value="true" />
-                        <Setter Target="voteCountGroup.(RelativePanel.RightOf)" Value="voteCountGroup" />-->
+                        <Setter Target="discover.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="true" />
+                        <Setter Target="discover.(RelativePanel.Orientation)" Value="Horizontal" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -36,83 +30,91 @@
         <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
         <ScrollViewer>
-            <StackPanel>
-                <StackPanel x:Name="discover" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="{StaticResource MediumTopBottomMargin}">
+            <StackPanel Margin="0, 20, 0, 0">
+                <RelativePanel>
+                    <StackPanel x:Name="discover" RelativePanel.AlignHorizontalCenterWithPanel="True" >
 
-                    <ComboBox x:Name="yearCombo" Header="Year" Width="150" ItemsSource="{x:Bind years}" Margin="{StaticResource MediumLeftRightMargin}" >
-                    </ComboBox>
+                        <StackPanel x:Name="yearStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
+                            <ComboBox x:Name="yearCombo" Header="Year" Width="150" ItemsSource="{x:Bind years}" />
+                        </StackPanel>
 
-                    <ComboBox x:Name="genreCombo" Header="Genre" Width="150" ItemsSource="{x:Bind genres}" Margin="{StaticResource MediumLeftRightMargin}" >
-                    </ComboBox>
+                        <StackPanel x:Name="genreStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
+                            <ComboBox x:Name="genreCombo" Header="Genre" Width="150" ItemsSource="{x:Bind genres}" />
+                        </StackPanel>
 
-                    <ComboBox x:Name="sortByCombo" Header="Sort by" Width="250" Margin="{StaticResource MediumLeftRightMargin}" >
-                        <ComboBoxItem IsEnabled="True">
-                            <x:String>Film Popularity</x:String>
-                        </ComboBoxItem>
+                        <StackPanel x:Name="sortByStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
+                            <ComboBox x:Name="sortByCombo" Header="Sort by" Width="250" >
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>Film Popularity</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True">
-                            <x:String>Film Name</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>Film Name</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="False">
-                            <x:String>Release Date</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="False">
+                                    <x:String>Release Date</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Newest First</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Newest First</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Earliest First</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Earliest First</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="False">
-                            <x:String>Vote Average</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="False">
+                                    <x:String>Vote Average</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Highest Vote Average First</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Highest Vote Average First</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Lowest Vote Average First</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Lowest Vote Average First</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="False">
-                            <x:String>Vote Count</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="False">
+                                    <x:String>Vote Count</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Highest Vote Count First</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Highest Vote Count First</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Lowest Vote Count First</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Lowest Vote Count First</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="False">
-                            <x:String>Revenue</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="False">
+                                    <x:String>Revenue</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Highest Revenue First</x:String>
-                        </ComboBoxItem>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Highest Revenue First</x:String>
+                                </ComboBoxItem>
 
-                        <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
-                            <x:String>Lowest Revenue First</x:String>
-                        </ComboBoxItem>
-                    </ComboBox>
+                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                    <x:String>Lowest Revenue First</x:String>
+                                </ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
 
-                    <Button Name="findButton" Click="FindButton_Click" Content="Find"
-                            Margin="24, 22, 24, 0" Width="100"
+                        <StackPanel x:Name="findStack" Margin="24, 23, 24, 0" HorizontalAlignment="Center">
+                            <Button x:Name="findButton" Click="FindButton_Click" Content="Find" Width="100"
                             Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
                             BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
                             Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}"/>
-                </StackPanel>
-
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </RelativePanel>
+                
                 <Grid x:Name="postersArea"
                     Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-                      Margin="{StaticResource MediumTopMargin}">
+                    Margin="0, 60, 0, 0">
                     <controls:AdaptiveGridView
                         ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
                         ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"

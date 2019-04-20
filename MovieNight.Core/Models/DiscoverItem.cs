@@ -1,10 +1,18 @@
-﻿using System;
+﻿using MovieNight.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MovieNight.Core.Models
 {
-
+    public class DiscoverResponse
+    {
+        public int page { get; set; }
+        public int total_results { get; set; }
+        public int total_pages { get; set; }
+        //public Result[] results { get; set; }
+        public List<DiscoverItem> results { get; set; }
+    }
     public class DiscoverItem
     {
         public int vote_count { get; set; }
@@ -24,7 +32,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                    return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + Poster_path;
                 }
             }
             set

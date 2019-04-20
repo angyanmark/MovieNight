@@ -11,7 +11,7 @@
     mc:Ignorable="d">
     <Grid
         x:Name="ContentArea"
-        Margin="{StaticResource MediumLeftRightMargin}">
+        Margin="{StaticResource SmallLeftRightMargin}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -79,9 +79,15 @@
 
                                         <StackPanel Name="mediatype" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="{StaticResource MediumRightMargin}">
                                             <TextBlock
-                                                Margin="{StaticResource SmallTopBottomMargin}"
+                                                Margin="{StaticResource SmallTopMargin}"
                                                 Text="{x:Bind getMediaType}"
-                                                Style="{StaticResource DetailSubTitleStyle}"/>
+                                                Style="{StaticResource DetailSubTitleStyle}"
+                                                HorizontalAlignment="Right"/>
+                                            <TextBlock
+                                                Text="{x:Bind getAdult}"
+                                                Style="{StaticResource DetailBodyStyle}"
+                                                HorizontalAlignment="Right"
+                                                Foreground="Tomato"/>
                                         </StackPanel>
 
                                         <StackPanel Name="title" RelativePanel.RightOf="poster" RelativePanel.Below="mediatype" Margin="{StaticResource MediumBottomMargin}">
@@ -92,7 +98,8 @@
 
                                         <StackPanel Name="overviewGroup" RelativePanel.RightOf="poster" RelativePanel.Below="title" Margin="{StaticResource MediumRightMargin}">
                                             <TextBlock x:Name="overview" Text="{x:Bind getOverviewTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource SmallTopBottomMargin}"/>
-                                            <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind getOverview}" />
+                                            <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind getOverview}"
+                                                       MaxLines="{x:Bind getMaxLines}" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="0, 0, 60, 0"/>
                                         </StackPanel>
 
                                         <StackPanel x:Name="voteAverageGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="poster" Margin="0, 0, 30, 50">

@@ -12,14 +12,15 @@
         x:Name="ContentArea"
         Margin="24, 10, 24, 0"
         animations:Connected.AnchorElement="{x:Bind poster}"
-        Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+        Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
+        HorizontalAlignment="Center">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
                         <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="831" />
+                        <AdaptiveTrigger MinWindowWidth="840" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="allprops.(RelativePanel.AlignTopWithPanel)" Value="true" />
@@ -61,11 +62,12 @@
                         <TextBlock
                             x:Name="name"
                             Text="{x:Bind ViewModel.Item.name, Mode=OneWay}"
-                            Style="{ThemeResource TitleTextBlockStyle}" />
+                            Style="{ThemeResource TitleTextBlockStyle}"
+                            Width="350" />
 
                         <StackPanel x:Name="creators" Margin="{StaticResource MediumTopBottomMargin}" >
-                            <TextBlock Text="Creators" Style="{StaticResource DetailSubTitleStyle}" />
-                            <TextBlock Text="{x:Bind ViewModel.Item.Created_by}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                            <TextBlock Text="Creators" Style="{StaticResource DetailSubTitleStyle}" Width="350"/>
+                            <TextBlock Text="{x:Bind ViewModel.Item.Created_by}" Style="{StaticResource DetailBodyBaseMediumStyle}" Width="350"/>
                         </StackPanel>
 
                         <StackPanel x:Name="smallprops" >

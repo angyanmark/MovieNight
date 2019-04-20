@@ -6,6 +6,7 @@ using MovieNight.Core.Services;
 using MovieNight.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace MovieNight.Views
 {
@@ -189,6 +190,16 @@ namespace MovieNight.Views
             foreach (var v in s)
             {
                 ViewModel.Source.Add(v);
+            }
+        }
+
+        void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if(e.Key == Windows.System.VirtualKey.Escape)
+            {
+                yearCombo.SelectedIndex = 0;
+                genreCombo.SelectedIndex = 0;
+                sortByCombo.SelectedIndex = 0;
             }
         }
     }

@@ -15,7 +15,19 @@ namespace MovieNight.Core.Services
 
         private static RestClient client = new RestClient("https://api.themoviedb.org/3");
 
-        private static readonly int pages = 2;
+        private static readonly int pages = 6;
+
+        public static readonly string BACKDROP_SIZE = "w1280"; // w300 w780 w1280 original
+
+        public static readonly string LOGO_SIZE = "w500";      // w45 w92 w154 w185 w300 w500 original
+
+        public static readonly string POSTER_SIZE = "w780";    // w92 w154 w185 w342 w500 w780 original
+
+        public static readonly string PROFILE_SIZE = "h632";   // w45 w185 h632 original
+
+        public static readonly string STILL_SIZE = "w300";     // w92 w185 w300 original
+
+        public static readonly string FILE_SIZE = "original";  // ???
 
         public static ObservableCollection<Film> CallPopularFilms()
         {
@@ -24,6 +36,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/popular");
 
             request.AddParameter("api_key", API_KEY);
+            //request.AddParameter("region", "US");
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
 
             data1 = new ObservableCollection<Film>(result.results);

@@ -1,10 +1,17 @@
-﻿using System;
+﻿using MovieNight.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MovieNight.Core.Models
 {
-
+    public class MultiSearchResponse
+    {
+        public int page { get; set; }
+        public int total_results { get; set; }
+        public int total_pages { get; set; }
+        public List<MultiSearchItem> results { get; set; }
+    }
     public class MultiSearchItem
     {
         public float vote_average { get; set; }
@@ -61,7 +68,7 @@ namespace MovieNight.Core.Models
                     }
                     else
                     {
-                        return "http://image.tmdb.org/t/p/original/" + profile_path;
+                        return "https://image.tmdb.org/t/p/" + APICalls.PROFILE_SIZE + "/" + profile_path;
                     }
                 }
                 else
@@ -72,7 +79,7 @@ namespace MovieNight.Core.Models
                     }
                     else
                     {
-                        return "http://image.tmdb.org/t/p/original/" + poster_path;
+                        return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + poster_path;
                     }
                 }
             }
@@ -148,6 +155,20 @@ namespace MovieNight.Core.Models
                 return media_type;
             }
         }
+        public string getAdult
+        {
+            get
+            {
+                if (adult)
+                {
+                    return "adult";
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public string getVoteAverage
         {
             get
@@ -203,6 +224,21 @@ namespace MovieNight.Core.Models
                     return "Vote count";
                 }
             }
+        }
+        public int getMaxLines
+        {
+            get
+            {
+                if (media_type.Equals("person"))
+                {
+                    return 8;
+                }
+                else
+                {
+                    return 5;
+                }
+            }
+
         }
     }
 
