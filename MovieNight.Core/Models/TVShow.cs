@@ -55,7 +55,14 @@ namespace MovieNight.Core.Models
 
                 if (episode_run_time.Count > 0)
                 {
-                    builder = episode_run_time[0].ToString() + " mins";
+                    if(episode_run_time[0] != 0)
+                    {
+                        builder = episode_run_time[0].ToString() + " mins";
+                    }
+                    else
+                    {
+                        builder = "-";
+                    }
                 }
                 else
                 {
@@ -180,7 +187,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
             set
             {
@@ -479,7 +493,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                if (Profile_path == "" || Profile_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                }
             }
             set
             {
@@ -519,7 +540,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
             set
             {

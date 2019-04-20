@@ -141,6 +141,10 @@
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/tmdb_logo.png" />
                         </HyperlinkButton>
 
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getLetterboxd_link}" >
+                            <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/letterboxd_logo.png" />
+                        </HyperlinkButton>
+
                         <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getYoutube_link}" Visibility="{x:Bind ViewModel.Item.isYoutube}">
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/youtube_logo.png" />
                         </HyperlinkButton>

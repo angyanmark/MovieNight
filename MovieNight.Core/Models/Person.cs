@@ -129,7 +129,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                if (Profile_path == "" || Profile_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                }
             }
             set
             {
@@ -191,57 +198,31 @@ namespace MovieNight.Core.Models
             get
             {
                 Random r = new Random();
-                foreach (Result3 res in tagged_images.results)
+                int rand;
+                if (tagged_images.results.Count > 0)
                 {
-                    if (res.media.backdrop_path != "" && res.media.backdrop_path != null)
+                    for (int i = 0; i < 5; i++)
                     {
-                        if (r.Next(5) == 0)
-                            return res.media.backdrop_path;
+                        rand = r.Next(tagged_images.results.Count);
+                        if (tagged_images.results[rand].File_path != "" && tagged_images.results[rand].File_path != null)
+                        {
+                            return tagged_images.results[rand].file_path;
+                        }
                     }
                 }
-                foreach (Result3 res in tagged_images.results)
+                if (combined_credits.cast.Count > 0)
                 {
-                    if (res.media.backdrop_path != "" && res.media.backdrop_path != null)
+                    for (int i = 0; i < 5; i++)
                     {
-                        if(r.Next(3) == 0)
-                            return res.media.backdrop_path;
-                    }
-                }
-                foreach (Result3 res in tagged_images.results)
-                {
-                    if (res.media.backdrop_path != "" && res.media.backdrop_path != null)
-                    {
-                        if (r.Next(2) == 0)
-                            return res.media.backdrop_path;
-                    }
-                }
-                if(combined_credits.cast.Count > 0)
-                {
-                    if (combined_credits.cast[0].backdrop_path != "" && combined_credits.cast[0].backdrop_path != null)
-                    {
-                        return combined_credits.cast[0].backdrop_path;
-                    }
-                }
-                if (combined_credits.crew.Count > 0)
-                {
-                    if (combined_credits.crew[0].backdrop_path != "" && combined_credits.crew[0].backdrop_path != null)
-                    {
-                        return combined_credits.crew[0].backdrop_path;
-                    }
-                }
-                if(tagged_images.results.Count > 0)
-                {
-                    if(tagged_images.results[0].media.backdrop_path != "" && tagged_images.results[0].media.backdrop_path != null)
-                    {
-                        return tagged_images.results[0].media.backdrop_path;
-                    }
-                    if (tagged_images.results[0].media.poster_path != "" && tagged_images.results[0].media.poster_path != null)
-                    {
-                        return tagged_images.results[0].media.poster_path;
+                        rand = r.Next(combined_credits.cast.Count);
+                        if (combined_credits.cast[rand].Backdrop_path != "" && combined_credits.cast[rand].Backdrop_path != null)
+                        {
+                            return combined_credits.cast[rand].backdrop_path;
+                        }
                     }
                 }
 
-                return Profile_path;
+                return profile_path;
             }
             private set { }
         }
@@ -257,6 +238,13 @@ namespace MovieNight.Core.Models
             get
             {
                 return "https://www.themoviedb.org/person/" + id;
+            }
+        }
+        public string getLetterboxd_link
+        {
+            get
+            {
+                return "https://letterboxd.com/search/actors/" + name + "/";
             }
         }
         public string getFacebook_link
@@ -364,7 +352,7 @@ namespace MovieNight.Core.Models
         //public int?[] genre_ids { get; set; }
         public List<int> genre_ids { get; set; }
         public bool adult { get; set; }
-        private string Backdrop_path;
+        public string Backdrop_path;
         public string backdrop_path
         {
             get
@@ -381,7 +369,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
             set
             {
@@ -401,7 +396,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                if (Profile_path == "" || Profile_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                }
             }
             set
             {
@@ -429,7 +431,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
             set
             {
@@ -437,7 +446,7 @@ namespace MovieNight.Core.Models
             }
         }
         public float popularity { get; set; }
-        private string Backdrop_path;
+        public string Backdrop_path;
         public string backdrop_path
         {
             get
@@ -467,7 +476,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                if (Profile_path == "" || Profile_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Profile_path;
+                }
             }
             set
             {
@@ -491,7 +507,18 @@ namespace MovieNight.Core.Models
         public object iso_639_1 { get; set; }
         public int vote_count { get; set; }
         public string media_type { get; set; }
-        public string file_path { get; set; }
+        public string File_path;
+        public string file_path
+        {
+            get
+            {
+                return "http://image.tmdb.org/t/p/original/" + File_path;
+            }
+            set
+            {
+                File_path = value;
+            }
+        }
         public float aspect_ratio { get; set; }
         public Media media { get; set; }
         public int height { get; set; }
@@ -501,12 +528,19 @@ namespace MovieNight.Core.Models
 
     public class Media
     {
-        private string Poster_path;
+        public string Poster_path;
         public string poster_path
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
             set
             {
@@ -517,7 +551,7 @@ namespace MovieNight.Core.Models
         public bool video { get; set; }
         public int vote_count { get; set; }
         public bool adult { get; set; }
-        private string Backdrop_path;
+        public string Backdrop_path;
         public string backdrop_path
         {
             get

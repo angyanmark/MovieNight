@@ -51,6 +51,12 @@
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
+            <winui:NavigationViewItem x:Uid="Shell_Coming_Soon" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Coming_SoonViewModel" Margin="{StaticResource XSmallLeftMargin}">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+
             <winui:NavigationViewItem x:Uid="Shell_Popular_TV_Shows" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_TV_ShowsViewModel" Margin="{StaticResource XSmallLeftMargin}">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
@@ -75,13 +81,19 @@
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Search" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.SearchViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_Discover" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverViewModel" Margin="{StaticResource XSmallLeftMargin}" >
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+
+            <winui:NavigationViewItem x:Uid="Shell_Search" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.SearchViewModel" Margin="{StaticResource XSmallLeftMargin}" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE721;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
-            
         </winui:NavigationView.MenuItems>
+        
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">

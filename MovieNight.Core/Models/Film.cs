@@ -21,16 +21,23 @@ namespace MovieNight.Core.Models
             }
         }
         public object belongs_to_collection { get; set; }
-        private int Budget;
+        private long Budget;
         public string budget
         {
             get
             {
-                return Budget.ToString("C0");
+                if(Budget == 0)
+                {
+                    return "-";
+                }
+                else
+                {
+                    return Budget.ToString("C0");
+                }
             }
             set
             {
-                Budget = Int32.Parse(value);
+                Budget = Convert.ToInt64(value);
             }
         }
         //public Genre[] genres { get; set; }
@@ -91,7 +98,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                if(Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
             set
             {
@@ -147,16 +161,23 @@ namespace MovieNight.Core.Models
                 Release_date = value;
             }
         }
-        private int Revenue;
+        private long Revenue;
         public string revenue
         {
             get
             {
-                return Revenue.ToString("C0");
+                if(Revenue == 0)
+                {
+                    return "-";
+                }
+                else
+                {
+                    return Revenue.ToString("C0");
+                }
             }
             set
             {
-                Revenue = Int32.Parse(value);
+                Revenue = Convert.ToInt64(value);
             }
         }
         private int Runtime;
@@ -164,7 +185,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return Runtime + " mins";
+                if(Runtime != 0)
+                {
+                    return Runtime + " mins";
+                }
+                else
+                {
+                    return "-";
+                }
             }
             set
             {
@@ -194,6 +222,13 @@ namespace MovieNight.Core.Models
             get
             {
                 return "https://www.themoviedb.org/movie/" + id;
+            }
+        }
+        public string getLetterboxd_link
+        {
+            get
+            {
+                return "https://letterboxd.com/search/films/" + title + "/";
             }
         }
         public string getYoutube_link
@@ -390,7 +425,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "http://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
             set
             {

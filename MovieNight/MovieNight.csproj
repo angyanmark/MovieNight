@@ -125,6 +125,8 @@
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="ViewModels\Coming_SoonViewModel.cs" />
+    <Compile Include="ViewModels\DiscoverViewModel.cs" />
     <Compile Include="ViewModels\Now_Playing_MoviesViewModel.cs" />
     <Compile Include="ViewModels\MoviesDetailViewModel.cs" />
     <Compile Include="ViewModels\Popular_MoviesViewModel.cs" />
@@ -139,6 +141,12 @@
     <Compile Include="ViewModels\TV_on_the_AirViewModel.cs" />
     <Compile Include="ViewModels\Upcoming_MoviesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\Coming_SoonPage.xaml.cs">
+      <DependentUpon>Coming_SoonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiscoverPage.xaml.cs">
+      <DependentUpon>DiscoverPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Now_Playing_MoviesPage.xaml.cs">
       <DependentUpon>Now_Playing_MoviesPage.xaml</DependentUpon>
     </Compile>
@@ -206,6 +214,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Coming_SoonPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DiscoverPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Now_Playing_MoviesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -268,10 +284,10 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\clapper.png" />
     <Content Include="Assets\SocialMediaLogos\facebook_logo.png" />
     <Content Include="Assets\SocialMediaLogos\imdb_logo.png" />
     <Content Include="Assets\SocialMediaLogos\instagram_logo.png" />
+    <Content Include="Assets\SocialMediaLogos\letterboxd_logo.png" />
     <Content Include="Assets\SocialMediaLogos\tmdb_logo.png" />
     <Content Include="Assets\SocialMediaLogos\tmdb_powered_logo.png" />
     <Content Include="Assets\SocialMediaLogos\twitter_logo.png" />

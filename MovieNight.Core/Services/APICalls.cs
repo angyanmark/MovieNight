@@ -3,6 +3,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -50,7 +51,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/now_playing");
 
             request.AddParameter("api_key", API_KEY);
-            //request.AddParameter("region", "US");
+            request.AddParameter("region", "US");
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
             data1 = new ObservableCollection<Film>(result.results);
             int totalPages = result.total_pages;
@@ -77,7 +78,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/upcoming");
 
             request.AddParameter("api_key", API_KEY);
-            //request.AddParameter("region", "US");
+            request.AddParameter("region", "US");
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
             data1 = new ObservableCollection<Film>(result.results);
             int totalPages = result.total_pages;
@@ -92,6 +93,81 @@ namespace MovieNight.Core.Services
                 ObservableCollection<Film> data2 = new ObservableCollection<Film>(result.results);
 
                 data1 = new ObservableCollection<Film>(data1.Union(data2).ToList());
+            }
+
+            return data1;
+        }
+
+        public static ObservableCollection<DiscoverItem> CallComingSoon()
+        {
+            ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
+
+            RestRequest request = new RestRequest("/discover/movie");
+
+            DateTime d = DateTime.Now;
+            string from = d.AddMonths(1).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+            //string to = d.AddMonths(6).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+            string to = d.AddYears(1).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+            request.AddParameter("api_key", API_KEY);
+            request.AddParameter("region", "US");
+            request.AddParameter("primary_release_date.gte", from);
+            request.AddParameter("primary_release_date.lte", to);
+            request.AddParameter("release_date.gte", from);
+            request.AddParameter("release_date.lte", to);
+            request.AddParameter("sort_by", "popularity.desc");
+            DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
+            data1 = new ObservableCollection<DiscoverItem>(result.results);
+            int totalPages = result.total_pages;
+
+            for (int i = 2; i <= pages; i++)
+            {
+                if (i > totalPages)
+                    break;
+                request.AddParameter("page", i);
+                result = client.Execute<DiscoverResponse>(request).Data;
+
+                ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+
+                data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+            }
+
+            return data1;
+        }
+
+        public static ObservableCollection<DiscoverItem> CallDiscoverPage(int decade, int year, int genre, string sortby)
+        {
+            ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
+
+            RestRequest request = new RestRequest("/discover/movie");
+
+            request.AddParameter("api_key", API_KEY);
+            request.AddParameter("region", "US");
+            if(decade != 0)
+            {
+                request.AddParameter("primary_release_date.gte", decade.ToString() + "-01-01");
+                request.AddParameter("primary_release_date.lte", (decade + 9).ToString() + "-12-31");
+            }
+            if(year != 0)
+                request.AddParameter("primary_release_year", year);
+            if(genre != 0)
+                request.AddParameter("with_genres", genre);
+
+            request.AddParameter("sort_by", sortby);
+            DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
+            
+            data1 = new ObservableCollection<DiscoverItem>(result.results);
+            int totalPages = result.total_pages;
+
+            for (int i = 2; i <= pages; i++)
+            {
+                if (i > totalPages)
+                    break;
+                request.AddParameter("page", i);
+                result = client.Execute<DiscoverResponse>(request).Data;
+
+                ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+
+                data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
             }
 
             return data1;
@@ -234,6 +310,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/person/{id}");
 
             request.AddParameter("api_key", API_KEY);
+            request.AddParameter("include_adult", "true");
             request.AddParameter("append_to_response", "external_ids,combined_credits,tagged_images");
             request.AddUrlSegment("id", id);
             Person data = client.Execute<Person>(request).Data;
@@ -248,6 +325,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/search/multi");
 
             request.AddParameter("api_key", API_KEY);
+            request.AddParameter("include_adult", "true");
             request.AddParameter("query", searchString);
             MultiSearchResponse result = client.Execute<MultiSearchResponse>(request).Data;
 
@@ -268,5 +346,22 @@ namespace MovieNight.Core.Services
 
             return data1;
         }
-    }
+
+        public static ObservableCollection<Genres> CallGenres()
+        {
+            ObservableCollection<Genres> data1 = new ObservableCollection<Genres>();
+
+            RestRequest request = new RestRequest("/genre/movie/list");
+
+            request.AddParameter("api_key", API_KEY);
+            //request.AddParameter("include_adult", "true");
+            //request.AddParameter("include_video", "true");
+            GenreResponse result = client.Execute<GenreResponse>(request).Data;
+
+            data1 = new ObservableCollection<Genres>(result.genres);
+
+            return data1;
+
+        }
+}
 }

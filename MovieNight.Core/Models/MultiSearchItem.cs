@@ -21,7 +21,25 @@ namespace MovieNight.Core.Models
         public List<int> genre_ids { get; set; }
         public string backdrop_path { get; set; }
         public bool adult { get; set; }
-        public string overview { get; set; }
+        private string Overview;
+        public string overview
+        {
+            get
+            {
+                if (Overview == "" || Overview == null)
+                {
+                    return "-";
+                }
+                else
+                {
+                    return Overview;
+                }
+            }
+            set
+            {
+                Overview = value;
+            }
+        }
         public string release_date { get; set; }
         public string original_name { get; set; }
         public string name { get; set; }
@@ -37,11 +55,25 @@ namespace MovieNight.Core.Models
             {
                 if (media_type.Equals("person"))
                 {
-                    return "http://image.tmdb.org/t/p/original/" + profile_path;
+                    if (profile_path == "" || profile_path == null)
+                    {
+                        return "https://i.imgur.com/5qGcAV4.png";
+                    }
+                    else
+                    {
+                        return "http://image.tmdb.org/t/p/original/" + profile_path;
+                    }
                 }
                 else
                 {
-                    return "http://image.tmdb.org/t/p/original/" + poster_path;
+                    if (poster_path == "" || poster_path == null)
+                    {
+                        return "https://i.imgur.com/5qGcAV4.png";
+                    }
+                    else
+                    {
+                        return "http://image.tmdb.org/t/p/original/" + poster_path;
+                    }
                 }
             }
         }

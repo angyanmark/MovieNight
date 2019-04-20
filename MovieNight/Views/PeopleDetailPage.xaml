@@ -117,6 +117,10 @@
                         <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getTmdb_link}" >
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/tmdb_logo.png" />
                         </HyperlinkButton>
+
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getLetterboxd_link}">
+                            <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/letterboxd_logo.png" />
+                        </HyperlinkButton>
                     </StackPanel>
 
                     <StackPanel x:Name="links2" Orientation="Horizontal" Margin="{StaticResource SmallTopMargin}" RelativePanel.Below="links1">
