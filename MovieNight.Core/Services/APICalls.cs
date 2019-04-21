@@ -310,7 +310,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates");
+            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits");
             request.AddUrlSegment("id", id);
             Film data = client.Execute<Film>(request).Data;
 

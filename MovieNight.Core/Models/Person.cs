@@ -573,6 +573,20 @@ namespace MovieNight.Core.Models
         public List<string> origin_country { get; set; }
         public string original_name { get; set; }
         public string name { get; set; }
+        public string getName
+        {
+            get
+            {
+                if(name != "" && name != null)
+                {
+                    return name;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public string first_air_date { get; set; }
         //--------
         public int gender { get; set; }
@@ -596,6 +610,50 @@ namespace MovieNight.Core.Models
             }
         }
         public int order { get; set; }
+        public string getTitleDate
+        {
+            get
+            {
+                if(media_type == "movie")
+                {
+                    if(release_date != "" && release_date != null)
+                    {
+                        return title + " (" + release_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        return title;
+                    }
+                }
+                else
+                {
+                    if (first_air_date != "" && first_air_date != null)
+                    {
+                        return name + " (" + first_air_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        return name;
+                    }
+                }
+            }
+        }
+        public string getCharacter
+        {
+            get
+            {
+                if(character != "" && character != null)
+                {
+                    return character;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+        public string cast_id { get; set; }
+
     }
 
     public class Crew
@@ -605,6 +663,20 @@ namespace MovieNight.Core.Models
         public string original_language { get; set; }
         public string original_title { get; set; }
         public string job { get; set; }
+        public string getJob
+        {
+            get
+            {
+                if(job != "" && job != null)
+                {
+                    return job;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public string overview { get; set; }
         //public int?[] genre_ids { get; set; }
         public List<int> genre_ids { get; set; }
@@ -647,12 +719,54 @@ namespace MovieNight.Core.Models
         public int vote_count { get; set; }
         public bool adult { get; set; }
         public string title { get; set; }
+        public string getTitleDate
+        {
+            get
+            {
+                if (media_type == "movie")
+                {
+                    if (release_date != "" && release_date != null)
+                    {
+                        return title + " (" + release_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        return title;
+                    }
+                }
+                else
+                {
+                    if (first_air_date != "" && first_air_date != null)
+                    {
+                        return name + " (" + first_air_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        return name;
+                    }
+                }
+            }
+        }
         public string release_date { get; set; }
         public int episode_count { get; set; }
         //public string[] origin_country { get; set; }
         public List<string> origin_country { get; set; }
         public string original_name { get; set; }
         public string name { get; set; }
+        public string getName
+        {
+            get
+            {
+                if (name != "" && name != null)
+                {
+                    return name;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public string first_air_date { get; set; }
         //--------
         public int gender { get; set; }
@@ -675,6 +789,51 @@ namespace MovieNight.Core.Models
                 Profile_path = value;
             }
         }
+        public string titleDateJob
+        {
+            get
+            {
+                if (media_type == "movie")
+                {
+                    string returntitle = "";
+                    if (release_date != "" && release_date != null)
+                    {
+                        returntitle = title + " (" + release_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        returntitle = title;
+                    }
+
+                    if(job != "" && job != null)
+                    {
+                        returntitle = returntitle + " - " + job;
+                    }
+
+                    return returntitle;
+                }
+                else
+                {
+                    string returntitle = "";
+                    if (first_air_date != "" && first_air_date != null)
+                    {
+                        returntitle = name + " (" + first_air_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        returntitle = name;
+                    }
+
+                    if (job != "" && job != null)
+                    {
+                        returntitle = returntitle + " - " + job;
+                    }
+
+                    return returntitle;
+                }
+            }
+        }
+        public string cast_id { get; set; }
     }
 
     public class Tagged_Images

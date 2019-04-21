@@ -69,6 +69,7 @@ namespace MovieNight.Core.Models
                 Budget = Convert.ToInt64(value);
             }
         }
+        public Combined_Credits credits { get; set; }
         //public Genre[] genres { get; set; }
         public List<Genre> genres { private get; set; }
         public string Genres
@@ -162,10 +163,17 @@ namespace MovieNight.Core.Models
             get
             {
                 string builder = "";
-
+                int cnt = 0;
                 foreach (Production_Companies pc in production_companies)
                 {
-                    builder += pc.name + ",\n";
+                    if (cnt++ > 4)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        builder += pc.name + ",\n";
+                    }
                 }
 
                 if (builder.Length > 0)
@@ -436,7 +444,28 @@ namespace MovieNight.Core.Models
         public bool video { get; set; }
         public int vote_count { get; set; }
         public float vote_average { get; set; }
+        public string getVoteLine
+        {
+            get
+            {
+                return vote_average.ToString() + " (" + vote_count.ToString() + ")";
+            }
+        }
         public string title { get; set; }
+        public string getTitleDate
+        {
+            get
+            {
+                if (release_date != "" && release_date != null)
+                {
+                    return title + " (" + release_date.Substring(0, 4) + ")";
+                }
+                else
+                {
+                    return title;
+                }
+            }
+        }
         public string release_date { get; set; }
         public string original_language { get; set; }
         public string original_title { get; set; }
@@ -479,6 +508,20 @@ namespace MovieNight.Core.Models
         //--------
         public string first_air_date { get; set; }
         public string name { get; set; }
+        public string getNameDate
+        {
+            get
+            {
+                if (first_air_date != "" && first_air_date != null)
+                {
+                    return name + " (" + first_air_date.Substring(0, 4) + ")";
+                }
+                else
+                {
+                    return name;
+                }
+            }
+        }
         //public string[] origin_country { get; set; }
         public List<string> origin_country { get; set; }
         public string original_name { get; set; }

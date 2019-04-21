@@ -575,10 +575,45 @@ namespace MovieNight.Core.Models
     public class Season
     {
         public string air_date { get; set; }
+        public string getAirDate
+        {
+            get
+            {
+                if(air_date != "" && air_date != null)
+                {
+                    return air_date;
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+        }
         public int episode_count { get; set; }
         public int id { get; set; }
         public string name { get; set; }
+        public string getName
+        {
+            get
+            {
+                return name;
+            }
+        }
         public string overview { get; set; }
+        public string getOverview
+        {
+            get
+            {
+                if(overview != "" && overview != null)
+                {
+                    return overview;
+                }
+                else
+                {
+                    return "-";
+                }
+            }
+        }
         private string Poster_path;
         public string poster_path
         {
@@ -599,6 +634,13 @@ namespace MovieNight.Core.Models
             }
         }
         public int season_number { get; set; }
+        public string getSeasonNumber
+        {
+            get
+            {
+                return "Season " + season_number.ToString();
+            }
+        }
     }
 
     public class Content_Ratings

@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:MovieNight.Core.Models"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
@@ -51,7 +53,7 @@
                         x:Name="poster"
                         animations:Connected.Key="animationKeyPopular_TV_Shows"
                         Width="334"
-                        Height="501"
+                        Height="514"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="0, 0, 0, 10">
@@ -177,11 +179,180 @@
                     </StackPanel>
                 </RelativePanel>
 
-                <TextBlock x:Name="seasons" Text="Seasons" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" />
+                <TextBlock x:Name="seasons" Text="Seasons" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <StackPanel x:Name ="seasonsPanel" MaxWidth="1250">
+                    <controls:AdaptiveGridView
+                        ItemsSource="{x:Bind ViewModel.SeasonSource, Mode=OneWay}"
+                        StretchContentForSingleRow="False"
+                        SelectionMode="None"
+                        IsItemClickEnabled="False"
+                        animations:Connected.ListItemElementName="itemThumbnail"
+                        DesiredWidth="1200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Season">
+                                <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    <RelativePanel>
+                                        <Grid
+                                            RelativePanel.AlignTopWithPanel="True"
+                                            RelativePanel.AlignLeftWithPanel="True"
+                                            x:Name="poster"
+                                            Width="250"
+                                            Height="375"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Margin="{StaticResource MediumRightMargin}">
+                                            <Image Source="{x:Bind poster_path}"/>
+                                        </Grid>
 
-                <TextBlock x:Name="recommendations" Text="Recommendations" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" />
+                                        <StackPanel Name="seasonNumber" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="{StaticResource MediumRightMargin}">
+                                            <TextBlock
+                                                Margin="{StaticResource MediumTopMargin}"
+                                                Text="{x:Bind getSeasonNumber}"
+                                                Style="{StaticResource DetailSubTitleStyle}"/>
+                                        </StackPanel>
 
-                <TextBlock x:Name="cast" Text="Cast" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" />
+                                        <StackPanel Name="name" RelativePanel.RightOf="poster" RelativePanel.Below="seasonNumber" Margin="{StaticResource MediumBottomMargin}">
+                                            <TextBlock
+                                                Text="{x:Bind getName}"
+                                                Style="{ThemeResource TitleTextBlockStyle}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Name="airDateEpisodeCountGroup" RelativePanel.RightOf="poster" RelativePanel.Below="name" Orientation="Horizontal" Margin="{StaticResource MediumBottomMargin}">
+                                            <StackPanel x:Name="airDateGroup" Width="200" >
+                                                <TextBlock x:Name="airDateTitle" Text="Air date" Style="{StaticResource DetailSubTitleStyle}" />
+                                                <TextBlock x:Name="airDate" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind getAirDate}"/>
+                                            </StackPanel>
+
+                                            <StackPanel x:Name="episodeCountGroup" HorizontalAlignment="Right" Width="130" >
+                                                <TextBlock x:Name="episodeCountTitle" Text="Episodes" Style="{StaticResource DetailSubTitleStyle}"  HorizontalAlignment="Right"/>
+                                                <TextBlock x:Name="episodeCount" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind episode_count}" HorizontalAlignment="Right"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <StackPanel x:Name="overViewGroup" RelativePanel.Below="airDateEpisodeCountGroup" RelativePanel.RightOf="poster" Margin="0, 0, 150, 0">
+                                            <TextBlock x:Name="overviewTitle" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" />
+                                            <TextBlock x:Name="overview" Text="{x:Bind getOverview}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="8" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                        </StackPanel>
+
+                                    </RelativePanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
+
+                <TextBlock x:Name="recommendations" Text="Recommendations" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <StackPanel x:Name ="recommendationsPanel" MaxWidth="1250">
+                    <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.RecommendationsSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandRecommendations}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            DesiredWidth="200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Result1">
+                                <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                        </Image>
+                                        <TextBlock
+                                            Margin="5, 5, 5, 2"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getNameDate}"
+                                            Style="{ThemeResource BodyTextStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                        <TextBlock
+                                            Margin="5, 2, 5, 5"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getVoteLine}"
+                                            Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
+
+                <TextBlock x:Name="cast" Text="Cast" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <StackPanel x:Name ="castPanel" MaxWidth="1250">
+                    <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCast}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            DesiredWidth="200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Cast">
+                                <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300">
+                                        </Image>
+                                        <TextBlock
+                                            Margin="5, 5, 5, 2"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getName}"
+                                            Style="{ThemeResource BodyTextStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                        <TextBlock
+                                            Margin="5, 2, 5, 5"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getCharacter}"
+                                            Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
+
+                <TextBlock x:Name="crew" Text="Crew" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <StackPanel x:Name ="crewPanel" MaxWidth="1250">
+                    <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCrew}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            DesiredWidth="200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Crew">
+                                <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300" >
+                                        </Image>
+                                        <TextBlock
+                                            Margin="5, 5, 5, 2"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getName}"
+                                            Style="{ThemeResource BodyTextStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                        <TextBlock
+                                            Margin="5, 2, 5, 5"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getJob}"
+                                            Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
 
             </StackPanel>
         </ScrollViewer>

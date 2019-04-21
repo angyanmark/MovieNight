@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:MovieNight.Core.Models"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
@@ -51,7 +53,7 @@
                         x:Name="profilePicture"
                         animations:Connected.Key="animationKeyPopular_People"
                         Width="334"
-                        Height="501"
+                        Height="514"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="0, 0, 0, 10">
@@ -109,7 +111,7 @@
                                     <TextBlock Text="{x:Bind ViewModel.Item.Also_known_as}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="8" />
                                 </StackPanel>
                             </StackPanel>
-                            
+
                         </StackPanel>
                     </StackPanel>
 
@@ -156,7 +158,81 @@
                     </StackPanel>
                 </RelativePanel>
 
-                <TextBlock x:Name="filmography" Text="Filmography" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" />
+                <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <StackPanel x:Name ="castPanel" MaxWidth="1250">
+                    <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCast}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            animations:Connected.ListItemKey="animationKeyPopular_Movies"
+                            DesiredWidth="200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Cast">
+                                <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                        </Image>
+                                        <TextBlock
+                                            Margin="5, 5, 5, 2"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getTitleDate}"
+                                            Style="{ThemeResource BodyTextStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                        <TextBlock
+                                            Margin="5, 2, 5, 5"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getCharacter}"
+                                            Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
+
+                <TextBlock x:Name="crew" Text="Filmography - Crew" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <StackPanel x:Name ="crewPanel" MaxWidth="1250">
+                    <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCrew}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            animations:Connected.ListItemKey="animationKeyPopular_Movies"
+                            DesiredWidth="200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Crew">
+                                <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300" >
+                                        </Image>
+                                        <TextBlock
+                                            Margin="5, 5, 5, 2"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getTitleDate}"
+                                            Style="{ThemeResource BodyTextStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                        <TextBlock
+                                            Margin="5, 2, 5, 5"
+                                            HorizontalAlignment="Left"
+                                            Text="{x:Bind getJob}"
+                                            Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
 
             </StackPanel>
         </ScrollViewer>
