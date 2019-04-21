@@ -10,7 +10,7 @@
 
     <Grid
         x:Name="ContentArea"
-        Margin="24, 10, 24, 0"
+        Margin="21, 10, 21, 0"
         animations:Connected.AnchorElement="{x:Bind profilePicture}"
         Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
         HorizontalAlignment="Center">
@@ -55,7 +55,9 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="0, 0, 0, 10">
-                        <Image Source="{x:Bind ViewModel.Item.profile_path}"/>
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalProfile}" >
+                            <Image Source="{x:Bind ViewModel.Item.profile_path}"/>
+                        </HyperlinkButton>
                     </Grid>
 
                     <StackPanel x:Name="allprops" RelativePanel.Below="profilePicture" Margin="{StaticResource MediumLeftRightMargin}">
@@ -95,16 +97,30 @@
                             </StackPanel>
 
                             <StackPanel x:Name="propertiesGroup3" Orientation="Horizontal">
-                                <StackPanel x:Name="homePageGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}">
+                                <StackPanel x:Name="homePageGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" >
                                     <TextBlock Text="{x:Bind ViewModel.Item.getHomepage}" Style="{StaticResource DetailSubTitleStyle}" />
-                                    <HyperlinkButton Content="{x:Bind ViewModel.Item.homepage}" NavigateUri="{x:Bind ViewModel.Item.getHomepageUri}"/>
+                                    <HyperlinkButton Content="{x:Bind ViewModel.Item.homepage}" NavigateUri="{x:Bind ViewModel.Item.getHomepageUri}" />
                                 </StackPanel>
                             </StackPanel>
+
+                            <StackPanel x:Name="propertiesGroup4" Orientation="Horizontal">
+                                <StackPanel x:Name="alsoKnownAsGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}">
+                                    <TextBlock Text="Also known as" Style="{StaticResource DetailSubTitleStyle}" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.Also_known_as}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="8" />
+                                </StackPanel>
+                            </StackPanel>
+                            
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel x:Name="tagged" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" >
-                        <Image Source="{x:Bind ViewModel.Item.getTagged}" MaxHeight="501" MinWidth="310" />
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.tagPath}" Visibility="{x:Bind ViewModel.isTagged}">
+                            <Image Source="{x:Bind ViewModel.tagPath}" MaxHeight="501" MinWidth="310">
+                                <ToolTipService.ToolTip>
+                                    <TextBlock Text="{x:Bind ViewModel.tagTitle}"/>
+                                </ToolTipService.ToolTip>
+                            </Image>
+                        </HyperlinkButton>
                     </StackPanel>
 
                     <TextBlock x:Name="biography" Text="Biography" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="tagged" />

@@ -21,17 +21,11 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<DiscoverItem>(OnItemClick));
 
-        public ObservableCollection<DiscoverItem> Source
-        {
-            get
-            {
-                // TODO WTS: Replace this with your actual data
-                return APICalls.CallComingSoon();
-            }
-        }
+        public ObservableCollection<DiscoverItem> Source { get; set; }
 
         public Coming_SoonViewModel()
         {
+            Source = APICalls.CallComingSoon(1);
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

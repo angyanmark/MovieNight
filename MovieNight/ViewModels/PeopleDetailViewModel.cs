@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using GalaSoft.MvvmLight;
@@ -18,6 +19,41 @@ namespace MovieNight.ViewModels
             set { Set(ref _item, value); }
         }
 
+        public Dictionary<string, string> tag;
+
+        public string tagPath
+        {
+            get
+            {
+                var s = tag.First();
+                return s.Key;
+            }
+        }
+
+        public string tagTitle
+        {
+            get
+            {
+                var s = tag.First();
+                return s.Value;
+            }
+        }
+
+        public string isTagged
+        {
+            get
+            {
+                if(tagPath == "https://image.tmdb.org/t/p/original/")
+                {
+                    return "Collapsed";
+                }
+                else
+                {
+                    return "Visible";
+                }
+            }
+        }
+
         public PeopleDetailViewModel()
         {
         }
@@ -25,6 +61,7 @@ namespace MovieNight.ViewModels
         public void Initialize(int id)
         {
             Item = APICalls.CallDetailedPerson(id);
+            tag = Item.getTagged;
         }
     }
 }

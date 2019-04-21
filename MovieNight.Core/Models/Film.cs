@@ -28,6 +28,27 @@ namespace MovieNight.Core.Models
                 Backdrop_path = value;
             }
         }
+        public string getOriginalBackdrop
+        {
+            get
+            {
+                return "https://image.tmdb.org/t/p/original/" + Backdrop_path;
+            }
+        }
+        public string isBackDrop
+        {
+            get
+            {
+                if (Backdrop_path == "" || Backdrop_path == null)
+                {
+                    return "Collapsed";
+                }
+                else
+                {
+                    return "Visible";
+                }
+            }
+        }
         public object belongs_to_collection { get; set; }
         private long Budget;
         public string budget
@@ -108,7 +129,7 @@ namespace MovieNight.Core.Models
             {
                 if(Poster_path == "" || Poster_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {
@@ -118,6 +139,20 @@ namespace MovieNight.Core.Models
             set
             {
                 Poster_path = value;
+            }
+        }
+        public string getOriginalPoster
+        {
+            get
+            {
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/original/" + Poster_path;
+                }
             }
         }
         //public Production_Companies[] production_companies { get; set; }
@@ -159,9 +194,10 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    string str = Release_date.Replace("-", "");
+                    /*string str = Release_date.Replace("-", "");
                     DateTime dt = DateTime.ParseExact(str, "yyyyMMdd", CultureInfo.InvariantCulture);
-                    return dt.ToString("yyyy. MM. dd.");
+                    return dt.ToString("yyyy. MM. dd.");*/
+                    return Release_date;
                 }
             }
             set
@@ -427,7 +463,7 @@ namespace MovieNight.Core.Models
             {
                 if (Poster_path == "" || Poster_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {

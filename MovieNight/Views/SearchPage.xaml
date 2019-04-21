@@ -20,21 +20,12 @@
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="mediatype.(RelativePanel.AlignRightWithPanel)" Value="true" />
-                        <Setter Target="mediatype.(RelativePanel.AlignTopWithPanel)" Value="true" />
-                        <Setter Target="title.(RelativePanel.Below)" Value="mediatype" />
-                        <Setter Target="title.(RelativePanel.RightOf)" Value="poster" />
-                        <Setter Target="overviewGroup.(RelativePanel.Below)" Value="title" />
-                        <Setter Target="overviewGroup.(RelativePanel.RightOf)" Value="poster" />
-                        <Setter Target="voteAverageGroup.(RelativePanel.AlignBottomWithPanel)" Value="true" />
-                        <Setter Target="voteAverageGroup.(RelativePanel.RightOf)" Value="poster" />
-                        <Setter Target="voteCountGroup.(RelativePanel.AlignBottomWithPanel)" Value="true" />
-                        <Setter Target="voteCountGroup.(RelativePanel.RightOf)" Value="voteCountGroup" />
+
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+        <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.-->
         <ScrollViewer>
             <StackPanel>

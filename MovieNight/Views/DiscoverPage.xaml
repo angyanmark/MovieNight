@@ -129,7 +129,11 @@
                                 <Grid
                                     x:Name="itemThumbnail">
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Image Source="{x:Bind poster_path}" />
+                                        <Image Source="{x:Bind poster_path}">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock Text="{Binding title}"/>
+                                            </ToolTipService.ToolTip>
+                                        </Image>
                                         <!--<TextBlock
                                         Margin="{StaticResource SmallTopBottomMargin}"
                                         HorizontalAlignment="Center"

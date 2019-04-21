@@ -20,6 +20,20 @@ namespace MovieNight.Core.Models
         public bool video { get; set; }
         public float vote_average { get; set; }
         public string title { get; set; }
+        public string titleDate
+        {
+            get
+            {
+                if(release_date != "" && release_date != null)
+                {
+                    return title + " (" + release_date + ")";
+                }
+                else
+                {
+                    return title;
+                }
+            }
+        }
         public float popularity { get; set; }
         private string Poster_path;
         public string poster_path
@@ -28,7 +42,7 @@ namespace MovieNight.Core.Models
             {
                 if (Poster_path == "" || Poster_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {

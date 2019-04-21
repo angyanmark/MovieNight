@@ -15,6 +15,10 @@ namespace MovieNight.Core.Models
     }
     public class Person
     {
+        public Person()
+        {
+            
+        }
         private string Birthday;
         public string birthday
         {
@@ -26,9 +30,10 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    string str = Birthday.Replace("-", "");
+                    /*string str = Birthday.Replace("-", "");
                     DateTime dt = DateTime.ParseExact(str, "yyyyMMdd", CultureInfo.InvariantCulture);
-                    return dt.ToString("yyyy. MM. dd.");
+                    return dt.ToString("yyyy. MM. dd.");*/
+                    return Birthday;
                 }
             }
             set
@@ -48,9 +53,10 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    string str = Deathday.Replace("-", "");
+                    /*string str = Deathday.Replace("-", "");
                     DateTime dt = DateTime.ParseExact(str, "yyyyMMdd", CultureInfo.InvariantCulture);
-                    return dt.ToString("yyyy. MM. dd.");
+                    return dt.ToString("yyyy. MM. dd.");*/
+                    return Deathday;
                 }
             }
             set
@@ -78,6 +84,36 @@ namespace MovieNight.Core.Models
         public Combined_Credits combined_credits { get; set; }
         //public string[] also_known_as { get; set; }
         public List<string> also_known_as { get; set; }
+        public string Also_known_as
+        {
+            get
+            {
+                string builder = "";
+                int cnt = 0;
+                foreach (string s in also_known_as)
+                {
+                    if(cnt++ > 7)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        builder += s + ",\n";
+                    }
+                }
+
+                if (builder.Length > 0)
+                {
+                    builder = builder.Substring(0, builder.Length - 2);
+                }
+                else
+                {
+                    builder = "-";
+                }
+
+                return builder;
+            }
+        }
         public int gender { private get; set; }
         public string Gender
         {
@@ -138,7 +174,7 @@ namespace MovieNight.Core.Models
             {
                 if (Profile_path == "" || Profile_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {
@@ -148,6 +184,20 @@ namespace MovieNight.Core.Models
             set
             {
                 Profile_path = value;
+            }
+        }
+        public string getOriginalProfile
+        {
+            get
+            {
+                if (Profile_path == "" || Profile_path == null)
+                {
+                    return "https://i.imgur.com/5qGcAV4.png";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/original/" + Profile_path;
+                }
             }
         }
         public bool adult { get; set; }
@@ -191,16 +241,25 @@ namespace MovieNight.Core.Models
             {
                 if(homepage == "")
                 {
-                    return "https://www.themoviedb.org/";
+                    return getTmdb_link;
                 }
                 else
                 {
-                    return homepage;
+                    Uri uriResult;
+                    bool result = Uri.TryCreate(homepage, UriKind.Absolute, out uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+                    if (result)
+                    {
+                        return homepage;
+                    }
+                    else
+                    {
+                        return getTmdb_link;
+                    }
                 }
             }
         }
         public Tagged_Images tagged_images { private get; set; }
-        public string getTagged
+        public Dictionary<string, string> getTagged
         {
             get
             {
@@ -213,18 +272,67 @@ namespace MovieNight.Core.Models
                         rand = r.Next(tagged_images.results.Count);
                         if (tagged_images.results[rand].File_path != "" && tagged_images.results[rand].File_path != null)
                         {
-                            return tagged_images.results[rand].file_path;
+                            string path = tagged_images.results[rand].file_path;
+                            Dictionary<string, string> dic = new Dictionary<string, string>();
+                            if(tagged_images.results[rand].media_type == "movie")
+                            {
+                                if(tagged_images.results[rand].media.release_date != "" && tagged_images.results[rand].media.release_date != null)
+                                {
+                                    dic.Add(path, tagged_images.results[rand].media.title + " (" + tagged_images.results[rand].media.release_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, tagged_images.results[rand].media.title);
+                                }
+                            }
+                            else
+                            {
+                                if(tagged_images.results[rand].media.first_air_date != "" && tagged_images.results[rand].media.first_air_date != null)
+                                {
+                                    dic.Add(path, tagged_images.results[rand].media.name + " (" + tagged_images.results[rand].media.first_air_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, tagged_images.results[rand].media.name);
+                                }
+                            }
+                            return dic;
                         }
                     }
                 }
                 if (combined_credits.cast.Count > 0)
                 {
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 3; i++)
                     {
                         rand = r.Next(combined_credits.cast.Count);
                         if (combined_credits.cast[rand].Backdrop_path != "" && combined_credits.cast[rand].Backdrop_path != null)
                         {
-                            return combined_credits.cast[rand].backdrop_path;
+                            //return combined_credits.cast[rand].backdrop_path;
+                            string path = combined_credits.cast[rand].backdrop_path;
+                            Dictionary<string, string> dic = new Dictionary<string, string>();
+                            if (combined_credits.cast[rand].media_type == "movie")
+                            {
+                                if(combined_credits.cast[rand].release_date != "" && combined_credits.cast[rand].release_date != null)
+                                {
+                                    dic.Add(path, combined_credits.cast[rand].title + " (" + combined_credits.cast[rand].release_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, combined_credits.cast[rand].title);
+                                }
+                            }
+                            else
+                            {
+                                if(combined_credits.cast[rand].first_air_date != "" && combined_credits.cast[rand].first_air_date != null)
+                                {
+                                    dic.Add(path, combined_credits.cast[rand].name + " (" + combined_credits.cast[rand].first_air_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, combined_credits.cast[rand].name);
+                                }
+                            }
+                            return dic;
                         }
                     }
                 }
@@ -234,7 +342,31 @@ namespace MovieNight.Core.Models
                     {
                         if (tagged_images.results[i].File_path != "" && tagged_images.results[i].File_path != null)
                         {
-                            return tagged_images.results[i].file_path;
+                            string path = tagged_images.results[i].file_path;
+                            Dictionary<string, string> dic = new Dictionary<string, string>();
+                            if (tagged_images.results[i].media_type == "movie")
+                            {
+                                if (tagged_images.results[i].media.release_date != "" && tagged_images.results[i].media.release_date != null)
+                                {
+                                    dic.Add(path, tagged_images.results[i].media.title + " (" + tagged_images.results[i].media.release_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, tagged_images.results[i].media.title);
+                                }
+                            }
+                            else
+                            {
+                                if (tagged_images.results[i].media.first_air_date != "" && tagged_images.results[i].media.first_air_date != null)
+                                {
+                                    dic.Add(path, tagged_images.results[i].media.name + " (" + tagged_images.results[i].media.first_air_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, tagged_images.results[i].media.name);
+                                }
+                            }
+                            return dic;
                         }
                     }
                 }
@@ -244,15 +376,41 @@ namespace MovieNight.Core.Models
                     {
                         if (combined_credits.cast[i].Backdrop_path != "" && combined_credits.cast[i].Backdrop_path != null)
                         {
-                            return combined_credits.cast[i].backdrop_path;
+                            string path = combined_credits.cast[i].backdrop_path;
+                            Dictionary<string, string> dic = new Dictionary<string, string>();
+                            if (combined_credits.cast[i].media_type == "movie")
+                            {
+                                if (combined_credits.cast[i].release_date != "" && combined_credits.cast[i].release_date != null)
+                                {
+                                    dic.Add(path, combined_credits.cast[i].title + " (" + combined_credits.cast[i].release_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, combined_credits.cast[i].title);
+                                }
+                            }
+                            else
+                            {
+                                if (combined_credits.cast[i].first_air_date != "" && combined_credits.cast[i].first_air_date != null)
+                                {
+                                    dic.Add(path, combined_credits.cast[i].name + " (" + combined_credits.cast[i].first_air_date.Substring(0, 4) + ")");
+                                }
+                                else
+                                {
+                                    dic.Add(path, combined_credits.cast[i].name);
+                                }
+                            }
+                            return dic;
                         }
                     }
                 }
-
-                return "";
+                Dictionary<string, string> dic2 = new Dictionary<string, string>();
+                dic2.Add("https://image.tmdb.org/t/p/original/", "-");
+                return dic2;
             }
             private set { }
         }
+
         public string getImdb_link
         {
             get
@@ -398,7 +556,7 @@ namespace MovieNight.Core.Models
             {
                 if (Poster_path == "" || Poster_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {
@@ -425,7 +583,7 @@ namespace MovieNight.Core.Models
             {
                 if (Profile_path == "" || Profile_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {
@@ -460,7 +618,7 @@ namespace MovieNight.Core.Models
             {
                 if (Poster_path == "" || Poster_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {
@@ -505,7 +663,7 @@ namespace MovieNight.Core.Models
             {
                 if (Profile_path == "" || Profile_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {
@@ -562,7 +720,7 @@ namespace MovieNight.Core.Models
             {
                 if (Poster_path == "" || Poster_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return "/Assets/placeholder_poster.png";
                 }
                 else
                 {
@@ -596,9 +754,11 @@ namespace MovieNight.Core.Models
         public string original_title { get; set; }
         public float popularity { get; set; }
         public string title { get; set; }
+        public string name { get; set; }
         public float vote_average { get; set; }
         public string overview { get; set; }
         public string release_date { get; set; }
+        public string first_air_date { get; set; }
     }
 
 }

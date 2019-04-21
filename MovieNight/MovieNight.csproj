@@ -284,6 +284,8 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\empty.png" />
+    <Content Include="Assets\placeholder_poster.png" />
     <Content Include="Assets\SocialMediaLogos\facebook_logo.png" />
     <Content Include="Assets\SocialMediaLogos\imdb_logo.png" />
     <Content Include="Assets\SocialMediaLogos\instagram_logo.png" />

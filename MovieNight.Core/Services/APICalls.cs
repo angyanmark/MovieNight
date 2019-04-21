@@ -15,7 +15,7 @@ namespace MovieNight.Core.Services
 
         private static RestClient client = new RestClient("https://api.themoviedb.org/3");
 
-        private static readonly int pages = 6;
+        private static readonly int pages = 2;
 
         public static readonly string BACKDROP_SIZE = "w1280"; // w300 w780 w1280 original
 
@@ -111,7 +111,7 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        public static ObservableCollection<DiscoverItem> CallComingSoon()
+        public static ObservableCollection<DiscoverItem> CallComingSoon(int time)
         {
             ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
 
@@ -119,14 +119,25 @@ namespace MovieNight.Core.Services
 
             DateTime d = DateTime.Now;
             string from = d.AddMonths(1).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
-            //string to = d.AddMonths(6).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
-            string to = d.AddYears(1).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+            string to = "";
+            if (time == 0)
+            {
+                to = d.AddMonths(6).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+            }
+            else if(time > 0)
+            {
+                to = d.AddYears(time).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+            }
+
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             request.AddParameter("primary_release_date.gte", from);
-            request.AddParameter("primary_release_date.lte", to);
             request.AddParameter("release_date.gte", from);
-            request.AddParameter("release_date.lte", to);
+            if(time >= 0)
+            {
+                request.AddParameter("primary_release_date.lte", to);
+                request.AddParameter("release_date.lte", to);
+            }
             request.AddParameter("sort_by", "popularity.desc");
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
             data1 = new ObservableCollection<DiscoverItem>(result.results);
@@ -323,7 +334,6 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/person/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("include_adult", "true");
             request.AddParameter("append_to_response", "external_ids,combined_credits,tagged_images");
             request.AddUrlSegment("id", id);
             Person data = client.Execute<Person>(request).Data;

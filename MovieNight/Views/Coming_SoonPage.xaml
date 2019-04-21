@@ -11,32 +11,82 @@
     mc:Ignorable="d">
 
     <Grid x:Name="ContentArea"
-          Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
           Margin="{StaticResource SmallLeftRightMargin}">
-        <controls:AdaptiveGridView
-            ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
-            ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
-            StretchContentForSingleRow="False"
-            SelectionMode="None"
-            IsItemClickEnabled="True"
-            animations:Connected.ListItemElementName="itemThumbnail"
-            animations:Connected.ListItemKey="animationKeyPopular_Movies"
-            DesiredWidth="240">
-            <controls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate x:DataType="models:DiscoverItem">
-                    <Grid
-                        x:Name="itemThumbnail">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="{x:Bind poster_path}" />
-                            <!--<TextBlock
-                                Margin="{StaticResource SmallTopBottomMargin}"
-                                HorizontalAlignment="Center"
-                                Text="{x:Bind title}"
-                                Style="{ThemeResource BodyTextStyle}" />-->
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </controls:AdaptiveGridView.ItemTemplate>
-        </controls:AdaptiveGridView>
+        <ScrollViewer>
+            <StackPanel Margin="0, 20, 0, 0">
+                <StackPanel x:Name="timeStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <ComboBox x:Name="timeCombo" Header="Comes out in..." Width="150">
+                        <ComboBoxItem>
+                            <x:String>6 months</x:String>
+                        </ComboBoxItem>
+
+                        <ComboBoxItem>
+                            <x:String>1 year</x:String>
+                        </ComboBoxItem>
+
+                        <ComboBoxItem>
+                            <x:String>2 years</x:String>
+                        </ComboBoxItem>
+
+                        <ComboBoxItem>
+                            <x:String>3 years</x:String>
+                        </ComboBoxItem>
+
+                        <ComboBoxItem>
+                            <x:String>5 years</x:String>
+                        </ComboBoxItem>
+
+                        <ComboBoxItem>
+                            <x:String>10 years</x:String>
+                        </ComboBoxItem>
+
+                        <ComboBoxItem>
+                            <x:String>any time</x:String>
+                        </ComboBoxItem>
+                    </ComboBox>
+
+                    <StackPanel x:Name="findStack" Margin="48, 23, 24, 0" HorizontalAlignment="Center">
+                        <Button x:Name="findButton" Click="FindButton_Click" Content="Find" Width="100"
+                                Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
+                                BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
+                                Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Grid x:Name="postersArea"
+                      Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
+                      Margin="0, 60, 0, 0">
+                    <controls:AdaptiveGridView
+                        ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                        ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
+                        StretchContentForSingleRow="False"
+                        SelectionMode="None"
+                        IsItemClickEnabled="True"
+                        animations:Connected.ListItemElementName="itemThumbnail"
+                        animations:Connected.ListItemKey="animationKeyPopular_Movies"
+                        DesiredWidth="240">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:DiscoverItem">
+                                <Grid
+                                    x:Name="itemThumbnail">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image Source="{x:Bind poster_path}">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock Text="{Binding titleDate}"/>
+                                            </ToolTipService.ToolTip>
+                                        </Image>
+                                        <!--<TextBlock
+                                            Margin="{StaticResource SmallTopBottomMargin}"
+                                            HorizontalAlignment="Center"
+                                            Text="{x:Bind title}"
+                                            Style="{ThemeResource BodyTextStyle}" />-->
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

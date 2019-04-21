@@ -64,7 +64,7 @@ namespace MovieNight.Core.Models
                 {
                     if (profile_path == "" || profile_path == null)
                     {
-                        return "https://i.imgur.com/5qGcAV4.png";
+                        return "/Assets/placeholder_poster.png";
                     }
                     else
                     {
@@ -75,7 +75,7 @@ namespace MovieNight.Core.Models
                 {
                     if (poster_path == "" || poster_path == null)
                     {
-                        return "https://i.imgur.com/5qGcAV4.png";
+                        return "/Assets/placeholder_poster.png";
                     }
                     else
                     {

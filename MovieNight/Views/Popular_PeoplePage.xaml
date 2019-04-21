@@ -25,15 +25,18 @@
             <controls:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Person">
                     <Grid
-                        x:Name="itemThumbnail"
-                        Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                        x:Name="itemThumbnail">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="{x:Bind profile_path}" />
-                            <TextBlock
+                            <Image Source="{x:Bind profile_path}">
+                                <ToolTipService.ToolTip>
+                                    <TextBlock Text="{x:Bind name}"/>
+                                </ToolTipService.ToolTip>
+                            </Image>
+                            <!--<TextBlock
                                 Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
                                 HorizontalAlignment="Center"
                                 Text="{x:Bind name}"
-                                Style="{ThemeResource BodyTextStyle}" />
+                                Style="{ThemeResource BodyTextStyle}" />-->
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
