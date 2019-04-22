@@ -52,11 +52,12 @@
                         MaxWidth="1200">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:MultiSearchItem">
-                                <Grid
+                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                    <Grid
                                     x:Name="itemThumbnail"
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
-                                    <RelativePanel>
-                                        <Grid
+                                        <RelativePanel>
+                                            <Grid
                                             RelativePanel.AlignTopWithPanel="True"
                                             RelativePanel.AlignLeftWithPanel="True"
                                             x:Name="poster"
@@ -65,46 +66,47 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Top"
                                             Margin="{StaticResource MediumRightMargin}">
-                                            <Image Source="{x:Bind getPoster}"/>
-                                        </Grid>
+                                                <Image Source="{x:Bind getPoster}"/>
+                                            </Grid>
 
-                                        <StackPanel Name="mediatype" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="{StaticResource MediumRightMargin}">
-                                            <TextBlock
+                                            <StackPanel Name="mediatype" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="{StaticResource MediumRightMargin}">
+                                                <TextBlock
                                                 Margin="{StaticResource SmallTopMargin}"
                                                 Text="{x:Bind getMediaType}"
                                                 Style="{StaticResource DetailSubTitleStyle}"
                                                 HorizontalAlignment="Right"/>
-                                            <TextBlock
+                                                <TextBlock
                                                 Text="{x:Bind getAdult}"
                                                 Style="{StaticResource DetailBodyStyle}"
                                                 HorizontalAlignment="Right"
                                                 Foreground="Tomato"/>
-                                        </StackPanel>
+                                            </StackPanel>
 
-                                        <StackPanel Name="title" RelativePanel.RightOf="poster" RelativePanel.Below="mediatype" Margin="{StaticResource MediumBottomMargin}">
-                                            <TextBlock
+                                            <StackPanel Name="title" RelativePanel.RightOf="poster" RelativePanel.Below="mediatype" Margin="{StaticResource MediumBottomMargin}">
+                                                <TextBlock
                                                 Text="{x:Bind getTitle}"
                                                 Style="{ThemeResource TitleTextBlockStyle}"/>
-                                        </StackPanel>
+                                            </StackPanel>
 
-                                        <StackPanel Name="overviewGroup" RelativePanel.RightOf="poster" RelativePanel.Below="title" Margin="{StaticResource MediumRightMargin}">
-                                            <TextBlock x:Name="overview" Text="{x:Bind getOverviewTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource SmallTopBottomMargin}"/>
-                                            <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind getOverview}"
+                                            <StackPanel Name="overviewGroup" RelativePanel.RightOf="poster" RelativePanel.Below="title" Margin="{StaticResource MediumRightMargin}">
+                                                <TextBlock x:Name="overview" Text="{x:Bind getOverviewTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource SmallTopBottomMargin}"/>
+                                                <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind getOverview}"
                                                        MaxLines="{x:Bind getMaxLines}" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="0, 0, 60, 0"/>
-                                        </StackPanel>
+                                            </StackPanel>
 
-                                        <StackPanel x:Name="voteAverageGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="poster" Margin="0, 0, 30, 50">
-                                            <TextBlock Text="{x:Bind getVoteAverageTitle}" Style="{StaticResource DetailSubTitleStyle}" />
-                                            <TextBlock Text="{x:Bind getVoteAverage}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
-                                        </StackPanel>
+                                            <StackPanel x:Name="voteAverageGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="poster" Margin="0, 0, 30, 50">
+                                                <TextBlock Text="{x:Bind getVoteAverageTitle}" Style="{StaticResource DetailSubTitleStyle}" />
+                                                <TextBlock Text="{x:Bind getVoteAverage}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                            </StackPanel>
 
-                                        <StackPanel x:Name="voteCountGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="voteAverageGroup" Margin="0, 0, 30, 50">
-                                            <TextBlock Text="{x:Bind getVoteCountTitle}" Style="{StaticResource DetailSubTitleStyle}" />
-                                            <TextBlock Text="{x:Bind getVoteCount}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
-                                        </StackPanel>
+                                            <StackPanel x:Name="voteCountGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="voteAverageGroup" Margin="0, 0, 30, 50">
+                                                <TextBlock Text="{x:Bind getVoteCountTitle}" Style="{StaticResource DetailSubTitleStyle}" />
+                                                <TextBlock Text="{x:Bind getVoteCount}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                            </StackPanel>
 
-                                    </RelativePanel>
-                                </Grid>
+                                        </RelativePanel>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </controls:AdaptiveGridView.ItemTemplate>
                     </controls:AdaptiveGridView>

@@ -12,6 +12,8 @@ namespace MovieNight.Core.Models
         public int total_results { get; set; }
         public int total_pages { get; set; }
         public List<Person> results { get; set; }
+        public string status_message { get; set; }
+        public int status_code { get; set; }
     }
     public class Person
     {
@@ -192,7 +194,7 @@ namespace MovieNight.Core.Models
             {
                 if (Profile_path == "" || Profile_path == null)
                 {
-                    return "https://i.imgur.com/5qGcAV4.png";
+                    return getTmdb_link;
                 }
                 else
                 {

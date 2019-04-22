@@ -9,6 +9,8 @@ namespace MovieNight.Core.Models
     {
         //public Genres[] genres { get; set; }
         public List<Genres> genres { get; set; }
+        public string status_message { get; set; }
+        public int status_code { get; set; }
     }
 
     public class Genres

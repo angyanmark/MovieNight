@@ -11,6 +11,8 @@ namespace MovieNight.Core.Models
         public int total_results { get; set; }
         public int total_pages { get; set; }
         public List<MultiSearchItem> results { get; set; }
+        public string status_message { get; set; }
+        public int status_code { get; set; }
     }
     public class MultiSearchItem
     {

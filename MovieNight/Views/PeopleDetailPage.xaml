@@ -159,7 +159,7 @@
                 </RelativePanel>
 
                 <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
-                <StackPanel x:Name ="castPanel" MaxWidth="1250">
+                <StackPanel x:Name ="castPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
                             ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCast}"
@@ -171,33 +171,35 @@
                             DesiredWidth="200">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Cast">
-                                <Grid
+                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                    <Grid
                                     x:Name="itemThumbnail"
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
-                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                        <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
-                                        </Image>
-                                        <TextBlock
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                            </Image>
+                                            <TextBlock
                                             Margin="5, 5, 5, 2"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getTitleDate}"
                                             Style="{ThemeResource BodyTextStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                        <TextBlock
+                                            <TextBlock
                                             Margin="5, 2, 5, 5"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getCharacter}"
                                             Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                    </StackPanel>
-                                </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </controls:AdaptiveGridView.ItemTemplate>
                     </controls:AdaptiveGridView>
                 </StackPanel>
 
                 <TextBlock x:Name="crew" Text="Filmography - Crew" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
-                <StackPanel x:Name ="crewPanel" MaxWidth="1250">
+                <StackPanel x:Name ="crewPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"
                             ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCrew}"
@@ -209,26 +211,28 @@
                             DesiredWidth="200">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Crew">
-                                <Grid
+                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                    <Grid
                                     x:Name="itemThumbnail"
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
-                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                        <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300" >
-                                        </Image>
-                                        <TextBlock
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300" >
+                                            </Image>
+                                            <TextBlock
                                             Margin="5, 5, 5, 2"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getTitleDate}"
                                             Style="{ThemeResource BodyTextStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                        <TextBlock
+                                            <TextBlock
                                             Margin="5, 2, 5, 5"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getJob}"
                                             Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                    </StackPanel>
-                                </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
                         </controls:AdaptiveGridView.ItemTemplate>
                     </controls:AdaptiveGridView>

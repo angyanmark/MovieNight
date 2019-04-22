@@ -12,6 +12,8 @@ namespace MovieNight.Core.Models
         public int total_pages { get; set; }
         //public Result[] results { get; set; }
         public List<DiscoverItem> results { get; set; }
+        public string status_message { get; set; }
+        public int status_code { get; set; }
     }
     public class DiscoverItem
     {

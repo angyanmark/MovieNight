@@ -71,7 +71,7 @@ namespace MovieNight.Services
                 }
             }
 
-            if (Frame.Content?.GetType() != page || (parameter != null && !parameter.Equals(_lastParamUsed)))
+            if (Frame.Content?.GetType() != page || (parameter != null /*&& !parameter.Equals(_lastParamUsed)*/))
             {
                 var navigationResult = Frame.Navigate(page, parameter, infoOverride);
                 if (navigationResult)

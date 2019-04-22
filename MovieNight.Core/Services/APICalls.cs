@@ -36,11 +36,31 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/popular");
 
             request.AddParameter("api_key", API_KEY);
-            //request.AddParameter("region", "US");
-            FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
+            RestSharp.IRestResponse<FilmsResponse> v = client.Execute<FilmsResponse>(request);
+            FilmsResponse result = v.Data;
+
+            /*object limit;
+            object remaining;
+            object resetIn;
+            foreach(var value in v.Headers)
+            {
+                if (value.Name.Equals("X-RateLimit-Limit"))
+                {
+                    limit = value.Value;
+                }
+                if (value.Name.Equals("X-RateLimit-Remaining"))
+                {
+                    remaining = value.Value;
+                }
+                if (value.Name.Equals("X-RateLimit-Reset"))
+                {
+                    resetIn = value.Value;
+                }
+            }*/
 
             data1 = new ObservableCollection<Film>(result.results);
             int totalPages = result.total_pages;
+
 
             for (int i = 2; i <= pages; i++)
             {
