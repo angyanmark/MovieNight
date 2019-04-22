@@ -291,6 +291,27 @@ namespace MovieNight.Core.Models
         }
         public float vote_average { get; set; }
         public int vote_count { get; set; }
+        public string getVote_average
+        {
+            get
+            {
+                return "★ " + vote_average;
+            }
+        }
+        public string getVote_count
+        {
+            get
+            {
+                if (vote_count > 1)
+                {
+                    return "(" + vote_count + " votes)";
+                }
+                else
+                {
+                    return "(" + vote_count + " vote)";
+                }
+            }
+        }
         public External_Ids external_ids { get; set; }
         public Credits credits { get; set; }
         public Recommendations recommendations { get; set; }

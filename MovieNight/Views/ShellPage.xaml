@@ -87,6 +87,12 @@
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
+            <winui:NavigationViewItem x:Uid="Shell_DiscoverTV" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverTVViewModel" Margin="{StaticResource XSmallLeftMargin}">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+
             <winui:NavigationViewItem x:Uid="Shell_Search" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.SearchViewModel" Margin="{StaticResource XSmallLeftMargin}" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE721;" />

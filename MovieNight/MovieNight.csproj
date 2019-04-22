@@ -126,6 +126,7 @@
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="ViewModels\Coming_SoonViewModel.cs" />
+    <Compile Include="ViewModels\DiscoverTVViewModel.cs" />
     <Compile Include="ViewModels\DiscoverViewModel.cs" />
     <Compile Include="ViewModels\Now_Playing_MoviesViewModel.cs" />
     <Compile Include="ViewModels\MoviesDetailViewModel.cs" />
@@ -146,6 +147,9 @@
     </Compile>
     <Compile Include="Views\DiscoverPage.xaml.cs">
       <DependentUpon>DiscoverPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiscoverTVPage.xaml.cs">
+      <DependentUpon>DiscoverTVPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Now_Playing_MoviesPage.xaml.cs">
       <DependentUpon>Now_Playing_MoviesPage.xaml</DependentUpon>
@@ -222,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\DiscoverTVPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Now_Playing_MoviesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -292,6 +300,7 @@
     <Content Include="Assets\SocialMediaLogos\letterboxd_logo.png" />
     <Content Include="Assets\SocialMediaLogos\tmdb_logo.png" />
     <Content Include="Assets\SocialMediaLogos\tmdb_powered_logo.png" />
+    <Content Include="Assets\SocialMediaLogos\tmdb_powered_rectangle_logo.png" />
     <Content Include="Assets\SocialMediaLogos\twitter_logo.png" />
     <Content Include="Assets\SocialMediaLogos\youtube_logo.png" />
     <Content Include="Properties\Default.rd.xml" />

@@ -14,8 +14,7 @@
         x:Name="ContentArea"
         Margin="21, 10, 21, 0"
         animations:Connected.AnchorElement="{x:Bind poster}"
-        Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-        HorizontalAlignment="Center">
+        Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -44,7 +43,8 @@
             <!-- no animation -->
             <StackPanel
                 x:Name="contentPanel"
-                Margin="{StaticResource MediumLeftRightMargin}">
+                Margin="{StaticResource MediumLeftRightMargin}"
+                HorizontalAlignment="Center">
 
                 <RelativePanel>
                     <Grid
@@ -117,9 +117,9 @@
                                     <TextBlock Text="{x:Bind ViewModel.Item.type}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                                 </StackPanel>
 
-                                <StackPanel x:Name="voteAverageGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
-                                    <TextBlock Text="Vote average" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.vote_average}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                <StackPanel x:Name="statusGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
+                                    <TextBlock Text="Status" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.status}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
                                 </StackPanel>
                             </StackPanel>
 
@@ -129,12 +129,10 @@
                                     <TextBlock Text="{x:Bind ViewModel.Item.Networks}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                                 </StackPanel>
 
-                                <StackPanel x:Name="statusGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
-                                    <TextBlock Text="Vote count" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.vote_count}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
-
-                                    <TextBlock Text="Status" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" Margin="0, 16, 0, 0"/>
-                                    <TextBlock Text="{x:Bind ViewModel.Item.status}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                <StackPanel x:Name="voteAverageGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
+                                    <TextBlock Text="Rating" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.getVote_average}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.getVote_count}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -196,22 +194,27 @@
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
                                         <RelativePanel>
                                             <Grid
-                                            RelativePanel.AlignTopWithPanel="True"
-                                            RelativePanel.AlignLeftWithPanel="True"
-                                            x:Name="poster"
-                                            Width="250"
-                                            Height="375"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            Margin="{StaticResource MediumRightMargin}">
+                                                RelativePanel.AlignTopWithPanel="True"
+                                                RelativePanel.AlignLeftWithPanel="True"
+                                                x:Name="poster"
+                                                Width="250"
+                                                Height="375"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Top"
+                                                Margin="{StaticResource MediumRightMargin}">
                                                 <Image Source="{x:Bind poster_path}"/>
                                             </Grid>
 
-                                            <StackPanel Name="seasonNumber" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="{StaticResource MediumRightMargin}">
-                                                <TextBlock
-                                                Margin="{StaticResource MediumTopMargin}"
-                                                Text="{x:Bind getSeasonNumber}"
-                                                Style="{StaticResource DetailSubTitleStyle}"/>
+                                            <StackPanel Name="seasonNumber" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="0, 24, 24, 0">
+                                                <Border Background="#01d277" Padding="1">
+                                                    <Border Background="#081c24">
+                                                        <TextBlock
+                                                        Text="{x:Bind getSeasonNumber}"
+                                                        Style="{StaticResource DetailSubTitleStyle}"
+                                                        Foreground="#01d277"
+                                                        Padding="5"/>
+                                                    </Border>
+                                                </Border>
                                             </StackPanel>
 
                                             <StackPanel Name="name" RelativePanel.RightOf="poster" RelativePanel.Below="seasonNumber" Margin="{StaticResource MediumBottomMargin}">
@@ -265,17 +268,17 @@
                                             <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
                                             </Image>
                                             <TextBlock
-                                            Margin="5, 5, 5, 2"
-                                            HorizontalAlignment="Left"
-                                            Text="{x:Bind getNameDate}"
-                                            Style="{ThemeResource BodyTextStyle}"
-                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                Margin="5, 5, 5, 2"
+                                                HorizontalAlignment="Left"
+                                                Text="{x:Bind getNameDate}"
+                                                Style="{ThemeResource BodyTextStyle}"
+                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                                             <TextBlock
-                                            Margin="5, 2, 5, 5"
-                                            HorizontalAlignment="Left"
-                                            Text="{x:Bind getVoteLine}"
-                                            Style="{ThemeResource DetailBodyBaseMediumStyle}"
-                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                Margin="5, 2, 5, 5"
+                                                HorizontalAlignment="Left"
+                                                Text="{x:Bind getVoteLine}"
+                                                Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>

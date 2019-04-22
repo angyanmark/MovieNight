@@ -64,6 +64,10 @@ namespace MovieNight.Core.Models
         public bool adult { get; set; }
         public string overview { get; set; }
         public string release_date { get; set; }
+        public string first_air_date { get; set; }
+        public List<string> origin_country { get; set; }
+        public string name { get; set; }
+        public string original_name { get; set; }
     }
 
 }

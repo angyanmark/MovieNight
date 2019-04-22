@@ -95,13 +95,8 @@
                                             </StackPanel>
 
                                             <StackPanel x:Name="voteAverageGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="poster" Margin="0, 0, 30, 50">
-                                                <TextBlock Text="{x:Bind getVoteAverageTitle}" Style="{StaticResource DetailSubTitleStyle}" />
+                                                <TextBlock Text="{x:Bind getVoteAverageTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="0, 0, 0, 6"/>
                                                 <TextBlock Text="{x:Bind getVoteAverage}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
-                                            </StackPanel>
-
-                                            <StackPanel x:Name="voteCountGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="voteAverageGroup" Margin="0, 0, 30, 50">
-                                                <TextBlock Text="{x:Bind getVoteCountTitle}" Style="{StaticResource DetailSubTitleStyle}" />
-                                                <TextBlock Text="{x:Bind getVoteCount}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                                             </StackPanel>
 
                                         </RelativePanel>

@@ -15,7 +15,8 @@
     <Grid Margin="{StaticResource SmallLeftRightMargin}"
           Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
         <StackPanel
-            x:Name="ContentArea">
+            x:Name="ContentArea"
+            Margin="{StaticResource MediumLeftTopRightBottomMargin}">
             <TextBlock
                 x:Uid="Settings_Personalization"
                 Style="{ThemeResource SubtitleTextBlockStyle}" />
@@ -69,6 +70,10 @@
                     x:Uid="Settings_AboutDescription"
                     Margin="{StaticResource XSmallTopMargin}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
+
+                <HyperlinkButton NavigateUri="https://www.themoviedb.org/" Margin="{StaticResource XSmallTopMargin}">
+                    <Image Height="100" Source="/Assets/SocialMediaLogos/tmdb_powered_rectangle_logo.png" />
+                </HyperlinkButton>
 
                 <HyperlinkButton
                     x:Uid="Settings_PrivacyTermsLink"

@@ -32,7 +32,10 @@ namespace MovieNight.ViewModels
             Register<TV_Airing_TodayViewModel, TV_Airing_TodayPage>();
             Register<Coming_SoonViewModel, Coming_SoonPage>();
             Register<DiscoverViewModel, DiscoverPage>();
+            Register<DiscoverTVViewModel, DiscoverTVPage>();
         }
+
+        public DiscoverTVViewModel DiscoverTVViewModel => SimpleIoc.Default.GetInstance<DiscoverTVViewModel>();
 
         public DiscoverViewModel DiscoverViewModel => SimpleIoc.Default.GetInstance<DiscoverViewModel>();
 

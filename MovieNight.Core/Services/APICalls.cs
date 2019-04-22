@@ -217,6 +217,45 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
+        public static ObservableCollection<DiscoverItem> CallDiscoverTVPage(int decade, int year, int genre, string sortby)
+        {
+            ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
+
+            RestRequest request = new RestRequest("/discover/tv");
+
+            request.AddParameter("api_key", API_KEY);
+            request.AddParameter("region", "US");
+            if (decade != 0)
+            {
+                request.AddParameter("first_air_date.gte", decade.ToString() + "-01-01");
+                request.AddParameter("first_air_date.lte", (decade + 9).ToString() + "-12-31");
+            }
+            if (year != 0)
+                request.AddParameter("first_air_date_year", year);
+            if (genre != 0)
+                request.AddParameter("with_genres", genre);
+
+            request.AddParameter("sort_by", sortby);
+            DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
+
+            data1 = new ObservableCollection<DiscoverItem>(result.results);
+            int totalPages = result.total_pages;
+
+            for (int i = 2; i <= pages; i++)
+            {
+                if (i > totalPages)
+                    break;
+                request.AddParameter("page", i);
+                result = client.Execute<DiscoverResponse>(request).Data;
+
+                ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+
+                data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+            }
+
+            return data1;
+        }
+
         public static ObservableCollection<TVShow> CallPopularTVShows()
         {
             ObservableCollection<TVShow> data1 = new ObservableCollection<TVShow>();
@@ -390,11 +429,11 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        public static ObservableCollection<Genres> CallGenres()
+        public static ObservableCollection<Genres> CallGenres(string media)
         {
             ObservableCollection<Genres> data1 = new ObservableCollection<Genres>();
 
-            RestRequest request = new RestRequest("/genre/movie/list");
+            RestRequest request = new RestRequest("/genre/" + media + "/list");
 
             request.AddParameter("api_key", API_KEY);
             //request.AddParameter("include_adult", "true");

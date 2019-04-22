@@ -128,12 +128,26 @@ namespace MovieNight.Core.Models
                         if(k.release_date != "" && k.release_date != null)
                         {
                             builder += "\t" + k.title + " (" + k.release_date.Substring(0, 4) + ")\n";
-                            builder += "\tVote average: " + k.vote_average + "\t\tVote count: " + k.vote_count + "\n\n";
+                            if(k.vote_count > 1)
+                            {
+                                builder += "\tRating:   ★ " + k.vote_average + " (" + k.vote_count + " votes)\n\n";
+                            }
+                            else
+                            {
+                                builder += "\tRating:   ★ " + k.vote_average + " (" + k.vote_count + " vote)\n\n";
+                            }
                         }
                         else
                         {
                             builder += "\t" + k.title + "\n";
-                            builder += "\tVote average: " + k.vote_average + "\t\tVote count: " + k.vote_count + "\n\n";
+                            if (k.vote_count > 1)
+                            {
+                                builder += "\tRating:   ★ " + k.vote_average + " (" + k.vote_count + " votes)\n\n";
+                            }
+                            else
+                            {
+                                builder += "\tRating:   ★ " + k.vote_average + " (" + k.vote_count + " vote)\n\n";
+                            }
                         }
                     }
 
@@ -181,21 +195,14 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return vote_average.ToString();
-                }
-            }
-        }
-        public string getVoteCount
-        {
-            get
-            {
-                if (media_type.Equals("person"))
-                {
-                    return "";
-                }
-                else
-                {
-                    return vote_count.ToString();
+                    if(vote_count > 1)
+                    {
+                        return "★ " + vote_average + " (" + vote_count + " votes)";
+                    }
+                    else
+                    {
+                        return "★ " + vote_average + " (" + vote_count + " vote)";
+                    }
                 }
             }
         }
@@ -209,21 +216,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "Vote average";
-                }
-            }
-        }
-        public string getVoteCountTitle
-        {
-            get
-            {
-                if (media_type.Equals("person"))
-                {
-                    return "";
-                }
-                else
-                {
-                    return "Vote count";
+                    return "Rating";
                 }
             }
         }

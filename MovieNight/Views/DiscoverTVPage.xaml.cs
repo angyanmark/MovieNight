@@ -10,26 +10,26 @@ using Windows.UI.Xaml.Input;
 
 namespace MovieNight.Views
 {
-    public class dataContainer
+    public class dataContainerTV
     {
         public int YearIdx = 0;
         public int GenreIdx = 0;
         public int SortByIdx = 0;
     }
-    public sealed partial class DiscoverPage : Page
+    public sealed partial class DiscoverTVPage : Page
     {
-        static dataContainer dc = new dataContainer();
+        static dataContainerTV dc = new dataContainerTV();
         int decade;
         int year;
         int genre;
         string sortby;
 
-        private DiscoverViewModel ViewModel
+        private DiscoverTVViewModel ViewModel
         {
-            get { return ViewModelLocator.Current.DiscoverViewModel; }
+            get { return ViewModelLocator.Current.DiscoverTVViewModel; }
         }
 
-        public DiscoverPage()
+        public DiscoverTVPage()
         {
             InitializeComponent();
             fillYears();
@@ -77,9 +77,9 @@ namespace MovieNight.Views
         {
             genres.Add("Genre");
 
-            ObservableCollection<Genres> genreList = APICalls.CallGenres("movie");
+            ObservableCollection<Genres> genreList = APICalls.CallGenres("tv");
 
-            foreach(Genres g in genreList)
+            foreach (Genres g in genreList)
             {
                 genres.Add(g.name);
                 genresDictionary.Add(g.name, g.id);
@@ -90,12 +90,12 @@ namespace MovieNight.Views
         {
             string yearValue = (string)(yearCombo.SelectedItem as ComboBoxItem).Content;
 
-            if(yearValue == "Year")
+            if (yearValue == "Year")
             {
                 decade = 0;
                 year = 0;
             }
-            else if(yearValue.Length == 5)
+            else if (yearValue.Length == 5)
             {
                 year = 0;
                 decade = Int32.Parse(yearValue.Substring(0, 4));
@@ -126,35 +126,20 @@ namespace MovieNight.Views
 
             switch (sortByValue)
             {
-                case "Film Popularity":
+                case "TV Show Popularity":
                     sortby = "popularity.desc";
                     break;
-                case "Film Name":
-                    sortby = "original_title.asc";
-                    break;
                 case "Newest First":
-                    sortby = "primary_release_date.desc";
+                    sortby = "first_air_date.desc";
                     break;
                 case "Earliest First":
-                    sortby = "primary_release_date.asc";
+                    sortby = "first_air_date.asc";
                     break;
                 case "Highest Vote Average First":
                     sortby = "vote_average.desc";
                     break;
                 case "Lowest Vote Average First":
                     sortby = "vote_average.asc";
-                    break;
-                case "Highest Vote Count First":
-                    sortby = "vote_count.desc";
-                    break;
-                case "Lowest Vote Count First":
-                    sortby = "vote_count.asc";
-                    break;
-                case "Highest Revenue First":
-                    sortby = "revenue.desc";
-                    break;
-                case "Lowest Revenue First":
-                    sortby = "revenue.asc";
                     break;
             }
             dc.SortByIdx = sortByCombo.SelectedIndex;
@@ -175,7 +160,7 @@ namespace MovieNight.Views
                 decade = 0;
                 year = 0;
             }
-            else if(yearValue.Length == 5)
+            else if (yearValue.Length == 5)
             {
                 year = 0;
                 decade = Int32.Parse(yearValue.Substring(0, 4));
@@ -186,7 +171,7 @@ namespace MovieNight.Views
                 year = Int32.Parse(yearValue);
             }
 
-            var s = APICalls.CallDiscoverPage(decade, year, genre, sortby);
+            var s = APICalls.CallDiscoverTVPage(decade, year, genre, sortby);
             foreach (var v in s)
             {
                 ViewModel.Source.Add(v);
@@ -195,7 +180,7 @@ namespace MovieNight.Views
 
         void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if(e.Key == Windows.System.VirtualKey.Escape)
+            if (e.Key == Windows.System.VirtualKey.Escape)
             {
                 yearCombo.SelectedIndex = 0;
                 genreCombo.SelectedIndex = 0;
