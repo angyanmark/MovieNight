@@ -33,67 +33,67 @@
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
 
-            <winui:NavigationViewItem x:Uid="Shell_Popular_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_MoviesViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_Popular_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_MoviesViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Now_Playing_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Now_Playing_MoviesViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_Now_Playing_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Now_Playing_MoviesViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Upcoming_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Upcoming_MoviesViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_Upcoming_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Upcoming_MoviesViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Coming_Soon" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Coming_SoonViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_Coming_Soon" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Coming_SoonViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Popular_TV_Shows" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_TV_ShowsViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_Popular_TV_Shows" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_TV_ShowsViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_TV_on_the_Air" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_on_the_AirViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_TV_on_the_Air" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_on_the_AirViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_TV_Airing_Today" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_Airing_TodayViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_TV_Airing_Today" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_Airing_TodayViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Popular_People" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_PeopleViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_Popular_People" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_PeopleViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE716;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Discover" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverViewModel" Margin="{StaticResource XSmallLeftMargin}" >
+            <winui:NavigationViewItem x:Uid="Shell_Discover" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_DiscoverTV" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverTVViewModel" Margin="{StaticResource XSmallLeftMargin}">
+            <winui:NavigationViewItem x:Uid="Shell_DiscoverTV" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverTVViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Search" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.SearchViewModel" Margin="{StaticResource XSmallLeftMargin}" >
+            <winui:NavigationViewItem x:Uid="Shell_Search" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.SearchViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE721;" />
                 </winui:NavigationViewItem.Icon>

@@ -171,7 +171,7 @@
                     </StackPanel>
                 </RelativePanel>
 
-                <TextBlock x:Name="recommendations" Text="Recommendations" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <TextBlock x:Name="recommendations" Text="Recommendations" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
                 <StackPanel x:Name ="recommendationsPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.RecommendationsSource, Mode=OneWay}"
@@ -189,13 +189,15 @@
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                                <ToolTipService.ToolTip>
+                                                    <TextBlock Text="{Binding getTitleDate}" TextWrapping="Wrap"/>
+                                                </ToolTipService.ToolTip>
                                             </Image>
-                                            <TextBlock
-                                            Margin="5, 5, 5, 2"
-                                            HorizontalAlignment="Left"
-                                            Text="{x:Bind getTitleDate}"
-                                            Style="{ThemeResource BodyTextStyle}"
-                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                            <TextBlock Margin="5, 5, 5, 2"
+                                                HorizontalAlignment="Left"
+                                                Text="{x:Bind getTitleDate}"
+                                                Style="{ThemeResource BodyTextStyle}"
+                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                                             <TextBlock
                                             Margin="5, 2, 5, 5"
                                             HorizontalAlignment="Left"
@@ -210,7 +212,7 @@
                     </controls:AdaptiveGridView>
                 </StackPanel>
 
-                <TextBlock x:Name="cast" Text="Cast" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <TextBlock x:Name="cast" Text="Cast" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
                 <StackPanel x:Name ="castPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
@@ -228,6 +230,9 @@
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}" >
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                         <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock Text="{Binding getNameCharacter}" TextWrapping="Wrap"/>
+                                            </ToolTipService.ToolTip>
                                         </Image>
                                         <TextBlock
                                             Margin="5, 5, 5, 2"
@@ -249,7 +254,7 @@
                     </controls:AdaptiveGridView>
                 </StackPanel>
 
-                <TextBlock x:Name="crew" Text="Crew" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <TextBlock x:Name="crew" Text="Crew" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
                 <StackPanel x:Name ="crewPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"
@@ -267,6 +272,9 @@
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300" >
+                                                <ToolTipService.ToolTip>
+                                                    <TextBlock Text="{Binding getNameJob}" TextWrapping="Wrap"/>
+                                                </ToolTipService.ToolTip>
                                             </Image>
                                             <TextBlock
                                             Margin="5, 5, 5, 2"

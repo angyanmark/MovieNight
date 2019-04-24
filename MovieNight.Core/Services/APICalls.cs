@@ -388,6 +388,19 @@ namespace MovieNight.Core.Services
             return data;
         }
 
+        public static TVShowSeason CallDetailedTVShowSeason(int tv_id, int season_number)
+        {
+            RestRequest request = new RestRequest("/tv/{tv_id}/season/{season_number}");
+
+            request.AddParameter("api_key", API_KEY);
+            request.AddParameter("append_to_response", "credits");
+            request.AddUrlSegment("tv_id", tv_id);
+            request.AddUrlSegment("season_number", season_number);
+            TVShowSeason data = client.Execute<TVShowSeason>(request).Data;
+
+            return data;
+        }
+
         public static Person CallDetailedPerson(int id)
         {
             RestRequest request = new RestRequest("/person/{id}");
@@ -396,6 +409,9 @@ namespace MovieNight.Core.Services
             request.AddParameter("append_to_response", "external_ids,combined_credits,tagged_images");
             request.AddUrlSegment("id", id);
             Person data = client.Execute<Person>(request).Data;
+
+            bubbleSortCast(data.combined_credits.cast, data.combined_credits.cast.Count);
+            bubbleSortCrew(data.combined_credits.crew, data.combined_credits.crew.Count);
 
             return data;
         }
@@ -445,5 +461,33 @@ namespace MovieNight.Core.Services
             return data1;
 
         }
-}
+
+        private static void bubbleSortCast(List<Cast> arr, int n)
+        {
+            Cast tempc = new Cast();
+            for (int i = 0; i < n - 1; i++)
+                for (int j = 0; j < n - i - 1; j++)
+                    if (((arr[  j  ].vote_count + 400) * (arr[  j  ].popularity + 10) * (arr[  j  ].vote_average + 3)) <
+                        ((arr[j + 1].vote_count + 400) * (arr[j + 1].popularity + 10) * (arr[j + 1].vote_average + 3)))
+                    {
+                        tempc = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = tempc;
+                    }
+        }
+
+        private static void bubbleSortCrew(List<Crew> arr, int n)
+        {
+            Crew tempc = new Crew();
+            for (int i = 0; i < n - 1; i++)
+                for (int j = 0; j < n - i - 1; j++)
+                    if (((arr[  j  ].vote_count + 400) * (arr[  j  ].popularity + 10) * (arr[  j  ].vote_average + 3)) <
+                        ((arr[j + 1].vote_count + 400) * (arr[j + 1].popularity + 10) * (arr[j + 1].vote_average + 3)))
+                    {
+                        tempc = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = tempc;
+                    }
+        }
+    }
 }

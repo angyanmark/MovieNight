@@ -72,7 +72,7 @@
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image Source="{x:Bind poster_path}">
                                             <ToolTipService.ToolTip>
-                                                <TextBlock Text="{Binding titleDate}"/>
+                                                <TextBlock Text="{Binding titleDate}" TextWrapping="Wrap"/>
                                             </ToolTipService.ToolTip>
                                         </Image>
                                         <!--<TextBlock

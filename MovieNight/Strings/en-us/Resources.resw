@@ -142,15 +142,15 @@
     <comment>The page is unknown or not registered in navigation service</comment>
   </data>
   <data name="Shell_Popular_Movies.Content" xml:space="preserve">
-    <value>Popular Movies</value>
+    <value>Popular Films</value>
     <comment>Navigation view item name for Popular_Movies</comment>
   </data>
   <data name="Shell_Now_Playing_Movies.Content" xml:space="preserve">
-    <value>Now Playing Movies</value>
+    <value>Now Playing Films</value>
     <comment>Navigation view item name for Now_Playing_Movies</comment>
   </data>
   <data name="Shell_Upcoming_Movies.Content" xml:space="preserve">
-    <value>Upcoming Movies</value>
+    <value>Upcoming Films</value>
     <comment>Navigation view item name for Upcoming_Movies</comment>
   </data>
   <data name="Shell_Popular_TV_Shows.Content" xml:space="preserve">
@@ -226,11 +226,15 @@
     <comment>Navigation view item name for Coming_Soon</comment>
   </data>
   <data name="Shell_Discover.Content" xml:space="preserve">
-    <value>Discover Movies</value>
+    <value>Discover Films</value>
     <comment>Navigation view item name for Discover</comment>
   </data>
   <data name="Shell_DiscoverTV.Content" xml:space="preserve">
     <value>Discover TV Shows</value>
     <comment>Navigation view item name for DiscoverTV</comment>
+  </data>
+  <data name="Shell_TV_ShowsSeason.Content" xml:space="preserve">
+    <value>TV_ShowsSeason</value>
+    <comment>Navigation view item name for TV_ShowsSeason</comment>
   </data>
 </root>

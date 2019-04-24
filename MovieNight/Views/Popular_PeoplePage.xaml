@@ -29,7 +29,7 @@
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="{x:Bind profile_path}">
                                 <ToolTipService.ToolTip>
-                                    <TextBlock Text="{x:Bind name}"/>
+                                    <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
                                 </ToolTipService.ToolTip>
                             </Image>
                             <!--<TextBlock

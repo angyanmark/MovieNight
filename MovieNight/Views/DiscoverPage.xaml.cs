@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
@@ -35,6 +36,7 @@ namespace MovieNight.Views
             fillYears();
             fillGenres();
 
+            
             yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
             sortByCombo.SelectedIndex = dc.SortByIdx;

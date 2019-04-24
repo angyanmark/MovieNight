@@ -140,6 +140,7 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\TV_on_the_AirViewModel.cs" />
+    <Compile Include="ViewModels\TV_ShowsSeasonDetailViewModel.cs" />
     <Compile Include="ViewModels\Upcoming_MoviesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\Coming_SoonPage.xaml.cs">
@@ -186,6 +187,9 @@
     </Compile>
     <Compile Include="Views\TV_on_the_AirPage.xaml.cs">
       <DependentUpon>TV_on_the_AirPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TV_ShowsSeasonDetailPage.xaml.cs">
+      <DependentUpon>TV_ShowsSeasonDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Upcoming_MoviesPage.xaml.cs">
       <DependentUpon>Upcoming_MoviesPage.xaml</DependentUpon>
@@ -275,6 +279,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TV_on_the_AirPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TV_ShowsSeasonDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

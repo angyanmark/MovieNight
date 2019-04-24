@@ -654,6 +654,35 @@ namespace MovieNight.Core.Models
                 }
             }
         }
+        public string getNameCharacter
+        {
+            get
+            {
+                string builder = "";
+                if(name != "" && name != null)
+                {
+                    builder += name;
+                }
+
+                if(character != "" && character != null)
+                {
+                    builder += " - " + character;
+                }
+                return builder;
+            }
+        }
+        public string getTitleDateCharacter
+        {
+            get
+            {
+                string builder = getTitleDate;
+                if(character != "" && character != null)
+                {
+                    builder += " - " + character;
+                }
+                return builder;
+            }
+        }
         public string cast_id { get; set; }
 
     }
@@ -789,6 +818,22 @@ namespace MovieNight.Core.Models
             set
             {
                 Profile_path = value;
+            }
+        }
+        public string getNameJob
+        {
+            get
+            {
+                string builder = "";
+                if(name != "" && name != null)
+                {
+                    builder += name;
+                }
+                if(job != "" && job != null)
+                {
+                    builder += " - " + job;
+                }
+                return builder;
             }
         }
         public string titleDateJob

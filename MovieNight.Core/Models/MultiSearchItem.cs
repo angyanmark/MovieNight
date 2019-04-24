@@ -168,7 +168,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return media_type;
+                if(media_type == "movie")
+                {
+                    return "film";
+                }
+                else
+                {
+                    return media_type;
+                }
             }
         }
         public string getAdult

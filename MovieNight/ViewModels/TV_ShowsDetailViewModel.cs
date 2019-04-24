@@ -27,6 +27,10 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandCrew => _itemClickCommandCrew ?? (_itemClickCommandCrew = new RelayCommand<Crew>(OnItemClick));
 
+        private ICommand _itemClickCommandSeason;
+
+        public ICommand ItemClickCommandSeason => _itemClickCommandSeason ?? (_itemClickCommandSeason = new RelayCommand<TVShowSeason>(OnItemClick));
+
         public ObservableCollection<Result1> RecommendationsSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
@@ -70,6 +74,15 @@ namespace MovieNight.ViewModels
             SeasonSource.Clear();
             foreach (var seasonItem in Item.seasons)
                 SeasonSource.Add(seasonItem);
+        }
+
+        private void OnItemClick(TVShowSeason clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(TV_ShowsSeasonDetailViewModel).FullName, clickedItem.id);
+            }
         }
 
         private void OnItemClick(Result1 clickedItem)

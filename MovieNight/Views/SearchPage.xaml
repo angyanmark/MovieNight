@@ -31,7 +31,7 @@
             <StackPanel>
                 <StackPanel x:Name="search" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="{StaticResource MediumTopBottomMargin}">
                     <AutoSuggestBox x:Name="searchBox"
-                        PlaceholderText="Search Movies, TV Shows, People" QueryIcon="Find" Width="400"
+                        PlaceholderText="Search for a film, tv show, person..." QueryIcon="Find" Width="400"
                         QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                         TextChanged="AutoSuggestBox_TextChanged"
                         Margin="{StaticResource XSmallLeftTopRightBottomMargin}"/>

@@ -119,7 +119,7 @@
                         <HyperlinkButton NavigateUri="{x:Bind ViewModel.tagPath}" Visibility="{x:Bind ViewModel.isTagged}">
                             <Image Source="{x:Bind ViewModel.tagPath}" MaxHeight="501" MinWidth="310">
                                 <ToolTipService.ToolTip>
-                                    <TextBlock Text="{x:Bind ViewModel.tagTitle}"/>
+                                    <TextBlock Text="{x:Bind ViewModel.tagTitle}" TextWrapping="Wrap"/>
                                 </ToolTipService.ToolTip>
                             </Image>
                         </HyperlinkButton>
@@ -158,7 +158,7 @@
                     </StackPanel>
                 </RelativePanel>
 
-                <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" />
                 <StackPanel x:Name ="castPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
@@ -177,6 +177,9 @@
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                                <ToolTipService.ToolTip>
+                                                    <TextBlock Text="{x:Bind getTitleDateCharacter}" TextWrapping="Wrap"/>
+                                                </ToolTipService.ToolTip>
                                             </Image>
                                             <TextBlock
                                             Margin="5, 5, 5, 2"
@@ -198,7 +201,7 @@
                     </controls:AdaptiveGridView>
                 </StackPanel>
 
-                <TextBlock x:Name="crew" Text="Filmography - Crew" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopBottomMargin}" />
+                <TextBlock x:Name="crew" Text="Filmography - Crew" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" />
                 <StackPanel x:Name ="crewPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"
@@ -217,6 +220,9 @@
                                     Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300" >
+                                                <ToolTipService.ToolTip>
+                                                    <TextBlock Text="{x:Bind titleDateJob}" TextWrapping="Wrap"/>
+                                                </ToolTipService.ToolTip>
                                             </Image>
                                             <TextBlock
                                             Margin="5, 5, 5, 2"
