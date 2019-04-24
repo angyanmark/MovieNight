@@ -258,6 +258,20 @@ namespace MovieNight.Core.Models
         public string status { get; set; }
         public string tagline { get; set; }
         public string title { get; set; }
+        public string getTitleDate
+        {
+            get
+            {
+                if (release_date != "" && release_date != null)
+                {
+                    return title + " (" + release_date + ")";
+                }
+                else
+                {
+                    return title;
+                }
+            }
+        }
         public bool video { get; set; }
         public float vote_average { get; set; }
         public int vote_count { get; set; }

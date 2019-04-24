@@ -51,7 +51,6 @@
                         RelativePanel.AlignTopWithPanel="True"
                         RelativePanel.AlignLeftWithPanel="True"
                         x:Name="poster"
-                        animations:Connected.Key="animationKeyPopular_TV_Shows"
                         Width="334"
                         Height="514"
                         HorizontalAlignment="Left"

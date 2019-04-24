@@ -25,7 +25,7 @@ namespace MovieNight.Core.Services
 
         public static readonly string PROFILE_SIZE = "h632";   // w45 w185 h632 original
 
-        public static readonly string STILL_SIZE = "w300";     // w92 w185 w300 original
+        public static readonly string STILL_SIZE = "original";     // w92 w185 w300 original
 
         public static readonly string FILE_SIZE = "original";  // ???
 
@@ -388,7 +388,7 @@ namespace MovieNight.Core.Services
             return data;
         }
 
-        public static TVShowSeason CallDetailedTVShowSeason(int tv_id, int season_number)
+        public static TVShowSeason CallDetailedTVShowSeason(int tv_id, int season_number, string showName)
         {
             RestRequest request = new RestRequest("/tv/{tv_id}/season/{season_number}");
 
@@ -397,6 +397,8 @@ namespace MovieNight.Core.Services
             request.AddUrlSegment("tv_id", tv_id);
             request.AddUrlSegment("season_number", season_number);
             TVShowSeason data = client.Execute<TVShowSeason>(request).Data;
+
+            data.showName = showName;
 
             return data;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using MovieNight.Services;
@@ -27,9 +28,10 @@ namespace MovieNight.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter is long orderId)
+
+            if (e.Parameter is Holder h)
             {
-                ViewModel.Initialize(orderId);
+                ViewModel.Initialize(h.tv_id, h.season_number, h.showName);
             }
         }
 

@@ -661,7 +661,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "Season " + season_number.ToString();
+                return "Season " + season_number;
             }
         }
     }

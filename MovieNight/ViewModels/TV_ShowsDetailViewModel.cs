@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -11,6 +12,12 @@ using MovieNight.Services;
 
 namespace MovieNight.ViewModels
 {
+    public class Holder
+    {
+        public int tv_id;
+        public int season_number;
+        public string showName;
+    }
     public class TV_ShowsDetailViewModel : ViewModelBase
     {
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
@@ -29,7 +36,7 @@ namespace MovieNight.ViewModels
 
         private ICommand _itemClickCommandSeason;
 
-        public ICommand ItemClickCommandSeason => _itemClickCommandSeason ?? (_itemClickCommandSeason = new RelayCommand<TVShowSeason>(OnItemClick));
+        public ICommand ItemClickCommandSeason => _itemClickCommandSeason ?? (_itemClickCommandSeason = new RelayCommand<Season>(OnItemClick));
 
         public ObservableCollection<Result1> RecommendationsSource { get; set; }
 
@@ -76,12 +83,18 @@ namespace MovieNight.ViewModels
                 SeasonSource.Add(seasonItem);
         }
 
-        private void OnItemClick(TVShowSeason clickedItem)
+        private void OnItemClick(Season clickedItem)
         {
             if (clickedItem != null)
             {
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
-                NavigationService.Navigate(typeof(TV_ShowsSeasonDetailViewModel).FullName, clickedItem.id);
+
+                Holder h = new Holder();
+                h.tv_id = Item.id;
+                h.season_number = clickedItem.season_number;
+                h.showName = Item.name;
+
+                NavigationService.Navigate(typeof(TV_ShowsSeasonDetailViewModel).FullName, h);
             }
         }
 
