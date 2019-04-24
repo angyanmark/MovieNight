@@ -9,16 +9,16 @@
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    
     <Grid
         x:Name="ContentArea"
-        Margin="{StaticResource SmallLeftRightMargin}"
-        KeyDown="Grid_KeyDown">
+        Margin="{StaticResource SmallLeftRightMargin}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
                         <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="900" />
+                        <AdaptiveTrigger MinWindowWidth="1400" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="discover.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="true" />
@@ -33,6 +33,18 @@
             <StackPanel Margin="0, 20, 0, 0">
                 <RelativePanel>
                     <StackPanel x:Name="discover" RelativePanel.AlignHorizontalCenterWithPanel="True" >
+
+                        <StackPanel x:Name="clear" Margin="24, 28, 24, 15" HorizontalAlignment="Center" >
+                            <Button x:Name="clearButton" Click="ClearButton_Click" Content="Clear" Width="100"
+                            Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
+                            BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
+                            Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel x:Name="keywordStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center" >
+                            <TextBox x:Name="keywordText" Width="250"
+                                     Header="Keyword" PlaceholderText="Enter keyword here..." />
+                        </StackPanel>
 
                         <StackPanel x:Name="yearStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
                             <ComboBox x:Name="yearCombo" Header="Year" Width="150" ItemsSource="{x:Bind years}" />
@@ -102,19 +114,19 @@
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel x:Name="findStack" Margin="24, 23, 24, 0" HorizontalAlignment="Center">
+                        <StackPanel x:Name="findStack" Margin="24, 28, 24, 0" HorizontalAlignment="Center">
                             <Button x:Name="findButton" Click="FindButton_Click" Content="Find" Width="100"
                             Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
                             BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
                             Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}"/>
                         </StackPanel>
-                        
                     </StackPanel>
+
                 </RelativePanel>
                 
                 <Grid x:Name="postersArea"
                     Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-                    Margin="0, 60, 0, 0">
+                    Margin="0, 50, 0, 0">
                     <controls:AdaptiveGridView
                         ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
                         ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
@@ -131,7 +143,7 @@
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image Source="{x:Bind poster_path}">
                                             <ToolTipService.ToolTip>
-                                                <TextBlock Text="{Binding title}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding titleShortDateMovie}" TextWrapping="Wrap"/>
                                             </ToolTipService.ToolTip>
                                         </Image>
                                         <!--<TextBlock

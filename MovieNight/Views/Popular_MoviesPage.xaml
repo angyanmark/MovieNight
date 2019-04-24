@@ -32,6 +32,7 @@
                                     <TextBlock Text="{Binding title}" TextWrapping="Wrap"/>
                                 </ToolTipService.ToolTip>
                             </Image>
+
                             <!--<TextBlock
                                 Margin="{StaticResource SmallTopBottomMargin}"
                                 HorizontalAlignment="Center"

@@ -25,7 +25,7 @@ namespace MovieNight.ViewModels
 
         public DiscoverTVViewModel()
         {
-            Source = APICalls.CallDiscoverTVPage(0, 0, 0, "popularity.desc");
+            Source = APICalls.CallDiscoverTVPage("", 0, 0, 0, "popularity.desc");
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

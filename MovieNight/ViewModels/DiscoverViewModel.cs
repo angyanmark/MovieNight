@@ -22,7 +22,7 @@ namespace MovieNight.ViewModels
 
         public DiscoverViewModel()
         {
-            Source = APICalls.CallDiscoverPage(0, 0, 0, "popularity.desc");
+            Source = APICalls.CallDiscoverPage("", 0, 0, 0, "popularity.desc");
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

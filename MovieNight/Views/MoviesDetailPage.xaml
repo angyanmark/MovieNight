@@ -58,7 +58,9 @@
                         VerticalAlignment="Top"
                         Margin="0, 0, 0, 10">
                         <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalPoster}" >
-                            <Image Source="{x:Bind ViewModel.Item.poster_path}"/>
+                            <Border Style="{StaticResource DetailPosterBorder}">
+                                <Image Source="{x:Bind ViewModel.Item.poster_path}"/>
+                            </Border>
                         </HyperlinkButton>
                     </Grid>
 
@@ -130,7 +132,9 @@
 
                     <StackPanel  x:Name="backdrop" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" >
                         <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalBackdrop}" Visibility="{x:Bind ViewModel.Item.isBackDrop}">
-                            <Image Source="{x:Bind ViewModel.Item.backdrop_path}" MaxHeight="501" MinWidth="310" />
+                            <Border Style="{StaticResource DetailPosterBorder}">
+                                <Image Source="{x:Bind ViewModel.Item.backdrop_path}" MaxHeight="501" MinWidth="310" />
+                            </Border>
                         </HyperlinkButton>
                     </StackPanel>
 

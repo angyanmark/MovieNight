@@ -58,7 +58,9 @@
                         VerticalAlignment="Top"
                         Margin="0, 0, 0, 10">
                         <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalProfile}" >
-                            <Image Source="{x:Bind ViewModel.Item.profile_path}"/>
+                            <Border Style="{StaticResource DetailPosterBorder}">
+                                <Image Source="{x:Bind ViewModel.Item.profile_path}"/>
+                            </Border>
                         </HyperlinkButton>
                     </Grid>
 
@@ -117,11 +119,13 @@
 
                     <StackPanel x:Name="tagged" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" >
                         <HyperlinkButton NavigateUri="{x:Bind ViewModel.tagPath}" Visibility="{x:Bind ViewModel.isTagged}">
-                            <Image Source="{x:Bind ViewModel.tagPath}" MaxHeight="501" MinWidth="310">
-                                <ToolTipService.ToolTip>
-                                    <TextBlock Text="{x:Bind ViewModel.tagTitle}" TextWrapping="Wrap"/>
-                                </ToolTipService.ToolTip>
-                            </Image>
+                            <Border Style="{StaticResource DetailPosterBorder}">
+                                <Image Source="{x:Bind ViewModel.tagPath}" MaxHeight="501" MinWidth="310">
+                                    <ToolTipService.ToolTip>
+                                        <TextBlock Text="{x:Bind ViewModel.tagTitle}" TextWrapping="Wrap"/>
+                                    </ToolTipService.ToolTip>
+                                </Image>
+                            </Border>
                         </HyperlinkButton>
                     </StackPanel>
 

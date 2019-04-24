@@ -58,21 +58,30 @@ namespace MovieNight.Core.Services
                 }
             }*/
 
-            data1 = new ObservableCollection<Film>(result.results);
-            int totalPages = result.total_pages;
-
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<FilmsResponse>(request).Data;
+                data1 = new ObservableCollection<Film>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<Film> data2 = new ObservableCollection<Film>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<FilmsResponse>(request).Data;
 
-                data1 = new ObservableCollection<Film>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<Film> data2 = new ObservableCollection<Film>(result.results);
+                        data1 = new ObservableCollection<Film>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
+            
 
             return data1;
         }
@@ -86,19 +95,29 @@ namespace MovieNight.Core.Services
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
-            data1 = new ObservableCollection<Film>(result.results);
-            int totalPages = result.total_pages;
 
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<FilmsResponse>(request).Data;
+                data1 = new ObservableCollection<Film>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<Film> data2 = new ObservableCollection<Film>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<FilmsResponse>(request).Data;
 
-                data1 = new ObservableCollection<Film>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<Film> data2 = new ObservableCollection<Film>(result.results);
+                        data1 = new ObservableCollection<Film>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
@@ -113,21 +132,31 @@ namespace MovieNight.Core.Services
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
-            data1 = new ObservableCollection<Film>(result.results);
-            int totalPages = result.total_pages;
 
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<FilmsResponse>(request).Data;
+                data1 = new ObservableCollection<Film>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<Film> data2 = new ObservableCollection<Film>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<FilmsResponse>(request).Data;
 
-                data1 = new ObservableCollection<Film>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<Film> data2 = new ObservableCollection<Film>(result.results);
+                        data1 = new ObservableCollection<Film>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
-
+            
             return data1;
         }
 
@@ -160,26 +189,73 @@ namespace MovieNight.Core.Services
             }
             request.AddParameter("sort_by", "popularity.desc");
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
-            data1 = new ObservableCollection<DiscoverItem>(result.results);
-            int totalPages = result.total_pages;
 
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<DiscoverResponse>(request).Data;
+                data1 = new ObservableCollection<DiscoverItem>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<DiscoverResponse>(request).Data;
 
-                data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+                        data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
         }
 
-        public static ObservableCollection<DiscoverItem> CallDiscoverPage(int decade, int year, int genre, string sortby)
+        public static string CallKeywordIDs(string keyword)
         {
+            RestRequest request = new RestRequest("/search/keyword");
+
+            request.AddParameter("api_key", API_KEY);
+            request.AddParameter("query", keyword);
+            KeywordResponse data = client.Execute<KeywordResponse>(request).Data;
+
+            string builder = "";
+
+            /*foreach(Result7 r in data.results)
+            {
+                builder += r.id + ",";
+            }
+            if(builder.Length > 0)
+            {
+                builder = builder.Substring(0, builder.Length - 1);
+            }*/
+
+            if(data.results != null)
+            {
+                if(data.results.Count > 0)
+                {
+                    builder += data.results[0].id.ToString();
+                }
+            }
+
+            return builder;
+        }
+
+        public static ObservableCollection<DiscoverItem> CallDiscoverPage(string keyword, int decade, int year, int genre, string sortby)
+        {
+            string keywordIDs = "";
+
+            if(keyword != "")
+            {
+                keywordIDs = CallKeywordIDs(keyword);
+            }
+
             ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
 
             RestRequest request = new RestRequest("/discover/movie");
@@ -196,29 +272,50 @@ namespace MovieNight.Core.Services
             if(genre != 0)
                 request.AddParameter("with_genres", genre);
 
+            if(keywordIDs != "")
+            {
+                request.AddParameter("with_keywords", keywordIDs);
+            }
             request.AddParameter("sort_by", sortby);
+            request.AddParameter("include_adult", "true");
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
             
-            data1 = new ObservableCollection<DiscoverItem>(result.results);
-            int totalPages = result.total_pages;
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<DiscoverResponse>(request).Data;
+                data1 = new ObservableCollection<DiscoverItem>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<DiscoverResponse>(request).Data;
 
-                data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+                        data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
         }
 
-        public static ObservableCollection<DiscoverItem> CallDiscoverTVPage(int decade, int year, int genre, string sortby)
+        public static ObservableCollection<DiscoverItem> CallDiscoverTVPage(string keyword, int decade, int year, int genre, string sortby)
         {
+            string keywordIDs = "";
+
+            if (keyword != "")
+            {
+                keywordIDs = CallKeywordIDs(keyword);
+            }
+
             ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
 
             RestRequest request = new RestRequest("/discover/tv");
@@ -235,22 +332,36 @@ namespace MovieNight.Core.Services
             if (genre != 0)
                 request.AddParameter("with_genres", genre);
 
+            if (keywordIDs != "")
+            {
+                request.AddParameter("with_keywords", keywordIDs);
+            }
             request.AddParameter("sort_by", sortby);
+            request.AddParameter("include_adult", "true");
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
 
-            data1 = new ObservableCollection<DiscoverItem>(result.results);
-            int totalPages = result.total_pages;
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<DiscoverResponse>(request).Data;
+                data1 = new ObservableCollection<DiscoverItem>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<DiscoverResponse>(request).Data;
 
-                data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<DiscoverItem> data2 = new ObservableCollection<DiscoverItem>(result.results);
+                        data1 = new ObservableCollection<DiscoverItem>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
@@ -265,19 +376,28 @@ namespace MovieNight.Core.Services
             request.AddParameter("api_key", API_KEY);
             TVShowsResponse result = client.Execute<TVShowsResponse>(request).Data;
 
-            data1 = new ObservableCollection<TVShow>(result.results);
-            int totalPages = result.total_pages;
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<TVShowsResponse>(request).Data;
+                data1 = new ObservableCollection<TVShow>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<TVShow> data2 = new ObservableCollection<TVShow>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<TVShowsResponse>(request).Data;
 
-                data1 = new ObservableCollection<TVShow>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<TVShow> data2 = new ObservableCollection<TVShow>(result.results);
+                        data1 = new ObservableCollection<TVShow>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
@@ -292,19 +412,28 @@ namespace MovieNight.Core.Services
             request.AddParameter("api_key", API_KEY);
             TVShowsResponse result = client.Execute<TVShowsResponse>(request).Data;
 
-            data1 = new ObservableCollection<TVShow>(result.results);
-            int totalPages = result.total_pages;
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<TVShowsResponse>(request).Data;
+                data1 = new ObservableCollection<TVShow>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<TVShow> data2 = new ObservableCollection<TVShow>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<TVShowsResponse>(request).Data;
 
-                data1 = new ObservableCollection<TVShow>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<TVShow> data2 = new ObservableCollection<TVShow>(result.results);
+                        data1 = new ObservableCollection<TVShow>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
@@ -319,20 +448,30 @@ namespace MovieNight.Core.Services
             request.AddParameter("api_key", API_KEY);
             TVShowsResponse result = client.Execute<TVShowsResponse>(request).Data;
 
-            data1 = new ObservableCollection<TVShow>(result.results);
-            int totalPages = result.total_pages;
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<TVShowsResponse>(request).Data;
+                data1 = new ObservableCollection<TVShow>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<TVShow> data2 = new ObservableCollection<TVShow>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<TVShowsResponse>(request).Data;
 
-                data1 = new ObservableCollection<TVShow>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<TVShow> data2 = new ObservableCollection<TVShow>(result.results);
+                        data1 = new ObservableCollection<TVShow>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
+            
 
             return data1;
         }
@@ -346,19 +485,28 @@ namespace MovieNight.Core.Services
             request.AddParameter("api_key", API_KEY);
             PeopleResponse result = client.Execute<PeopleResponse>(request).Data;
 
-            data1 = new ObservableCollection<Person>(result.results);
-            int totalPages = result.total_pages;
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<PeopleResponse>(request).Data;
+                data1 = new ObservableCollection<Person>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<Person> data2 = new ObservableCollection<Person>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<PeopleResponse>(request).Data;
 
-                data1 = new ObservableCollection<Person>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<Person> data2 = new ObservableCollection<Person>(result.results);
+                        data1 = new ObservableCollection<Person>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
@@ -429,19 +577,28 @@ namespace MovieNight.Core.Services
             request.AddParameter("query", searchString);
             MultiSearchResponse result = client.Execute<MultiSearchResponse>(request).Data;
 
-            data1 = new ObservableCollection<MultiSearchItem>(result.results);
-            int totalPages = result.total_pages;
-
-            for (int i = 2; i <= pages; i++)
+            if(result.results != null)
             {
-                if (i > totalPages)
-                    break;
-                request.AddParameter("page", i);
-                result = client.Execute<MultiSearchResponse>(request).Data;
+                data1 = new ObservableCollection<MultiSearchItem>(result.results);
+                int totalPages = result.total_pages;
 
-                ObservableCollection<MultiSearchItem> data2 = new ObservableCollection<MultiSearchItem>(result.results);
+                for (int i = 2; i <= pages; i++)
+                {
+                    if (i > totalPages)
+                        break;
+                    request.AddParameter("page", i);
+                    result = client.Execute<MultiSearchResponse>(request).Data;
 
-                data1 = new ObservableCollection<MultiSearchItem>(data1.Union(data2).ToList());
+                    if(result.results != null)
+                    {
+                        ObservableCollection<MultiSearchItem> data2 = new ObservableCollection<MultiSearchItem>(result.results);
+                        data1 = new ObservableCollection<MultiSearchItem>(data1.Union(data2).ToList());
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
 
             return data1;
@@ -458,7 +615,10 @@ namespace MovieNight.Core.Services
             //request.AddParameter("include_video", "true");
             GenreResponse result = client.Execute<GenreResponse>(request).Data;
 
-            data1 = new ObservableCollection<Genres>(result.genres);
+            if(result.genres != null)
+            {
+                data1 = new ObservableCollection<Genres>(result.genres);
+            }
 
             return data1;
 
