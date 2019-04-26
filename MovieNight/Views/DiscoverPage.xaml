@@ -18,7 +18,7 @@
                 <VisualState>
                     <VisualState.StateTriggers>
                         <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="1400" />
+                        <AdaptiveTrigger MinWindowWidth="1550" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="discover.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="true" />
@@ -52,6 +52,46 @@
 
                         <StackPanel x:Name="genreStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
                             <ComboBox x:Name="genreCombo" Header="Genre" Width="150" ItemsSource="{x:Bind genres}" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="minimumVotes" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
+                            <ComboBox x:Name="minimumVotesCombo" Header="Minimum votes" Width="150" >
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>Votes</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>1,000</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>3,000</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>5,000</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>10,000</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>15,000</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>20,000</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>35,000</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>50,000</x:String>
+                                </ComboBoxItem>
+                            </ComboBox>
                         </StackPanel>
 
                         <StackPanel x:Name="sortByStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">

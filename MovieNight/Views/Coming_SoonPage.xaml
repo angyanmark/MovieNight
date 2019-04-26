@@ -45,7 +45,7 @@
                         </ComboBoxItem>
                     </ComboBox>
 
-                    <StackPanel x:Name="findStack" Margin="48, 23, 24, 0" HorizontalAlignment="Center">
+                    <StackPanel x:Name="findStack" Margin="48, 28, 24, 0" HorizontalAlignment="Center">
                         <Button x:Name="findButton" Click="FindButton_Click" Content="Find" Width="100"
                                 Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
                                 BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"

@@ -90,7 +90,7 @@
 
                                             <StackPanel Name="overviewGroup" RelativePanel.RightOf="poster" RelativePanel.Below="title" Margin="{StaticResource MediumRightMargin}">
                                                 <TextBlock x:Name="overview" Text="{x:Bind getOverviewTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource SmallTopBottomMargin}"/>
-                                                <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind getOverview}"
+                                                <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind getOverview}"
                                                        MaxLines="{x:Bind getMaxLines}" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="0, 0, 60, 0"/>
                                             </StackPanel>
 

@@ -51,13 +51,28 @@ namespace MovieNight.Core.Models
                 }
             }
         }
-        public object belongs_to_collection { get; set; }
+        public CollectionResponse collection_films { get; set; }
+        public Belongs_to_Collection belongs_to_collection { get; set; }
+        public string isBelongsToCollection
+        {
+            get
+            {
+                if (belongs_to_collection == null)
+                {
+                    return "Collapsed";
+                }
+                else
+                {
+                    return "Visible";
+                }
+            }
+        }
         private long Budget;
         public string budget
         {
             get
             {
-                if(Budget == 0)
+                if (Budget == 0)
                 {
                     return "-";
                 }
@@ -130,7 +145,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                if(Poster_path == "" || Poster_path == null)
+                if (Poster_path == "" || Poster_path == null)
                 {
                     return "/Assets/placeholder_poster.png";
                 }
@@ -220,7 +235,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                if(Revenue == 0)
+                if (Revenue == 0)
                 {
                     return "-";
                 }
@@ -239,7 +254,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                if(Runtime != 0)
+                if (Runtime != 0)
                 {
                     return Runtime + " mins";
                 }
@@ -257,6 +272,63 @@ namespace MovieNight.Core.Models
         public List<Spoken_Languages> spoken_languages { get; set; }
         public string status { get; set; }
         public string tagline { get; set; }
+        public string getTagline
+        {
+            get
+            {
+                return tagline.ToUpper();
+            }
+        }
+        public string isTagline
+        {
+            get
+            {
+                if (tagline != "" && tagline != null)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
+        public string getDirectors
+        {
+            get
+            {
+                string builder = "";
+
+                foreach (Crew c in credits.crew)
+                {
+                    if (c.job == "Director")
+                    {
+                        builder += c.name + ", ";
+                    }
+                }
+
+                if (builder.Length > 0)
+                {
+                    builder = builder.Substring(0, builder.Length - 2);
+                }
+
+                return builder;
+            }
+        }
+        public string isDirectedBy
+        {
+            get
+            {
+                if (getDirectors != "")
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
         public string title { get; set; }
         public string getTitleDate
         {
@@ -431,13 +503,13 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                foreach(Result5 rds in release_dates.results)
+                foreach (Result5 rds in release_dates.results)
                 {
-                    if(rds.iso_3166_1 == "US")
+                    if (rds.iso_3166_1 == "US")
                     {
-                        foreach(Release_Dates1 rd1 in rds.release_dates)
+                        foreach (Release_Dates1 rd1 in rds.release_dates)
                         {
-                            if(rd1.certification != "")
+                            if (rd1.certification != "")
                             {
                                 return rd1.certification;
                             }
@@ -624,6 +696,84 @@ namespace MovieNight.Core.Models
         public DateTime release_date { get; set; }
         public int type { get; set; }
         public string note { get; set; }
+    }
+
+
+    public class Belongs_to_Collection
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string poster_path { get; set; }
+        public string backdrop_path { get; set; }
+    }
+
+    public class CollectionResponse
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string overview { get; set; }
+        public string poster_path { get; set; }
+        public string backdrop_path { get; set; }
+        //public Part[] parts { get; set; }
+        public List<Part> parts { get; set; }
+    }
+
+    public class Part
+    {
+        public bool adult { get; set; }
+        public string backdrop_path { get; set; }
+        //public int[] genre_ids { get; set; }
+        public List<int> genre_ids { get; set; }
+        public int id { get; set; }
+        public string original_language { get; set; }
+        public string original_title { get; set; }
+        public string overview { get; set; }
+        private string Poster_path;
+        public string poster_path
+        {
+            get
+            {
+                if (Poster_path == "" || Poster_path == null)
+                {
+                    return "/Assets/placeholder_poster.png";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + Poster_path;
+                }
+            }
+            set
+            {
+                Poster_path = value;
+            }
+        }
+        public string release_date { get; set; }
+        public string title { get; set; }
+        public string getTitleShortDate
+        {
+            get
+            {
+                if (release_date != "" && release_date != null)
+                {
+                    return title + " (" + release_date.Substring(0, 4) + ")";
+                }
+                else
+                {
+                    return title;
+                }
+            }
+        }
+        public bool video { get; set; }
+        public float vote_average { get; set; }
+        public string getVoteLine
+        {
+            get
+            {
+                return "★ " + vote_average + " (" + vote_count + " votes)";
+            }
+        }
+        public int vote_count { get; set; }
+        public float popularity { get; set; }
     }
 
 }

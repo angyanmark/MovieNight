@@ -15,6 +15,10 @@ namespace MovieNight.ViewModels
     {
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
+        private ICommand _itemClickCommandCollection;
+
+        public ICommand ItemClickCommandCollection => _itemClickCommandCollection ?? (_itemClickCommandCollection = new RelayCommand<Part>(OnItemClick));
+
         private ICommand _itemClickCommandCast;
 
         public ICommand ItemClickCommandCast => _itemClickCommandCast ?? (_itemClickCommandCast = new RelayCommand<Cast>(OnItemClick));
@@ -26,6 +30,8 @@ namespace MovieNight.ViewModels
         private ICommand _itemClickCommandRecommendations;
 
         public ICommand ItemClickCommandRecommendations => _itemClickCommandRecommendations ?? (_itemClickCommandRecommendations = new RelayCommand<Result1>(OnItemClick));
+
+        public ObservableCollection<Part> CollectionSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
 
@@ -43,6 +49,7 @@ namespace MovieNight.ViewModels
 
         public MoviesDetailViewModel()
         {
+            CollectionSource = new ObservableCollection<Part>();
             CastSource = new ObservableCollection<Cast>();
             CrewSource = new ObservableCollection<Crew>();
             RecommendationsSource = new ObservableCollection<Result1>();
@@ -51,6 +58,13 @@ namespace MovieNight.ViewModels
         public void Initialize(int id)
         {
             Item = APICalls.CallDetailedFilm(id);
+
+            if (Item.belongs_to_collection != null)
+            {
+                CollectionSource.Clear();
+                foreach (var collectionItem in Item.collection_films.parts)
+                    CollectionSource.Add(collectionItem);
+            }
 
             RecommendationsSource.Clear();
             foreach (var recommendationItem in Item.recommendations.results)
@@ -63,6 +77,15 @@ namespace MovieNight.ViewModels
             CrewSource.Clear();
             foreach (var crewItem in Item.credits.crew)
                 CrewSource.Add(crewItem);            
+        }
+
+        private void OnItemClick(Part clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(MoviesDetailViewModel).FullName, clickedItem.id);
+            }
         }
 
         private void OnItemClick(Cast clickedItem)

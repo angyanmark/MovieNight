@@ -148,7 +148,7 @@
                     </StackPanel>
 
                     <TextBlock x:Name="overview" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="backdrop" />
-                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind ViewModel.Item.overview}" RelativePanel.Below="overview" MaxWidth="1000"/>
+                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview}" RelativePanel.Below="overview" MaxWidth="1000"/>
 
                     <TextBlock x:Name="moreInfo" Text="More information" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="overviewText" />
                     <StackPanel x:Name="links1" Orientation="Horizontal" Margin="{StaticResource SmallTopMargin}" RelativePanel.Below="moreInfo">

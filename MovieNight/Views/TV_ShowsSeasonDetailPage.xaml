@@ -86,7 +86,7 @@
                             <StackPanel x:Name="propertiesGroup2" >
                                 <StackPanel x:Name="overviewGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" >
                                     <TextBlock x:Name="overview" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="allprops" />
-                                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind ViewModel.Item.overview}"
+                                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview}"
                                                RelativePanel.Below="overview" MaxWidth="970" MaxLines="11" TextWrapping="Wrap" TextTrimming="WordEllipsis"
                                                Margin="0, 0, 20, 0"/>
                                 </StackPanel>

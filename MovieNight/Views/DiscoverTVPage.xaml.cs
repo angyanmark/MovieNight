@@ -14,6 +14,7 @@ namespace MovieNight.Views
     {
         public int YearIdx = 0;
         public int GenreIdx = 0;
+        public int CountIdx = 0;
         public int SortByIdx = 0;
         public string keyword = "";
     }
@@ -23,6 +24,7 @@ namespace MovieNight.Views
         int decade;
         int year;
         int genre;
+        int count;
         string sortby;
 
         private DiscoverTVViewModel ViewModel
@@ -38,6 +40,7 @@ namespace MovieNight.Views
 
             /*yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
+            minimumVotesCombo.SelectedIndex = dc.CountIdx;
             sortByCombo.SelectedIndex = dc.SortByIdx;
             keywordText.Text = dc.keyword;*/
         }
@@ -120,6 +123,46 @@ namespace MovieNight.Views
             dc.GenreIdx = genreCombo.SelectedIndex;
         }
 
+        private void setCount()
+        {
+            var comboBoxItem = minimumVotesCombo.SelectedItem as ComboBoxItem;
+            if (comboBoxItem == null) return;
+            string countValue = comboBoxItem.Content as string;
+
+            switch (countValue)
+            {
+                case "Votes":
+                    count = -1;
+                    break;
+                case "500":
+                    count = 500;
+                    break;
+                case "1,000":
+                    count = 1000;
+                    break;
+                case "2,500":
+                    count = 2500;
+                    break;
+                case "4,000":
+                    count = 4000;
+                    break;
+                case "6,000":
+                    count = 6000;
+                    break;
+                case "8,000":
+                    count = 8000;
+                    break;
+                case "10,000":
+                    count = 10000;
+                    break;
+                case "15,000":
+                    count = 15000;
+                    break;
+            }
+
+            dc.CountIdx = minimumVotesCombo.SelectedIndex;
+        }
+
         private void setSortBy()
         {
             var comboBoxItem = sortByCombo.SelectedItem as ComboBoxItem;
@@ -152,6 +195,7 @@ namespace MovieNight.Views
             dc.keyword = keywordText.Text;
             setYear();
             setGenre();
+            setCount();
             setSortBy();
 
             ViewModel.Source.Clear();
@@ -174,7 +218,7 @@ namespace MovieNight.Views
                 year = Int32.Parse(yearValue);
             }
 
-            var s = APICalls.CallDiscoverTVPage(keywordText.Text, decade, year, genre, sortby);
+            var s = APICalls.CallDiscoverTVPage(keywordText.Text, decade, year, genre, count, sortby);
             foreach (var v in s)
             {
                 ViewModel.Source.Add(v);
@@ -186,6 +230,7 @@ namespace MovieNight.Views
             keywordText.Text = "";
             yearCombo.SelectedIndex = 0;
             genreCombo.SelectedIndex = 0;
+            minimumVotesCombo.SelectedIndex = 0;
             sortByCombo.SelectedIndex = 0;
         }
     }

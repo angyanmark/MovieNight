@@ -130,7 +130,7 @@
                     </StackPanel>
 
                     <TextBlock x:Name="biography" Text="Biography" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="tagged" />
-                    <TextBlock x:Name="biographyText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind ViewModel.Item.biography}" RelativePanel.Below="biography" MaxWidth="1000" />
+                    <TextBlock x:Name="biographyText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.biography}" RelativePanel.Below="biography" MaxWidth="1000" />
 
                     <TextBlock x:Name="moreInfo" Text="More information" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="biographyText" />
                     <StackPanel x:Name="links1" Orientation="Horizontal" Margin="{StaticResource SmallTopMargin}" RelativePanel.Below="moreInfo">

@@ -247,7 +247,7 @@ namespace MovieNight.Core.Services
             return builder;
         }
 
-        public static ObservableCollection<DiscoverItem> CallDiscoverPage(string keyword, int decade, int year, int genre, string sortby)
+        public static ObservableCollection<DiscoverItem> CallDiscoverPage(string keyword, int decade, int year, int genre, int count, string sortby)
         {
             string keywordIDs = "";
 
@@ -276,8 +276,13 @@ namespace MovieNight.Core.Services
             {
                 request.AddParameter("with_keywords", keywordIDs);
             }
+            
+            if(count > 0)
+            {
+                request.AddParameter("vote_count.gte", count);
+            }
             request.AddParameter("sort_by", sortby);
-            request.AddParameter("include_adult", "true");
+            //request.AddParameter("include_adult", "true");
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
             
             if(result.results != null)
@@ -307,7 +312,7 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        public static ObservableCollection<DiscoverItem> CallDiscoverTVPage(string keyword, int decade, int year, int genre, string sortby)
+        public static ObservableCollection<DiscoverItem> CallDiscoverTVPage(string keyword, int decade, int year, int genre, int count, string sortby)
         {
             string keywordIDs = "";
 
@@ -336,8 +341,13 @@ namespace MovieNight.Core.Services
             {
                 request.AddParameter("with_keywords", keywordIDs);
             }
+
+            if (count > 0)
+            {
+                request.AddParameter("vote_count.gte", count);
+            }
             request.AddParameter("sort_by", sortby);
-            request.AddParameter("include_adult", "true");
+            //request.AddParameter("include_adult", "true");
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
 
             if(result.results != null)
@@ -521,6 +531,16 @@ namespace MovieNight.Core.Services
             request.AddUrlSegment("id", id);
             Film data = client.Execute<Film>(request).Data;
 
+            if(data.belongs_to_collection != null)
+            {
+                RestRequest request2 = new RestRequest("/collection/{collection_id}");
+                request2.AddParameter("api_key", API_KEY);
+                request2.AddUrlSegment("collection_id", data.belongs_to_collection.id);
+                data.collection_films = client.Execute<CollectionResponse>(request2).Data;
+
+                data.collection_films.parts = data.collection_films.parts.OrderBy(o => o.release_date).ToList();
+            }
+
             return data;
         }
 
@@ -559,6 +579,9 @@ namespace MovieNight.Core.Services
             request.AddParameter("append_to_response", "external_ids,combined_credits,tagged_images");
             request.AddUrlSegment("id", id);
             Person data = client.Execute<Person>(request).Data;
+
+            //data.combined_credits.cast.OrderBy(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
+            //data.combined_credits.crew.OrderBy(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
 
             bubbleSortCast(data.combined_credits.cast, data.combined_credits.cast.Count);
             bubbleSortCrew(data.combined_credits.crew, data.combined_credits.crew.Count);

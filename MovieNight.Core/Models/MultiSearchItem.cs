@@ -92,7 +92,25 @@ namespace MovieNight.Core.Models
             {
                 if (media_type.Equals("movie"))
                 {
-                    return title;
+                    if(release_date != "" && release_date != null)
+                    {
+                        return title + " (" + release_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        return title;
+                    }
+                }
+                else if (media_type.Equals("tv"))
+                {
+                    if (first_air_date != "" && first_air_date != null)
+                    {
+                        return name + " (" + first_air_date.Substring(0, 4) + ")";
+                    }
+                    else
+                    {
+                        return name;
+                    }
                 }
                 else
                 {

@@ -71,11 +71,18 @@
                             Style="{ThemeResource TitleTextBlockStyle}"
                             Width="350" />
 
-                        <StackPanel x:Name="tagline" Margin="{StaticResource MediumTopBottomMargin}" >
-                            <TextBlock Text="{x:Bind ViewModel.Item.tagline}" Style="{StaticResource DetailSubTitleStyle}" Width="350" MaxLines="5" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                        <StackPanel x:Name="tagline" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind ViewModel.Item.isTagline}">
+                            <TextBlock Text="{x:Bind ViewModel.Item.getTagline}" Style="{StaticResource DetailBodyBaseMediumStyle}"
+                                       Width="350" MaxLines="5" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                         </StackPanel>
 
-                        <StackPanel x:Name="smallprops" >
+                        <StackPanel x:Name="directedBy" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind ViewModel.Item.isDirectedBy}" Orientation="Horizontal">
+                            <TextBlock Text="Directed by" Style="{StaticResource DetailBodyStyle}" Margin="6, 0, 0, 0"/>
+                            <TextBlock Text="{x:Bind ViewModel.Item.getDirectors}" Style="{StaticResource DetailBodyBaseMediumStyle}"
+                                       Width="270" MaxLines="2" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="4, 0, 0, 0"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="smallprops" Margin="{StaticResource MediumTopMargin}">
                             <StackPanel x:Name="propertiesGroup1" Orientation="Horizontal">
                                 <StackPanel x:Name="runtimeGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="200">
                                     <TextBlock Text="Runtime" Style="{StaticResource DetailSubTitleStyle}" />
@@ -139,7 +146,7 @@
                     </StackPanel>
 
                     <TextBlock x:Name="overview" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="backdrop" />
-                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyStyle}" Text="{x:Bind ViewModel.Item.overview}" RelativePanel.Below="overview" MaxWidth="1000"/>
+                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview}" RelativePanel.Below="overview" MaxWidth="1000"/>
 
                     <TextBlock x:Name="moreInfo" Text="More information" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="overviewText" />
                     <StackPanel x:Name="links1" Orientation="Horizontal" Margin="{StaticResource SmallTopMargin}" RelativePanel.Below="moreInfo">
@@ -175,6 +182,47 @@
                     </StackPanel>
                 </RelativePanel>
 
+                <TextBlock x:Name="belongstoCollection" Text="{x:Bind ViewModel.Item.belongs_to_collection.name}" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}"/>
+                <StackPanel x:Name ="belongstoCollectionPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
+                    <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.CollectionSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCollection}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            DesiredWidth="200">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Part">
+                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                    <Grid
+                                    x:Name="itemThumbnail"
+                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                                <ToolTipService.ToolTip>
+                                                    <TextBlock Text="{Binding getTitleShortDate}" TextWrapping="Wrap"/>
+                                                </ToolTipService.ToolTip>
+                                            </Image>
+                                            <TextBlock Margin="5, 5, 5, 2"
+                                                HorizontalAlignment="Left"
+                                                Text="{x:Bind getTitleShortDate}"
+                                                Style="{ThemeResource BodyTextStyle}"
+                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                            <TextBlock
+                                                Margin="5, 2, 5, 5"
+                                                HorizontalAlignment="Left"
+                                                Text="{x:Bind getVoteLine}"
+                                                Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
+
                 <TextBlock x:Name="recommendations" Text="Recommendations" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
                 <StackPanel x:Name ="recommendationsPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
@@ -203,11 +251,11 @@
                                                 Style="{ThemeResource BodyTextStyle}"
                                                 MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                                             <TextBlock
-                                            Margin="5, 2, 5, 5"
-                                            HorizontalAlignment="Left"
-                                            Text="{x:Bind getVoteLine}"
-                                            Style="{ThemeResource DetailBodyBaseMediumStyle}"
-                                            MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                Margin="5, 2, 5, 5"
+                                                HorizontalAlignment="Left"
+                                                Text="{x:Bind getVoteLine}"
+                                                Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
