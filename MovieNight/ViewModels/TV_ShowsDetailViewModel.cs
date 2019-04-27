@@ -38,6 +38,8 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandSeason => _itemClickCommandSeason ?? (_itemClickCommandSeason = new RelayCommand<Season>(OnItemClick));
 
+        public ObservableCollection<Poster> PosterSource { get; set; }
+        public ObservableCollection<Backdrop> BackdropSource { get; set; }
         public ObservableCollection<Result1> RecommendationsSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
@@ -56,6 +58,8 @@ namespace MovieNight.ViewModels
 
         public TV_ShowsDetailViewModel()
         {
+            PosterSource = new ObservableCollection<Poster>();
+            BackdropSource = new ObservableCollection<Backdrop>();
             SeasonSource = new ObservableCollection<Season>();
             RecommendationsSource = new ObservableCollection<Result1>();
             CastSource = new ObservableCollection<Cast>();
@@ -65,6 +69,14 @@ namespace MovieNight.ViewModels
         public void Initialize(int id)
         {
             Item = APICalls.CallDetailedTVShow(id);
+
+            PosterSource.Clear();
+            foreach (var posterItem in Item.images.posters)
+                PosterSource.Add(posterItem);
+
+            BackdropSource.Clear();
+            foreach (var backdropItem in Item.images.backdrops)
+                BackdropSource.Add(backdropItem);
 
             RecommendationsSource.Clear();
             foreach (var recommendationItem in Item.recommendations.results)

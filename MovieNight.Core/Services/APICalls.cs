@@ -21,7 +21,7 @@ namespace MovieNight.Core.Services
 
         public static readonly string LOGO_SIZE = "w500";      // w45 w92 w154 w185 w300 w500 original
 
-        public static readonly string POSTER_SIZE = "w780";    // w92 w154 w185 w342 w500 w780 original
+        public static readonly string POSTER_SIZE = "w500";    // w92 w154 w185 w342 w500 w780 original
 
         public static readonly string PROFILE_SIZE = "h632";   // w45 w185 h632 original
 
@@ -247,7 +247,7 @@ namespace MovieNight.Core.Services
             return builder;
         }
 
-        public static ObservableCollection<DiscoverItem> CallDiscoverPage(string keyword, int decade, int year, int genre, int count, string sortby)
+        public static ObservableCollection<DiscoverItem> CallDiscoverPage(string keyword, int decade, int year, int genre, int count, string sortby, bool adult)
         {
             string keywordIDs = "";
 
@@ -262,15 +262,22 @@ namespace MovieNight.Core.Services
 
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
+
             if(decade != 0)
             {
                 request.AddParameter("primary_release_date.gte", decade.ToString() + "-01-01");
                 request.AddParameter("primary_release_date.lte", (decade + 9).ToString() + "-12-31");
             }
+
             if(year != 0)
+            {
                 request.AddParameter("primary_release_year", year);
+            }
+                
             if(genre != 0)
+            {
                 request.AddParameter("with_genres", genre);
+            }   
 
             if(keywordIDs != "")
             {
@@ -281,8 +288,14 @@ namespace MovieNight.Core.Services
             {
                 request.AddParameter("vote_count.gte", count);
             }
+
             request.AddParameter("sort_by", sortby);
-            //request.AddParameter("include_adult", "true");
+
+            if (adult)
+            {
+                request.AddParameter("include_adult", "true");
+            }
+
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
             
             if(result.results != null)
@@ -327,15 +340,22 @@ namespace MovieNight.Core.Services
 
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
+
             if (decade != 0)
             {
                 request.AddParameter("first_air_date.gte", decade.ToString() + "-01-01");
                 request.AddParameter("first_air_date.lte", (decade + 9).ToString() + "-12-31");
             }
+
             if (year != 0)
+            {
                 request.AddParameter("first_air_date_year", year);
+            }
+                
             if (genre != 0)
+            {
                 request.AddParameter("with_genres", genre);
+            }   
 
             if (keywordIDs != "")
             {
@@ -346,8 +366,9 @@ namespace MovieNight.Core.Services
             {
                 request.AddParameter("vote_count.gte", count);
             }
+
             request.AddParameter("sort_by", sortby);
-            //request.AddParameter("include_adult", "true");
+
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
 
             if(result.results != null)
@@ -527,7 +548,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits");
+            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits,images");
             request.AddUrlSegment("id", id);
             Film data = client.Execute<Film>(request).Data;
 
@@ -549,7 +570,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/tv/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,videos,recommendations,credits,content_ratings");
+            request.AddParameter("append_to_response", "external_ids,videos,recommendations,credits,content_ratings,images");
             request.AddUrlSegment("id", id);
             TVShow data = client.Execute<TVShow>(request).Data;
 
@@ -561,7 +582,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/tv/{tv_id}/season/{season_number}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "credits");
+            request.AddParameter("append_to_response", "credits,images");
             request.AddUrlSegment("tv_id", tv_id);
             request.AddUrlSegment("season_number", season_number);
             TVShowSeason data = client.Execute<TVShowSeason>(request).Data;
@@ -576,9 +597,10 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/person/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,combined_credits,tagged_images");
+            request.AddParameter("append_to_response", "external_ids,combined_credits,tagged_images,images");
             request.AddUrlSegment("id", id);
             Person data = client.Execute<Person>(request).Data;
+            string cont = client.Execute<Person>(request).Content;
 
             //data.combined_credits.cast.OrderBy(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
             //data.combined_credits.crew.OrderBy(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();

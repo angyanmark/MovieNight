@@ -71,6 +71,10 @@
                             Style="{ThemeResource TitleTextBlockStyle}"
                             Width="350" />
 
+                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="{x:Bind ViewModel.Item.isAdult}">
+                            <TextBlock Text="adult" Style="{StaticResource DetailBodyStyle}" Margin="6, 0, 0, 0" Foreground="Tomato"/>
+                        </StackPanel>
+
                         <StackPanel x:Name="knownFor" Margin="{StaticResource MediumTopBottomMargin}" >
                             <TextBlock Text="{x:Bind ViewModel.Item.known_for_department}" Style="{StaticResource DetailSubTitleStyle}" Width="350"/>
                         </StackPanel>
@@ -161,6 +165,54 @@
                         </HyperlinkButton>
                     </StackPanel>
                 </RelativePanel>
+
+                <StackPanel x:Name="pics" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="profpics" Margin="{StaticResource MediumRightMargin}">
+                        <TextBlock x:Name="profiles" Text="Profile pictures" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isProfiles}"/>
+                        <StackPanel x:Name ="profilesPanel" MaxWidth="440" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isProfiles}" HorizontalAlignment="Center">
+                            <FlipView x:Name="flipView1" MaxWidth="440" Height="500"
+                              ItemsSource="{x:Bind ViewModel.ProfilesSource, Mode=OneWay}"
+                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                                <FlipView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalAlignment="Center">
+                                            <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
+                                                <Border Style="{StaticResource DetailPosterBorder}">
+                                                    <Image MaxWidth="440" Height="500" Source="{Binding file_path}"/>
+                                                </Border>
+                                            </HyperlinkButton>
+                                        </Grid>
+                                    </DataTemplate>
+                                </FlipView.ItemTemplate>
+                            </FlipView>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="taggedpics" Margin="{StaticResource MediumLeftMargin}">
+                        <TextBlock x:Name="images" Text="Tagged images" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isImages}"/>
+                        <StackPanel x:Name ="imagesPanel" MaxWidth="1000" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isImages}" HorizontalAlignment="Center">
+                            <FlipView x:Name="flipView2" MaxWidth="1000" Height="500"
+                              ItemsSource="{x:Bind ViewModel.TaggedImagesSource, Mode=OneWay}"
+                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                                <FlipView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalAlignment="Center">
+                                            <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
+                                                <Border Style="{StaticResource DetailPosterBorder}">
+                                                    <Image MaxWidth="1000" Height="500" Source="{Binding file_path}">
+                                                        <ToolTipService.ToolTip>
+                                                            <TextBlock Text="{Binding getTitleShortDate}" TextWrapping="Wrap"/>
+                                                        </ToolTipService.ToolTip>
+                                                    </Image>
+                                                </Border>
+                                            </HyperlinkButton>
+                                        </Grid>
+                                    </DataTemplate>
+                                </FlipView.ItemTemplate>
+                            </FlipView>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
 
                 <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" />
                 <StackPanel x:Name ="castPanel" MaxWidth="1434">

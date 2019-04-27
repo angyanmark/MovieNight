@@ -22,6 +22,8 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandCrew => _itemClickCommandCrew ?? (_itemClickCommandCrew = new RelayCommand<Crew>(OnItemClick));
 
+        public ObservableCollection<Poster> PosterSource { get; set; }
+
         public ObservableCollection<Cast> CastSource { get; set; }
 
         public ObservableCollection<Crew> CrewSource { get; set; }
@@ -38,6 +40,7 @@ namespace MovieNight.ViewModels
 
         public TV_ShowsSeasonDetailViewModel()
         {
+            PosterSource = new ObservableCollection<Poster>();
             EpisodeSource = new ObservableCollection<Episode>();
             CastSource = new ObservableCollection<Cast>();
             CrewSource = new ObservableCollection<Crew>();
@@ -47,6 +50,10 @@ namespace MovieNight.ViewModels
         {
             //var first = d.First();
             Item = APICalls.CallDetailedTVShowSeason(tv_id, season_number, showName);
+
+            PosterSource.Clear();
+            foreach (var posterItem in Item.images.posters)
+                PosterSource.Add(posterItem);
 
             CastSource.Clear();
             foreach (var castItem in Item.credits.cast)

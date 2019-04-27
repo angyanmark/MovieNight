@@ -62,6 +62,21 @@ namespace MovieNight.Core.Models
             }
         }
         public int id { get; set; }
+        public FilmImages images { get; set; }
+        public string isPosters
+        {
+            get
+            {
+                if (images.posters.Count > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
         private string Poster_path;
         public string poster_path
         {

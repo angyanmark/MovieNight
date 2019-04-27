@@ -24,6 +24,10 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandCrew => _itemClickCommandCrew ?? (_itemClickCommandCrew = new RelayCommand<Crew>(OnItemClick));
 
+        public ObservableCollection<Profile> ProfilesSource { get; set; }
+
+        public ObservableCollection<Result3> TaggedImagesSource { get; set; }
+
         public ObservableCollection<Cast> CastSource { get; set; }
 
         public ObservableCollection<Crew> CrewSource { get; set; }
@@ -73,6 +77,8 @@ namespace MovieNight.ViewModels
 
         public PeopleDetailViewModel()
         {
+            ProfilesSource = new ObservableCollection<Profile>();
+            TaggedImagesSource = new ObservableCollection<Result3>();
             CastSource = new ObservableCollection<Cast>();
             CrewSource = new ObservableCollection<Crew>();
         }
@@ -81,6 +87,14 @@ namespace MovieNight.ViewModels
         {
             Item = APICalls.CallDetailedPerson(id);
             tag = Item.getTagged;
+
+            ProfilesSource.Clear();
+            foreach (var imageItem in Item.images.profiles)
+                    ProfilesSource.Add(imageItem);
+
+            TaggedImagesSource.Clear();
+            foreach (var taggedImageItem in Item.tagged_images.results)
+                TaggedImagesSource.Add(taggedImageItem);
 
             CastSource.Clear();
             foreach (var castItem in Item.combined_credits.cast)

@@ -31,6 +31,8 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandRecommendations => _itemClickCommandRecommendations ?? (_itemClickCommandRecommendations = new RelayCommand<Result1>(OnItemClick));
 
+        public ObservableCollection<Poster> PosterSource { get; set; }
+        public ObservableCollection<Backdrop> BackdropSource { get; set; }
         public ObservableCollection<Part> CollectionSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
@@ -49,19 +51,29 @@ namespace MovieNight.ViewModels
 
         public MoviesDetailViewModel()
         {
+            PosterSource = new ObservableCollection<Poster>();
+            BackdropSource = new ObservableCollection<Backdrop>();
             CollectionSource = new ObservableCollection<Part>();
             CastSource = new ObservableCollection<Cast>();
             CrewSource = new ObservableCollection<Crew>();
             RecommendationsSource = new ObservableCollection<Result1>();
         }
-
+        
         public void Initialize(int id)
         {
             Item = APICalls.CallDetailedFilm(id);
 
-            if (Item.belongs_to_collection != null)
+            PosterSource.Clear();
+            foreach (var posterItem in Item.images.posters)
+                PosterSource.Add(posterItem);
+
+            BackdropSource.Clear();
+            foreach (var backdropItem in Item.images.backdrops)
+                BackdropSource.Add(backdropItem);
+
+            CollectionSource.Clear();
+            if (Item.belongs_to_collection != null && Item.collection_films != null)
             {
-                CollectionSource.Clear();
                 foreach (var collectionItem in Item.collection_films.parts)
                     CollectionSource.Add(collectionItem);
             }
@@ -81,7 +93,7 @@ namespace MovieNight.ViewModels
 
         private void OnItemClick(Part clickedItem)
         {
-            if (clickedItem != null)
+            if (clickedItem != null /*&& clickedItem.id != Item.id*/)
             {
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(MoviesDetailViewModel).FullName, clickedItem.id);

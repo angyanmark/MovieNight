@@ -18,6 +18,7 @@ namespace MovieNight.Views
         public int CountIdx = 0;
         public int SortByIdx = 0;
         public string keyword = "";
+        public bool adult = false;
     }
     public sealed partial class DiscoverPage : Page
     {
@@ -27,6 +28,7 @@ namespace MovieNight.Views
         int genre;
         int count;
         string sortby;
+        bool adult;
 
         private DiscoverViewModel ViewModel
         {
@@ -39,11 +41,12 @@ namespace MovieNight.Views
             fillYears();
             fillGenres();
 
-            /*yearCombo.SelectedIndex = dc.YearIdx;
+            yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
             minimumVotesCombo.SelectedIndex = dc.CountIdx;
             sortByCombo.SelectedIndex = dc.SortByIdx;
-            keywordText.Text = dc.keyword;*/
+            keywordText.Text = dc.keyword;
+            includeAdultCheck.IsChecked = dc.adult;
         }
 
         public List<ComboBoxItem> years = new List<ComboBoxItem>();
@@ -213,6 +216,8 @@ namespace MovieNight.Views
             setGenre();
             setCount();
             setSortBy();
+            adult = (bool)includeAdultCheck.IsChecked;
+            dc.adult = adult;
 
             ViewModel.Source.Clear();
 
@@ -234,7 +239,7 @@ namespace MovieNight.Views
                 year = Int32.Parse(yearValue);
             }
 
-            var s = APICalls.CallDiscoverPage(keywordText.Text, decade, year, genre, count, sortby);
+            var s = APICalls.CallDiscoverPage(keywordText.Text, decade, year, genre, count, sortby, adult);
             foreach (var v in s)
             {
                 ViewModel.Source.Add(v);
@@ -248,6 +253,7 @@ namespace MovieNight.Views
             genreCombo.SelectedIndex = 0;
             minimumVotesCombo.SelectedIndex = 0;
             sortByCombo.SelectedIndex = 0;
+            includeAdultCheck.IsChecked = false;
         }
     }
 }

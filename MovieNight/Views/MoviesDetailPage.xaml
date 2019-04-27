@@ -71,6 +71,10 @@
                             Style="{ThemeResource TitleTextBlockStyle}"
                             Width="350" />
 
+                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="{x:Bind ViewModel.Item.isAdult}">
+                            <TextBlock Text="adult" Style="{StaticResource DetailBodyStyle}" Margin="6, 0, 0, 0" Foreground="Tomato"/>
+                        </StackPanel>
+
                         <StackPanel x:Name="tagline" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind ViewModel.Item.isTagline}">
                             <TextBlock Text="{x:Bind ViewModel.Item.getTagline}" Style="{StaticResource DetailBodyBaseMediumStyle}"
                                        Width="350" MaxLines="5" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
@@ -182,16 +186,60 @@
                     </StackPanel>
                 </RelativePanel>
 
+                <StackPanel x:Name="pics" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="posterpics" Margin="{StaticResource MediumRightMargin}">
+                        <TextBlock x:Name="posters" Text="Posters" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isPosters}"/>
+                        <StackPanel x:Name ="postersPanel" MaxWidth="440" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isPosters}" HorizontalAlignment="Center">
+                            <FlipView x:Name="flipView1" MaxWidth="440" Height="500"
+                              ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
+                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                                <FlipView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalAlignment="Center">
+                                            <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
+                                                <Border Style="{StaticResource DetailPosterBorder}">
+                                                    <Image MaxWidth="440" Height="500" Source="{Binding file_path}"/>
+                                                </Border>
+                                            </HyperlinkButton>
+                                        </Grid>
+                                    </DataTemplate>
+                                </FlipView.ItemTemplate>
+                            </FlipView>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel x:Name="backdroppics" Margin="{StaticResource MediumLeftMargin}">
+                        <TextBlock x:Name="backdrops" Text="Images" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isBackdrops}"/>
+                        <StackPanel x:Name ="backdropPanel" MaxWidth="1000" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isBackdrops}" HorizontalAlignment="Center">
+                            <FlipView x:Name="flipView2" MaxWidth="1000" Height="500"
+                              ItemsSource="{x:Bind ViewModel.BackdropSource, Mode=OneWay}"
+                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                                <FlipView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalAlignment="Center">
+                                            <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
+                                                <Border Style="{StaticResource DetailPosterBorder}">
+                                                    <Image MaxWidth="1000" Height="500" Source="{Binding file_path}"/>
+                                                </Border>
+                                            </HyperlinkButton>
+                                        </Grid>
+                                    </DataTemplate>
+                                </FlipView.ItemTemplate>
+                            </FlipView>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
                 <TextBlock x:Name="belongstoCollection" Text="{x:Bind ViewModel.Item.belongs_to_collection.name}" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}"/>
                 <StackPanel x:Name ="belongstoCollectionPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
                     <controls:AdaptiveGridView
-                            ItemsSource="{x:Bind ViewModel.CollectionSource, Mode=OneWay}"
-                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCollection}"
-                            StretchContentForSingleRow="False"
-                            SelectionMode="None"
-                            IsItemClickEnabled="True"
-                            animations:Connected.ListItemElementName="itemThumbnail"
-                            DesiredWidth="200">
+                        ItemsSource="{x:Bind ViewModel.CollectionSource, Mode=OneWay}"
+                        ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCollection}"
+                        StretchContentForSingleRow="False"
+                        SelectionMode="None"
+                        IsItemClickEnabled="True"
+                        animations:Connected.ListItemElementName="itemThumbnail"
+                        DesiredWidth="200">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Part">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >

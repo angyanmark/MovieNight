@@ -50,6 +50,35 @@ namespace MovieNight.Core.Models
                 }
             }
         }
+        public FilmImages images { get; set; }
+        public string isPosters
+        {
+            get
+            {
+                if (images.posters.Count > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
+        public string isBackdrops
+        {
+            get
+            {
+                if (images.backdrops.Count > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
         //public Created_By[] created_by { get; set; }
         public List<Created_By> created_by { private get; set; }
         public string Created_by

@@ -164,6 +164,29 @@
                     </controls:AdaptiveGridView>
                 </StackPanel>
 
+                <StackPanel x:Name="pics" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel x:Name="posterpics" Margin="{StaticResource MediumRightMargin}">
+                        <TextBlock x:Name="posters" Text="Posters" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isPosters}"/>
+                        <StackPanel x:Name ="postersPanel" MaxWidth="440" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isPosters}" HorizontalAlignment="Center">
+                            <FlipView x:Name="flipView1" MaxWidth="440" Height="500"
+                              ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
+                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                                <FlipView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalAlignment="Center">
+                                            <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
+                                                <Border Style="{StaticResource DetailPosterBorder}">
+                                                    <Image MaxWidth="440" Height="500" Source="{Binding file_path}"/>
+                                                </Border>
+                                            </HyperlinkButton>
+                                        </Grid>
+                                    </DataTemplate>
+                                </FlipView.ItemTemplate>
+                            </FlipView>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
                 <TextBlock x:Name="cast" Text="Cast" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" />
                 <StackPanel x:Name ="castPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView

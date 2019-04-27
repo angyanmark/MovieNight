@@ -18,6 +18,21 @@ namespace MovieNight.Core.Models
     public class Film
     {
         public bool adult { get; set; }
+        public string isAdult
+        {
+            get
+            {
+                if (adult)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
+        public FilmImages images { get; set; }
         private string Backdrop_path;
         public string backdrop_path
         {
@@ -170,6 +185,34 @@ namespace MovieNight.Core.Models
                 else
                 {
                     return "https://image.tmdb.org/t/p/original/" + Poster_path;
+                }
+            }
+        }
+        public string isPosters
+        {
+            get
+            {
+                if (images.posters.Count > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
+        public string isBackdrops
+        {
+            get
+            {
+                if (images.backdrops.Count > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
                 }
             }
         }
@@ -776,4 +819,55 @@ namespace MovieNight.Core.Models
         public float popularity { get; set; }
     }
 
+    public class FilmImages
+    {
+        //public Backdrop[] backdrops { get; set; }
+        public List<Backdrop> backdrops { get; set; }
+        //public Poster[] posters { get; set; }
+        public List<Poster> posters { get; set; }
+    }
+
+    public class Backdrop
+    {
+        public float aspect_ratio { get; set; }
+        public string File_path;
+        public string file_path
+        {
+            get
+            {
+                return "https://image.tmdb.org/t/p/" + APICalls.FILE_SIZE + "/" + File_path;
+            }
+            set
+            {
+                File_path = value;
+            }
+        }
+        public int height { get; set; }
+        public string iso_639_1 { get; set; }
+        public float vote_average { get; set; }
+        public int vote_count { get; set; }
+        public int width { get; set; }
+    }
+
+    public class Poster
+    {
+        public float aspect_ratio { get; set; }
+        public string File_path;
+        public string file_path
+        {
+            get
+            {
+                return "https://image.tmdb.org/t/p/" + APICalls.FILE_SIZE + "/" + File_path;
+            }
+            set
+            {
+                File_path = value;
+            }
+        }
+        public int height { get; set; }
+        public string iso_639_1 { get; set; }
+        public float vote_average { get; set; }
+        public int vote_count { get; set; }
+        public int width { get; set; }
+    }
 }
