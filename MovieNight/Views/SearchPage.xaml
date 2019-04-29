@@ -54,8 +54,7 @@
                             <DataTemplate x:DataType="models:MultiSearchItem">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
-                                    x:Name="itemThumbnail"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    x:Name="itemThumbnail">
                                         <RelativePanel>
                                             <Grid
                                             RelativePanel.AlignTopWithPanel="True"

@@ -187,9 +187,9 @@
                 </RelativePanel>
 
                 <StackPanel x:Name="pics" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <StackPanel x:Name="posterpics" Margin="{StaticResource MediumRightMargin}">
-                        <TextBlock x:Name="posters" Text="Posters" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isPosters}"/>
-                        <StackPanel x:Name ="postersPanel" MaxWidth="440" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isPosters}" HorizontalAlignment="Center">
+                    <StackPanel x:Name="posterpics" Margin="{StaticResource SmallLeftRightMargin}" Visibility="{x:Bind ViewModel.Item.isPosters}">
+                        <TextBlock x:Name="posters" Text="Posters" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
+                        <StackPanel x:Name ="postersPanel" MaxWidth="440" Orientation="Horizontal" HorizontalAlignment="Center">
                             <FlipView x:Name="flipView1" MaxWidth="440" Height="500"
                               ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
                               Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
@@ -208,9 +208,9 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel x:Name="backdroppics" Margin="{StaticResource MediumLeftMargin}">
-                        <TextBlock x:Name="backdrops" Text="Images" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isBackdrops}"/>
-                        <StackPanel x:Name ="backdropPanel" MaxWidth="1000" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isBackdrops}" HorizontalAlignment="Center">
+                    <StackPanel x:Name="backdroppics" Margin="{StaticResource SmallLeftRightMargin}" Visibility="{x:Bind ViewModel.Item.isBackdrops}">
+                        <TextBlock x:Name="backdrops" Text="Images" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
+                        <StackPanel x:Name ="backdropPanel" MaxWidth="1000" Orientation="Horizontal" HorizontalAlignment="Center">
                             <FlipView x:Name="flipView2" MaxWidth="1000" Height="500"
                               ItemsSource="{x:Bind ViewModel.BackdropSource, Mode=OneWay}"
                               Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
@@ -230,6 +230,42 @@
                     </StackPanel>
                 </StackPanel>
 
+                <TextBlock x:Name="reviews" Text="Reviews" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isReviews}"/>
+                <StackPanel x:Name ="reviewsPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isReviews}">
+                    <controls:AdaptiveGridView
+                        ItemsSource="{x:Bind ViewModel.ReviewSource, Mode=OneWay}"
+                        StretchContentForSingleRow="False"
+                        SelectionMode="None"
+                        IsItemClickEnabled="True"
+                        animations:Connected.ListItemElementName="itemThumbnail"
+                        DesiredWidth="1200"
+                        Height="500">
+                        <controls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ReviewResult">
+                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                    <HyperlinkButton NavigateUri="{x:Bind url}" Padding="0">
+                                        <Grid
+                                        x:Name="itemThumbnail"
+                                        Height="305">
+                                            <RelativePanel>
+                                                <StackPanel Name="author" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
+                                                    <TextBlock
+                                                Text="{x:Bind author}"
+                                                Style="{ThemeResource TitleTextBlockStyle}"/>
+                                                </StackPanel>
+
+                                                <StackPanel x:Name="contentGroup" RelativePanel.Below="author" Margin="24, 0, 24, 24">
+                                                    <TextBlock x:Name="content" Text="{x:Bind content}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="10" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                </StackPanel>
+                                            </RelativePanel>
+                                        </Grid>
+                                    </HyperlinkButton>
+                                </Border>
+                            </DataTemplate>
+                        </controls:AdaptiveGridView.ItemTemplate>
+                    </controls:AdaptiveGridView>
+                </StackPanel>
+
                 <TextBlock x:Name="belongstoCollection" Text="{x:Bind ViewModel.Item.belongs_to_collection.name}" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}"/>
                 <StackPanel x:Name ="belongstoCollectionPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
                     <controls:AdaptiveGridView
@@ -244,8 +280,7 @@
                             <DataTemplate x:DataType="models:Part">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
-                                    x:Name="itemThumbnail"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
                                                 <ToolTipService.ToolTip>
@@ -285,8 +320,7 @@
                             <DataTemplate x:DataType="models:Result1">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
-                                    x:Name="itemThumbnail"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
                                                 <ToolTipService.ToolTip>
@@ -326,8 +360,7 @@
                             <DataTemplate x:DataType="models:Cast">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
-                                    x:Name="itemThumbnail"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}" >
+                                    x:Name="itemThumbnail">
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                         <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300">
                                             <ToolTipService.ToolTip>
@@ -368,8 +401,7 @@
                             <DataTemplate x:DataType="models:Crew">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
-                                    x:Name="itemThumbnail"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300" >
                                                 <ToolTipService.ToolTip>

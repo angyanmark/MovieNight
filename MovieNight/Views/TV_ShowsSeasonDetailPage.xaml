@@ -102,14 +102,14 @@
                         StretchContentForSingleRow="False"
                         SelectionMode="None"
                         IsItemClickEnabled="False"
-                        DesiredWidth="1200">
+                        DesiredWidth="1200"
+                        Height="612">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Episode">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
                                     x:Name="itemThumbnail"
-                                    Height="300"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    Height="300">
                                         <RelativePanel>
                                             <Grid
                                                 RelativePanel.AlignTopWithPanel="True"
@@ -165,9 +165,9 @@
                 </StackPanel>
 
                 <StackPanel x:Name="pics" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <StackPanel x:Name="posterpics" Margin="{StaticResource MediumRightMargin}">
-                        <TextBlock x:Name="posters" Text="Posters" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isPosters}"/>
-                        <StackPanel x:Name ="postersPanel" MaxWidth="440" Orientation="Horizontal" Visibility="{x:Bind ViewModel.Item.isPosters}" HorizontalAlignment="Center">
+                    <StackPanel x:Name="posterpics" Margin="{StaticResource SmallLeftRightMargin}" Visibility="{x:Bind ViewModel.Item.isPosters}">
+                        <TextBlock x:Name="posters" Text="Posters" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" />
+                        <StackPanel x:Name ="postersPanel" MaxWidth="440" Orientation="Horizontal" HorizontalAlignment="Center">
                             <FlipView x:Name="flipView1" MaxWidth="440" Height="500"
                               ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
                               Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
@@ -200,8 +200,7 @@
                             <DataTemplate x:DataType="models:Cast">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
-                                    x:Name="itemThumbnail"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300">
                                                 <ToolTipService.ToolTip>
@@ -241,8 +240,7 @@
                             <DataTemplate x:DataType="models:Crew">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                     <Grid
-                                    x:Name="itemThumbnail"
-                                    Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+                                    x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                                             <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300" >
                                                 <ToolTipService.ToolTip>

@@ -185,6 +185,21 @@ namespace MovieNight.Core.Models
         public string homepage { get; set; }
         public int id { get; set; }
         public bool in_production { get; set; }
+        public Reviews reviews { get; set; }
+        public string isReviews
+        {
+            get
+            {
+                if (reviews.results.Count > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
         //public string[] languages { get; set; }
         public List<string> languages { get; set; }
         public string last_air_date { get; set; }

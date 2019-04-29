@@ -40,6 +40,7 @@ namespace MovieNight.ViewModels
 
         public ObservableCollection<Poster> PosterSource { get; set; }
         public ObservableCollection<Backdrop> BackdropSource { get; set; }
+        public ObservableCollection<ReviewResult> ReviewSource { get; set; }
         public ObservableCollection<Result1> RecommendationsSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
@@ -60,6 +61,7 @@ namespace MovieNight.ViewModels
         {
             PosterSource = new ObservableCollection<Poster>();
             BackdropSource = new ObservableCollection<Backdrop>();
+            ReviewSource = new ObservableCollection<ReviewResult>();
             SeasonSource = new ObservableCollection<Season>();
             RecommendationsSource = new ObservableCollection<Result1>();
             CastSource = new ObservableCollection<Cast>();
@@ -77,6 +79,10 @@ namespace MovieNight.ViewModels
             BackdropSource.Clear();
             foreach (var backdropItem in Item.images.backdrops)
                 BackdropSource.Add(backdropItem);
+
+            ReviewSource.Clear();
+            foreach (var reviewItem in Item.reviews.results)
+                ReviewSource.Add(reviewItem);
 
             RecommendationsSource.Clear();
             foreach (var recommendationItem in Item.recommendations.results)

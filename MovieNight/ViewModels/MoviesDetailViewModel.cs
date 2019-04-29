@@ -33,6 +33,7 @@ namespace MovieNight.ViewModels
 
         public ObservableCollection<Poster> PosterSource { get; set; }
         public ObservableCollection<Backdrop> BackdropSource { get; set; }
+        public ObservableCollection<ReviewResult> ReviewSource { get; set; }
         public ObservableCollection<Part> CollectionSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
@@ -53,6 +54,7 @@ namespace MovieNight.ViewModels
         {
             PosterSource = new ObservableCollection<Poster>();
             BackdropSource = new ObservableCollection<Backdrop>();
+            ReviewSource = new ObservableCollection<ReviewResult>();
             CollectionSource = new ObservableCollection<Part>();
             CastSource = new ObservableCollection<Cast>();
             CrewSource = new ObservableCollection<Crew>();
@@ -70,6 +72,10 @@ namespace MovieNight.ViewModels
             BackdropSource.Clear();
             foreach (var backdropItem in Item.images.backdrops)
                 BackdropSource.Add(backdropItem);
+
+            ReviewSource.Clear();
+            foreach (var reviewItem in Item.reviews.results)
+                ReviewSource.Add(reviewItem);
 
             CollectionSource.Clear();
             if (Item.belongs_to_collection != null && Item.collection_films != null)

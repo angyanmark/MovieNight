@@ -548,7 +548,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits,images");
+            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits,images,reviews");
             request.AddUrlSegment("id", id);
             Film data = client.Execute<Film>(request).Data;
 
@@ -570,7 +570,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/tv/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,videos,recommendations,credits,content_ratings,images");
+            request.AddParameter("append_to_response", "external_ids,videos,recommendations,credits,content_ratings,images,reviews");
             request.AddUrlSegment("id", id);
             TVShow data = client.Execute<TVShow>(request).Data;
 

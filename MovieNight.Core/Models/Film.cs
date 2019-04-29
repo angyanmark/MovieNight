@@ -311,6 +311,21 @@ namespace MovieNight.Core.Models
                 Runtime = Int32.Parse(value);
             }
         }
+        public Reviews reviews { get; set; }
+        public string isReviews
+        {
+            get
+            {
+                if(reviews.results.Count > 0)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
         //public Spoken_Languages[] spoken_languages { get; set; }
         public List<Spoken_Languages> spoken_languages { get; set; }
         public string status { get; set; }
@@ -870,4 +885,22 @@ namespace MovieNight.Core.Models
         public int vote_count { get; set; }
         public int width { get; set; }
     }
+
+    public class Reviews
+    {
+        public int page { get; set; }
+        //public ReviewResult[] results { get; set; }
+        public List<ReviewResult> results { get; set; }
+        public int total_pages { get; set; }
+        public int total_results { get; set; }
+    }
+
+    public class ReviewResult
+    {
+        public string author { get; set; }
+        public string content { get; set; }
+        public string id { get; set; }
+        public string url { get; set; }
+    }
+
 }
