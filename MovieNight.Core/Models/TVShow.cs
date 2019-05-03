@@ -51,6 +51,30 @@ namespace MovieNight.Core.Models
             }
         }
         public FilmImages images { get; set; }
+        public Keywords keywords { get; set; }
+        public string getKeywords
+        {
+            get
+            {
+                string builder = "";
+
+                foreach (Keyword k in keywords.results)
+                {
+                    builder += k.name + ", ";
+                }
+
+                if (builder.Length > 0)
+                {
+                    builder = builder.Substring(0, builder.Length - 2);
+                }
+                else
+                {
+                    builder = "-";
+                }
+
+                return builder;
+            }
+        }
         public string isPosters
         {
             get

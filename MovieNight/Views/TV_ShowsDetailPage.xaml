@@ -30,7 +30,9 @@
                         <Setter Target="backdrop.(RelativePanel.RightOf)" Value="allprops" />
                         <Setter Target="overview.(RelativePanel.Below)" Value="poster" />
                         <Setter Target="overviewText.(RelativePanel.Below)" Value="overview" />
-                        <Setter Target="moreInfo.(RelativePanel.Below)" Value="overviewText" />
+                        <Setter Target="keywords.(RelativePanel.Below)" Value="overviewText" />
+                        <Setter Target="keywordsText.(RelativePanel.Below)" Value="keywords" />
+                        <Setter Target="moreInfo.(RelativePanel.Below)" Value="keywordsText" />
                         <Setter Target="links1.(RelativePanel.Below)" Value="moreInfo" />
                         <Setter Target="links2.(RelativePanel.Below)" Value="moreInfo" />
                         <Setter Target="links2.(RelativePanel.RightOf)" Value="links1" />
@@ -149,6 +151,9 @@
 
                     <TextBlock x:Name="overview" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="backdrop" />
                     <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview}" RelativePanel.Below="overview" MaxWidth="1000"/>
+
+                    <TextBlock x:Name="keywords" Text="Keywords" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="overviewText" />
+                    <TextBlock x:Name="keywordsText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.getKeywords}" RelativePanel.Below="keywords" />
 
                     <TextBlock x:Name="moreInfo" Text="More information" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="overviewText" />
                     <StackPanel x:Name="links1" Orientation="Horizontal" Margin="{StaticResource SmallTopMargin}" RelativePanel.Below="moreInfo">
@@ -423,7 +428,9 @@
                             SelectionMode="None"
                             IsItemClickEnabled="True"
                             animations:Connected.ListItemElementName="itemThumbnail"
-                            DesiredWidth="200">
+                            DesiredWidth="200"
+                            Height="820"
+                            Margin="0, 0, 0, 30">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:Crew">
                                 <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >

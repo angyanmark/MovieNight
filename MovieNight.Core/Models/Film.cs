@@ -33,6 +33,30 @@ namespace MovieNight.Core.Models
             }
         }
         public FilmImages images { get; set; }
+        public Keywords keywords { get; set; }
+        public string getKeywords
+        {
+            get
+            {
+                string builder = "";
+
+                foreach (Keyword k in keywords.keywords)
+                {
+                    builder += k.name + ", ";
+                }
+
+                if (builder.Length > 0)
+                {
+                    builder = builder.Substring(0, builder.Length - 2);
+                }
+                else
+                {
+                    builder = "-";
+                }
+
+                return builder;
+            }
+        }
         private string Backdrop_path;
         public string backdrop_path
         {
@@ -316,7 +340,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                if(reviews.results.Count > 0)
+                if (reviews.results.Count > 0)
                 {
                     return "Visible";
                 }
@@ -903,4 +927,16 @@ namespace MovieNight.Core.Models
         public string url { get; set; }
     }
 
+    public class Keywords
+    {
+        //public Keyword[] keywords { get; set; }
+        public List<Keyword> keywords { get; set; }
+        public List<Keyword> results { get; set; }
+    }
+
+    public class Keyword
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+    }
 }

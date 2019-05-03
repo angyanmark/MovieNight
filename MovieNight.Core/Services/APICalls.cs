@@ -548,7 +548,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits,images,reviews");
+            request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits,images,reviews,keywords");
             request.AddUrlSegment("id", id);
             Film data = client.Execute<Film>(request).Data;
 
@@ -560,6 +560,24 @@ namespace MovieNight.Core.Services
                 data.collection_films = client.Execute<CollectionResponse>(request2).Data;
 
                 data.collection_films.parts = data.collection_films.parts.OrderBy(o => o.release_date).ToList();
+
+                int size = data.collection_films.parts.Count;
+                int cnt = 0;
+                for (int i = 0; i < data.collection_films.parts.Count; i++)
+                {
+                    if (data.collection_films.parts[i].release_date == "" || data.collection_films.parts[i].release_date == null)
+                    {
+                        var item = data.collection_films.parts[i];
+                        data.collection_films.parts.RemoveAt(i);
+                        data.collection_films.parts.Add(item);
+                        if(cnt > size)
+                        {
+                            break;
+                        }
+                        i--;
+                    }
+                    cnt++;
+                }
             }
 
             return data;
@@ -570,7 +588,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/tv/{id}");
 
             request.AddParameter("api_key", API_KEY);
-            request.AddParameter("append_to_response", "external_ids,videos,recommendations,credits,content_ratings,images,reviews");
+            request.AddParameter("append_to_response", "external_ids,videos,recommendations,credits,content_ratings,images,reviews,keywords");
             request.AddUrlSegment("id", id);
             TVShow data = client.Execute<TVShow>(request).Data;
 
