@@ -214,7 +214,13 @@
                     </StackPanel>
                 </StackPanel>
 
-                <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" Margin="0, 30, 0, 30" HorizontalAlignment="Center">
+                    <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource TitleTextBlockStyle}" />
+                    <ComboBox>
+                        
+                    </ComboBox>
+                </StackPanel>
+                
                 <StackPanel x:Name ="castPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
