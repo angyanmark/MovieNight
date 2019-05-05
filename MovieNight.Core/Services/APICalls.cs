@@ -565,18 +565,16 @@ namespace MovieNight.Core.Services
                 int cnt = 0;
                 for (int i = 0; i < data.collection_films.parts.Count; i++)
                 {
-                    if (data.collection_films.parts[i].release_date == "" || data.collection_films.parts[i].release_date == null)
+                    if (data.collection_films.parts[cnt].release_date == "" || data.collection_films.parts[cnt].release_date == null)
                     {
-                        var item = data.collection_films.parts[i];
-                        data.collection_films.parts.RemoveAt(i);
+                        var item = data.collection_films.parts[cnt];
+                        data.collection_films.parts.RemoveAt(cnt);
                         data.collection_films.parts.Add(item);
-                        if(cnt > size)
-                        {
-                            break;
-                        }
-                        i--;
                     }
-                    cnt++;
+                    else
+                    {
+                        cnt++;
+                    }
                 }
             }
 

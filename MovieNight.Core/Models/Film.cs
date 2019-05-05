@@ -226,6 +226,20 @@ namespace MovieNight.Core.Models
                 }
             }
         }
+        public string isNoPosters
+        {
+            get
+            {
+                if (images.posters.Count > 0)
+                {
+                    return "Collapsed";
+                }
+                else
+                {
+                    return "Visible";
+                }
+            }
+        }
         public string isBackdrops
         {
             get
@@ -896,7 +910,14 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "https://image.tmdb.org/t/p/" + APICalls.FILE_SIZE + "/" + File_path;
+                if (File_path == "" || File_path == null)
+                {
+                    return "/Assets/placeholder_poster.png";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/" + APICalls.FILE_SIZE + "/" + File_path;
+                }
             }
             set
             {

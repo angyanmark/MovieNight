@@ -21,7 +21,7 @@
                 <VisualState>
                     <VisualState.StateTriggers>
                         <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="840" />
+                        <AdaptiveTrigger MinWindowWidth="849" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="allprops.(RelativePanel.AlignTopWithPanel)" Value="true" />
@@ -47,23 +47,42 @@
                 x:Name="contentPanel"
                 Margin="{StaticResource MediumLeftRightMargin}"
                 HorizontalAlignment="Center">
-              
+
                 <RelativePanel>
                     <Grid
                         RelativePanel.AlignTopWithPanel="True"
                         RelativePanel.AlignLeftWithPanel="True"
                         x:Name="poster"
                         animations:Connected.Key="animationKeyPopular_Movies"
-                        Width="334"
+                        Width="358"
                         Height="514"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="0, 0, 0, 10">
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalPoster}" >
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalPoster}" Visibility="{x:Bind ViewModel.Item.isNoPosters}">
                             <Border Style="{StaticResource DetailPosterBorder}">
-                                <Image Source="{x:Bind ViewModel.Item.poster_path}"/>
+                                <Image Source="/Assets/placeholder_poster.png"/>
                             </Border>
                         </HyperlinkButton>
+                        <StackPanel x:Name="posterpics" Visibility="{x:Bind ViewModel.Item.isPosters}">
+                            <StackPanel x:Name ="postersPanel" MaxWidth="334" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <FlipView x:Name="flipView1" MaxWidth="334" Height="514"
+                              ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
+                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                                    <FlipView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid HorizontalAlignment="Center">
+                                                <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
+                                                    <Border Style="{StaticResource DetailPosterBorder}">
+                                                        <Image Source="{Binding file_path}"/>
+                                                    </Border>
+                                                </HyperlinkButton>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </FlipView.ItemTemplate>
+                                </FlipView>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
 
                     <StackPanel x:Name="allprops" RelativePanel.Below="poster" Margin="{StaticResource MediumLeftRightMargin}">
@@ -143,12 +162,31 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel  x:Name="backdrop" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" >
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalBackdrop}" Visibility="{x:Bind ViewModel.Item.isBackDrop}">
+                    <StackPanel  x:Name="backdrop" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" Visibility="{x:Bind ViewModel.Item.isBackdrops}">
+                        <!--<HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalBackdrop}" Visibility="{x:Bind ViewModel.Item.isBackDrop}">
                             <Border Style="{StaticResource DetailPosterBorder}">
                                 <Image Source="{x:Bind ViewModel.Item.backdrop_path}" MaxHeight="501" MinWidth="310" />
                             </Border>
-                        </HyperlinkButton>
+                        </HyperlinkButton>-->
+                        <StackPanel x:Name="backdroppics" Margin="0, 7, 0, 0">
+                            <StackPanel x:Name ="backdropPanel" MinWidth="310" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <FlipView x:Name="flipView2" MinWidth="310" MaxHeight="501" MaxWidth="889"
+                              ItemsSource="{x:Bind ViewModel.BackdropSource, Mode=OneWay}"
+                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                                    <FlipView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid HorizontalAlignment="Center">
+                                                <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
+                                                    <Border Style="{StaticResource DetailPosterBorder}">
+                                                        <Image MaxHeight="501" MinWidth="310" Source="{Binding file_path}"/>
+                                                    </Border>
+                                                </HyperlinkButton>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </FlipView.ItemTemplate>
+                                </FlipView>
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
 
                     <TextBlock x:Name="overview" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="backdrop" />
@@ -191,89 +229,45 @@
                     </StackPanel>
                 </RelativePanel>
 
-                <StackPanel x:Name="pics" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <StackPanel x:Name="posterpics" Margin="{StaticResource SmallLeftRightMargin}" Visibility="{x:Bind ViewModel.Item.isPosters}">
-                        <TextBlock x:Name="posters" Text="Posters" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
-                        <StackPanel x:Name ="postersPanel" MaxWidth="440" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <FlipView x:Name="flipView1" MaxWidth="440" Height="500"
-                              ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
-                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
-                                <FlipView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid HorizontalAlignment="Center">
-                                            <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
-                                                <Border Style="{StaticResource DetailPosterBorder}">
-                                                    <Image MaxWidth="440" Height="500" Source="{Binding file_path}"/>
-                                                </Border>
-                                            </HyperlinkButton>
-                                        </Grid>
-                                    </DataTemplate>
-                                </FlipView.ItemTemplate>
-                            </FlipView>
-                        </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel x:Name="backdroppics" Margin="{StaticResource SmallLeftRightMargin}" Visibility="{x:Bind ViewModel.Item.isBackdrops}">
-                        <TextBlock x:Name="backdrops" Text="Images" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
-                        <StackPanel x:Name ="backdropPanel" MaxWidth="1000" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <FlipView x:Name="flipView2" MaxWidth="1000" Height="500"
-                              ItemsSource="{x:Bind ViewModel.BackdropSource, Mode=OneWay}"
-                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
-                                <FlipView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid HorizontalAlignment="Center">
-                                            <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
-                                                <Border Style="{StaticResource DetailPosterBorder}">
-                                                    <Image MaxWidth="1000" Height="500" Source="{Binding file_path}"/>
-                                                </Border>
-                                            </HyperlinkButton>
-                                        </Grid>
-                                    </DataTemplate>
-                                </FlipView.ItemTemplate>
-                            </FlipView>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-
-                <TextBlock x:Name="reviews" Text="Reviews" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isReviews}"/>
-                <StackPanel x:Name ="reviewsPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isReviews}">
-                    <controls:AdaptiveGridView
+                <Pivot MaxWidth="1434" HorizontalAlignment="Center">
+                    <PivotItem Header="Reviews" Visibility="{x:Bind ViewModel.Item.isReviews}">
+                        <StackPanel x:Name ="reviewsPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isReviews}">
+                            <controls:AdaptiveGridView
                         ItemsSource="{x:Bind ViewModel.ReviewSource, Mode=OneWay}"
                         StretchContentForSingleRow="False"
                         SelectionMode="None"
                         IsItemClickEnabled="True"
                         animations:Connected.ListItemElementName="itemThumbnail"
-                        DesiredWidth="1200"
-                        Height="500">
-                        <controls:AdaptiveGridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:ReviewResult">
-                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                    <HyperlinkButton NavigateUri="{x:Bind url}" Padding="0">
-                                        <Grid
+                        DesiredWidth="1200">
+                                <controls:AdaptiveGridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:ReviewResult">
+                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                            <HyperlinkButton NavigateUri="{x:Bind url}" Padding="0">
+                                                <Grid
                                         x:Name="itemThumbnail"
                                         Height="305">
-                                            <RelativePanel>
-                                                <StackPanel Name="author" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
-                                                    <TextBlock
+                                                    <RelativePanel>
+                                                        <StackPanel Name="author" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
+                                                            <TextBlock
                                                 Text="{x:Bind author}"
                                                 Style="{ThemeResource TitleTextBlockStyle}"/>
-                                                </StackPanel>
+                                                        </StackPanel>
 
-                                                <StackPanel x:Name="contentGroup" RelativePanel.Below="author" Margin="24, 0, 24, 24">
-                                                    <TextBlock x:Name="content" Text="{x:Bind content}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="10" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                </StackPanel>
-                                            </RelativePanel>
-                                        </Grid>
-                                    </HyperlinkButton>
-                                </Border>
-                            </DataTemplate>
-                        </controls:AdaptiveGridView.ItemTemplate>
-                    </controls:AdaptiveGridView>
-                </StackPanel>
-
-                <TextBlock x:Name="belongstoCollection" Text="{x:Bind ViewModel.Item.belongs_to_collection.name}" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}"/>
-                <StackPanel x:Name ="belongstoCollectionPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
-                    <controls:AdaptiveGridView
+                                                        <StackPanel x:Name="contentGroup" RelativePanel.Below="author" Margin="24, 0, 24, 24">
+                                                            <TextBlock x:Name="content" Text="{x:Bind content}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="10" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                        </StackPanel>
+                                                    </RelativePanel>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                        </Border>
+                                    </DataTemplate>
+                                </controls:AdaptiveGridView.ItemTemplate>
+                            </controls:AdaptiveGridView>
+                        </StackPanel>
+                    </PivotItem>
+                    <PivotItem Header="Collection" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
+                        <StackPanel x:Name ="belongstoCollectionPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
+                            <controls:AdaptiveGridView
                         ItemsSource="{x:Bind ViewModel.CollectionSource, Mode=OneWay}"
                         ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCollection}"
                         StretchContentForSingleRow="False"
@@ -281,39 +275,39 @@
                         IsItemClickEnabled="True"
                         animations:Connected.ListItemElementName="itemThumbnail"
                         DesiredWidth="200">
-                        <controls:AdaptiveGridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Part">
-                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                    <Grid
+                                <controls:AdaptiveGridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Part">
+                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                            <Grid
                                     x:Name="itemThumbnail">
-                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                            <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
-                                                <ToolTipService.ToolTip>
-                                                    <TextBlock Text="{Binding getTitleShortDate}" TextWrapping="Wrap"/>
-                                                </ToolTipService.ToolTip>
-                                            </Image>
-                                            <TextBlock Margin="5, 5, 5, 2"
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                                        <ToolTipService.ToolTip>
+                                                            <TextBlock Text="{Binding getTitleShortDate}" TextWrapping="Wrap"/>
+                                                        </ToolTipService.ToolTip>
+                                                    </Image>
+                                                    <TextBlock Margin="5, 5, 5, 2"
                                                 HorizontalAlignment="Left"
                                                 Text="{x:Bind getTitleShortDate}"
                                                 Style="{ThemeResource BodyTextStyle}"
                                                 MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                            <TextBlock
+                                                    <TextBlock
                                                 Margin="5, 2, 5, 5"
                                                 HorizontalAlignment="Left"
                                                 Text="{x:Bind getVoteLine}"
                                                 Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                                 MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </controls:AdaptiveGridView.ItemTemplate>
-                    </controls:AdaptiveGridView>
-                </StackPanel>
-
-                <TextBlock x:Name="recommendations" Text="Recommendations" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
-                <StackPanel x:Name ="recommendationsPanel" MaxWidth="1434">
-                    <controls:AdaptiveGridView
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </controls:AdaptiveGridView.ItemTemplate>
+                            </controls:AdaptiveGridView>
+                        </StackPanel>
+                    </PivotItem>
+                    <PivotItem Header="Recommendations">
+                        <StackPanel x:Name ="recommendationsPanel" MaxWidth="1434">
+                            <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.RecommendationsSource, Mode=OneWay}"
                             ItemClickCommand="{x:Bind ViewModel.ItemClickCommandRecommendations}"
                             StretchContentForSingleRow="False"
@@ -321,39 +315,39 @@
                             IsItemClickEnabled="True"
                             animations:Connected.ListItemElementName="itemThumbnail"
                             DesiredWidth="200">
-                        <controls:AdaptiveGridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Result1">
-                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                    <Grid
+                                <controls:AdaptiveGridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Result1">
+                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                            <Grid
                                     x:Name="itemThumbnail">
-                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                            <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
-                                                <ToolTipService.ToolTip>
-                                                    <TextBlock Text="{Binding getTitleDate}" TextWrapping="Wrap"/>
-                                                </ToolTipService.ToolTip>
-                                            </Image>
-                                            <TextBlock Margin="5, 5, 5, 2"
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                                        <ToolTipService.ToolTip>
+                                                            <TextBlock Text="{Binding getTitleDate}" TextWrapping="Wrap"/>
+                                                        </ToolTipService.ToolTip>
+                                                    </Image>
+                                                    <TextBlock Margin="5, 5, 5, 2"
                                                 HorizontalAlignment="Left"
                                                 Text="{x:Bind getTitleDate}"
                                                 Style="{ThemeResource BodyTextStyle}"
                                                 MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                            <TextBlock
+                                                    <TextBlock
                                                 Margin="5, 2, 5, 5"
                                                 HorizontalAlignment="Left"
                                                 Text="{x:Bind getVoteLine}"
                                                 Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                                 MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </controls:AdaptiveGridView.ItemTemplate>
-                    </controls:AdaptiveGridView>
-                </StackPanel>
-
-                <TextBlock x:Name="cast" Text="Cast" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
-                <StackPanel x:Name ="castPanel" MaxWidth="1434">
-                    <controls:AdaptiveGridView
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </controls:AdaptiveGridView.ItemTemplate>
+                            </controls:AdaptiveGridView>
+                        </StackPanel>
+                    </PivotItem>
+                    <PivotItem Header="Cast">
+                        <StackPanel x:Name ="castPanel" MaxWidth="1434">
+                            <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
                             ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCast}"
                             StretchContentForSingleRow="False"
@@ -361,80 +355,79 @@
                             IsItemClickEnabled="True"
                             animations:Connected.ListItemElementName="itemThumbnail"
                             DesiredWidth="200">
-                        <controls:AdaptiveGridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Cast">
-                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                    <Grid
+                                <controls:AdaptiveGridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Cast">
+                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                            <Grid
                                     x:Name="itemThumbnail">
-                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                        <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300">
-                                            <ToolTipService.ToolTip>
-                                                <TextBlock Text="{Binding getNameCharacter}" TextWrapping="Wrap"/>
-                                            </ToolTipService.ToolTip>
-                                        </Image>
-                                        <TextBlock
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300">
+                                                        <ToolTipService.ToolTip>
+                                                            <TextBlock Text="{Binding getNameCharacter}" TextWrapping="Wrap"/>
+                                                        </ToolTipService.ToolTip>
+                                                    </Image>
+                                                    <TextBlock
                                             Margin="5, 5, 5, 2"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getName}"
                                             Style="{ThemeResource BodyTextStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                        <TextBlock
+                                                    <TextBlock
                                             Margin="5, 2, 5, 5"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getCharacter}"
                                             Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                    </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </controls:AdaptiveGridView.ItemTemplate>
-                    </controls:AdaptiveGridView>
-                </StackPanel>
-
-                <TextBlock x:Name="crew" Text="Crew" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center"/>
-                <StackPanel x:Name ="crewPanel" MaxWidth="1434">
-                    <controls:AdaptiveGridView
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </controls:AdaptiveGridView.ItemTemplate>
+                            </controls:AdaptiveGridView>
+                        </StackPanel>
+                    </PivotItem>
+                    <PivotItem Header="Crew">
+                        <StackPanel x:Name ="crewPanel" MaxWidth="1434">
+                            <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"
                             ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCrew}"
                             StretchContentForSingleRow="False"
                             SelectionMode="None"
                             IsItemClickEnabled="True"
                             animations:Connected.ListItemElementName="itemThumbnail"
-                            DesiredWidth="200"
-                            Height="820"
-                            Margin="0, 0, 0, 30">
-                        <controls:AdaptiveGridView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Crew">
-                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                    <Grid
+                            DesiredWidth="200">
+                                <controls:AdaptiveGridView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Crew">
+                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                            <Grid
                                     x:Name="itemThumbnail">
-                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                            <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300" >
-                                                <ToolTipService.ToolTip>
-                                                    <TextBlock Text="{Binding getNameJob}" TextWrapping="Wrap"/>
-                                                </ToolTipService.ToolTip>
-                                            </Image>
-                                            <TextBlock
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300" >
+                                                        <ToolTipService.ToolTip>
+                                                            <TextBlock Text="{Binding getNameJob}" TextWrapping="Wrap"/>
+                                                        </ToolTipService.ToolTip>
+                                                    </Image>
+                                                    <TextBlock
                                             Margin="5, 5, 5, 2"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getName}"
                                             Style="{ThemeResource BodyTextStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                            <TextBlock
+                                                    <TextBlock
                                             Margin="5, 2, 5, 5"
                                             HorizontalAlignment="Left"
                                             Text="{x:Bind getJob}"
                                             Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </controls:AdaptiveGridView.ItemTemplate>
-                    </controls:AdaptiveGridView>
-                </StackPanel>
-
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </controls:AdaptiveGridView.ItemTemplate>
+                            </controls:AdaptiveGridView>
+                        </StackPanel>
+                    </PivotItem>
+                </Pivot>
             </StackPanel>
         </ScrollViewer>
     </Grid>

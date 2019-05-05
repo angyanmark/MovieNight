@@ -215,12 +215,21 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0, 30, 0, 30" HorizontalAlignment="Center">
-                    <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource TitleTextBlockStyle}" />
-                    <ComboBox>
-                        
-                    </ComboBox>
+                    <TextBlock x:Name="cast" Text="Filmography - Cast" Style="{StaticResource TitleTextBlockStyle}"  Margin="0, 23, 0, 0"/>
+                    
+                    <StackPanel Margin="100, 0, 0, 0">
+                        <ComboBox x:Name="castSortByCombo" Header="Sort by" Width="250" SelectedIndex="0" SelectionChanged="castSortByCombo_SelectionChanged">
+                            <ComboBoxItem IsEnabled="True" >
+                                <x:String>Popularity</x:String>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsEnabled="True">
+                                <x:String>Release Date - Newest First</x:String>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
-                
+
                 <StackPanel x:Name ="castPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
@@ -262,7 +271,22 @@
                     </controls:AdaptiveGridView>
                 </StackPanel>
 
-                <TextBlock x:Name="crew" Text="Filmography - Crew" Style="{StaticResource TitleTextBlockStyle}" Margin="0, 30, 0, 30" HorizontalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" Margin="0, 30, 0, 30" HorizontalAlignment="Center">
+                    <TextBlock x:Name="crew" Text="Filmography - Crew" Style="{StaticResource TitleTextBlockStyle}"  Margin="0, 23, 0, 0"/>
+
+                    <StackPanel Margin="100, 0, 0, 0">
+                        <ComboBox x:Name="crewSortByCombo" Header="Sort by" Width="250" SelectedIndex="0" SelectionChanged="crewSortByCombo_SelectionChanged">
+                            <ComboBoxItem IsEnabled="True" >
+                                <x:String>Popularity</x:String>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem IsEnabled="True">
+                                <x:String>Release Date - Newest First</x:String>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+
                 <StackPanel x:Name ="crewPanel" MaxWidth="1434">
                     <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"

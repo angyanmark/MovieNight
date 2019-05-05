@@ -643,6 +643,20 @@ namespace MovieNight.Core.Models
         public bool video { get; set; }
         public string media_type { get; set; }
         public string credit_id { get; set; }
+        public string combined_date
+        {
+            get
+            {
+                if(release_date != "" && release_date != null)
+                {
+                    return release_date;
+                }
+                else
+                {
+                    return first_air_date;
+                }
+            }
+        }
         public string release_date { get; set; }
         public float vote_average { get; set; }
         public float popularity { get; set; }
@@ -891,6 +905,20 @@ namespace MovieNight.Core.Models
             }
         }
         public string release_date { get; set; }
+        public string combined_date
+        {
+            get
+            {
+                if (release_date != "" && release_date != null)
+                {
+                    return release_date;
+                }
+                else
+                {
+                    return first_air_date;
+                }
+            }
+        }
         public int episode_count { get; set; }
         //public string[] origin_country { get; set; }
         public List<string> origin_country { get; set; }

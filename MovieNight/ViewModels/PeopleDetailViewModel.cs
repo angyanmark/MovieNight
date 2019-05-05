@@ -9,6 +9,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.Services;
+using Windows.UI.Xaml.Controls;
 
 namespace MovieNight.ViewModels
 {
@@ -30,7 +31,11 @@ namespace MovieNight.ViewModels
 
         public ObservableCollection<Cast> CastSource { get; set; }
 
+        public ObservableCollection<Cast> PermanentCast { get; set; }
+
         public ObservableCollection<Crew> CrewSource { get; set; }
+
+        public ObservableCollection<Crew> PermanentCrew { get; set; }
 
         private Person _item;
 
@@ -80,7 +85,9 @@ namespace MovieNight.ViewModels
             ProfilesSource = new ObservableCollection<Profile>();
             TaggedImagesSource = new ObservableCollection<Result3>();
             CastSource = new ObservableCollection<Cast>();
+            PermanentCast = new ObservableCollection<Cast>();
             CrewSource = new ObservableCollection<Crew>();
+            PermanentCrew = new ObservableCollection<Crew>();
         }
 
         public void Initialize(int id)
@@ -103,6 +110,14 @@ namespace MovieNight.ViewModels
             CrewSource.Clear();
             foreach (var crewItem in Item.combined_credits.crew)
                 CrewSource.Add(crewItem);
+
+            PermanentCast.Clear();
+            foreach (var permCastItem in CastSource)
+                PermanentCast.Add(permCastItem);
+
+            PermanentCrew.Clear();
+            foreach (var permCrewItem in CrewSource)
+                PermanentCrew.Add(permCrewItem);
         }
 
         private void OnItemClick(Cast clickedItem)
