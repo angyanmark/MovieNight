@@ -27,7 +27,7 @@ namespace MovieNight.Core.Services
 
         public static readonly string STILL_SIZE = "original";     // w92 w185 w300 original
 
-        public static readonly string FILE_SIZE = "original";  // ???
+        public static readonly string FILE_SIZE = "w780";  // same as psoter size
 
         public static ObservableCollection<Film> CallPopularFilms()
         {
@@ -36,27 +36,7 @@ namespace MovieNight.Core.Services
             RestRequest request = new RestRequest("/movie/popular");
 
             request.AddParameter("api_key", API_KEY);
-            RestSharp.IRestResponse<FilmsResponse> v = client.Execute<FilmsResponse>(request);
-            FilmsResponse result = v.Data;
-
-            /*object limit;
-            object remaining;
-            object resetIn;
-            foreach(var value in v.Headers)
-            {
-                if (value.Name.Equals("X-RateLimit-Limit"))
-                {
-                    limit = value.Value;
-                }
-                if (value.Name.Equals("X-RateLimit-Remaining"))
-                {
-                    remaining = value.Value;
-                }
-                if (value.Name.Equals("X-RateLimit-Reset"))
-                {
-                    resetIn = value.Value;
-                }
-            }*/
+            FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
 
             if(result.results != null)
             {
@@ -618,11 +598,8 @@ namespace MovieNight.Core.Services
             Person data = client.Execute<Person>(request).Data;
             string cont = client.Execute<Person>(request).Content;
 
-            //data.combined_credits.cast.OrderBy(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
-            //data.combined_credits.crew.OrderBy(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
-
-            bubbleSortCast(data.combined_credits.cast, data.combined_credits.cast.Count);
-            bubbleSortCrew(data.combined_credits.crew, data.combined_credits.crew.Count);
+            data.combined_credits.cast = data.combined_credits.cast.OrderByDescending(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
+            data.combined_credits.crew = data.combined_credits.crew.OrderByDescending(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
 
             return data;
         }
@@ -683,34 +660,6 @@ namespace MovieNight.Core.Services
 
             return data1;
 
-        }
-
-        private static void bubbleSortCast(List<Cast> arr, int n)
-        {
-            Cast tempc = new Cast();
-            for (int i = 0; i < n - 1; i++)
-                for (int j = 0; j < n - i - 1; j++)
-                    if (((arr[  j  ].vote_count + 400) * (arr[  j  ].popularity + 10) * (arr[  j  ].vote_average + 3)) <
-                        ((arr[j + 1].vote_count + 400) * (arr[j + 1].popularity + 10) * (arr[j + 1].vote_average + 3)))
-                    {
-                        tempc = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = tempc;
-                    }
-        }
-
-        private static void bubbleSortCrew(List<Crew> arr, int n)
-        {
-            Crew tempc = new Crew();
-            for (int i = 0; i < n - 1; i++)
-                for (int j = 0; j < n - i - 1; j++)
-                    if (((arr[  j  ].vote_count + 400) * (arr[  j  ].popularity + 10) * (arr[  j  ].vote_average + 3)) <
-                        ((arr[j + 1].vote_count + 400) * (arr[j + 1].popularity + 10) * (arr[j + 1].vote_average + 3)))
-                    {
-                        tempc = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = tempc;
-                    }
         }
     }
 }

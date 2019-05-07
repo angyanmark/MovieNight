@@ -305,7 +305,7 @@ namespace MovieNight.Core.Models
                 }
             }
         }
-        public Dictionary<string, string> getTagged
+        /*public Dictionary<string, string> getTagged
         {
             get
             {
@@ -523,7 +523,7 @@ namespace MovieNight.Core.Models
                 return dic2;
             }
             private set { }
-        }
+        }*/
 
         public string getImdb_link
         {
@@ -1153,6 +1153,20 @@ namespace MovieNight.Core.Models
             set
             {
                 File_path = value;
+            }
+        }
+        public string getOriginalFilePath
+        {
+            get
+            {
+                if (File_path == "" || File_path == null)
+                {
+                    return "https://www.themoviedb.org/";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/original/" + File_path;
+                }
             }
         }
         public int height { get; set; }

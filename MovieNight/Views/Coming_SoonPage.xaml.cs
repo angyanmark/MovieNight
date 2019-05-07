@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
 using Windows.UI.Xaml;
@@ -53,16 +56,21 @@ namespace MovieNight.Views
             }
         }
 
+        async Task LoadMovies(int time)
+        {
+            ObservableCollection<DiscoverItem> films = await Task.Run(() => APICalls.CallComingSoon(time));
+            foreach (var v in films)
+            {
+                ViewModel.Source.Add(v);
+            }
+        }
+
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             tc.TimeIdx = timeCombo.SelectedIndex;
             setTime();
             ViewModel.Source.Clear();
-            var s = APICalls.CallComingSoon(time);
-            foreach (var v in s)
-            {
-                ViewModel.Source.Add(v);
-            }
+            LoadMovies(time);
         }
     }
 }

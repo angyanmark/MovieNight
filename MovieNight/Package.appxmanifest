@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="FDD14345-5321-49EB-AC4F-D57A0E4245AC" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>MovieNight</DisplayName>
-    <PublisherDisplayName>angya</PublisherDisplayName>
+    <PublisherDisplayName>Márk Ángyán</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

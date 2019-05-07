@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 using GalaSoft.MvvmLight;
@@ -21,11 +22,20 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<DiscoverItem>(OnItemClick));
 
-        public ObservableCollection<DiscoverItem> Source { get; set; }
+        public ObservableCollection<DiscoverItem> Source { get; set; } = new ObservableCollection<DiscoverItem>();
+
+        async Task LoadTVShows()
+        {
+            ObservableCollection<DiscoverItem> tvshows = await Task.Run(() => APICalls.CallDiscoverTVPage("", 0, 0, 0, 0, "popularity.desc"));
+            foreach (var v in tvshows)
+            {
+                Source.Add(v);
+            }
+        }
 
         public DiscoverTVViewModel()
         {
-            Source = APICalls.CallDiscoverTVPage("", 0, 0, 0, 0, "popularity.desc");
+            LoadTVShows();
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

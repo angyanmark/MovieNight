@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Threading.Tasks;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
@@ -41,12 +42,12 @@ namespace MovieNight.Views
             fillYears();
             fillGenres();
 
-            yearCombo.SelectedIndex = dc.YearIdx;
+            /*yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
             minimumVotesCombo.SelectedIndex = dc.CountIdx;
             sortByCombo.SelectedIndex = dc.SortByIdx;
             keywordText.Text = dc.keyword;
-            includeAdultCheck.IsChecked = dc.adult;
+            includeAdultCheck.IsChecked = dc.adult;*/
         }
 
         public List<ComboBoxItem> years = new List<ComboBoxItem>();
@@ -239,14 +240,19 @@ namespace MovieNight.Views
                 year = Int32.Parse(yearValue);
             }
 
-            var s = APICalls.CallDiscoverPage(keywordText.Text, decade, year, genre, count, sortby, adult);
-            foreach (var v in s)
-            {
-                ViewModel.Source.Add(v);
-            }
+            LoadMovies(keywordText.Text, decade, year, genre, count, sortby, adult);
         }
 
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
+    async Task LoadMovies(string keyword, int decade, int year, int genre, int count, string sortby, bool adult)
+    {
+        ObservableCollection<DiscoverItem> films = await Task.Run(() => APICalls.CallDiscoverPage(keyword, decade, year, genre, count, sortby, adult));
+        foreach (var v in films)
+        {
+                ViewModel.Source.Add(v);
+        }
+    }
+
+    private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             keywordText.Text = "";
             yearCombo.SelectedIndex = 0;

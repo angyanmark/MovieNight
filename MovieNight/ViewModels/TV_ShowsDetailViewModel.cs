@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -20,6 +21,14 @@ namespace MovieNight.ViewModels
     }
     public class TV_ShowsDetailViewModel : ViewModelBase
     {
+        private TVShow tvshow = new TVShow();
+
+        public TVShow TVShow
+        {
+            get { return tvshow; }
+            set { Set(ref tvshow, value); }
+        }
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommandRecommendations;
@@ -68,9 +77,9 @@ namespace MovieNight.ViewModels
             CrewSource = new ObservableCollection<Crew>();
         }
 
-        public void Initialize(int id)
+        async Task LoadTVShow(int id)
         {
-            Item = APICalls.CallDetailedTVShow(id);
+            Item = await Task.Run(() => APICalls.CallDetailedTVShow(id));
 
             PosterSource.Clear();
             foreach (var posterItem in Item.images.posters)
@@ -99,6 +108,11 @@ namespace MovieNight.ViewModels
             SeasonSource.Clear();
             foreach (var seasonItem in Item.seasons)
                 SeasonSource.Add(seasonItem);
+        }
+
+        public void Initialize(int id)
+        {
+            LoadTVShow(id);
         }
 
         private void OnItemClick(Season clickedItem)

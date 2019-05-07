@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
@@ -38,11 +39,11 @@ namespace MovieNight.Views
             fillYears();
             fillGenres();
 
-            yearCombo.SelectedIndex = dc.YearIdx;
+            /*yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
             minimumVotesCombo.SelectedIndex = dc.CountIdx;
             sortByCombo.SelectedIndex = dc.SortByIdx;
-            keywordText.Text = dc.keyword;
+            keywordText.Text = dc.keyword;*/
         }
 
         public List<ComboBoxItem> years = new List<ComboBoxItem>();
@@ -218,8 +219,13 @@ namespace MovieNight.Views
                 year = Int32.Parse(yearValue);
             }
 
-            var s = APICalls.CallDiscoverTVPage(keywordText.Text, decade, year, genre, count, sortby);
-            foreach (var v in s)
+            LoadTVShows(keywordText.Text, decade, year, genre, count, sortby);
+        }
+
+        async Task LoadTVShows(string keyword, int decade, int year, int genre, int count, string sortby)
+        {
+            ObservableCollection<DiscoverItem> tvshows = await Task.Run(() => APICalls.CallDiscoverTVPage(keyword, decade, year, genre, count, sortby));
+            foreach (var v in tvshows)
             {
                 ViewModel.Source.Add(v);
             }

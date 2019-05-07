@@ -4,7 +4,6 @@ using System.Text;
 
 namespace MovieNight.Core.Models
 {
-
     public class KeywordResponse
     {
         public int page { get; set; }
@@ -19,5 +18,4 @@ namespace MovieNight.Core.Models
         public int id { get; set; }
         public string name { get; set; }
     }
-
 }

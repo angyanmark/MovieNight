@@ -18,11 +18,10 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<MultiSearchItem>(OnItemClick));
 
-        public ObservableCollection<MultiSearchItem> Source { get; set; }
+        public ObservableCollection<MultiSearchItem> Source { get; set; } = new ObservableCollection<MultiSearchItem>();
 
         public SearchViewModel()
         {
-            Source = new ObservableCollection<MultiSearchItem>();
         }
 
         private void OnItemClick(MultiSearchItem clickedItem)
@@ -39,7 +38,7 @@ namespace MovieNight.ViewModels
                         NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                         NavigationService.Navigate(typeof(TV_ShowsDetailViewModel).FullName, clickedItem.id);
                         break;
-                    default:
+                    default: //person
                         NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                         NavigationService.Navigate(typeof(PeopleDetailViewModel).FullName, clickedItem.id);
                         break;

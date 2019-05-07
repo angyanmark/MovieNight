@@ -57,6 +57,8 @@
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
+            <winui:NavigationViewItemSeparator/>
+
             <winui:NavigationViewItem x:Uid="Shell_Popular_TV_Shows" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_TV_ShowsViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
@@ -75,11 +77,15 @@
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
+            <winui:NavigationViewItemSeparator/>
+
             <winui:NavigationViewItem x:Uid="Shell_Popular_People" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_PeopleViewModel" >
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE716;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
+
+            <winui:NavigationViewItemSeparator/>
 
             <winui:NavigationViewItem x:Uid="Shell_Discover" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverViewModel" >
                 <winui:NavigationViewItem.Icon>

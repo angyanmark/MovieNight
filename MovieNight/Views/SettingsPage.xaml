@@ -79,9 +79,9 @@
                     <Image Height="100" Source="/Assets/SocialMediaLogos/tmdb_powered_rectangle_logo.png" />
                 </HyperlinkButton>
 
-                <HyperlinkButton
+                <!--<HyperlinkButton
                     x:Uid="Settings_PrivacyTermsLink"
-                    Margin="{StaticResource XSmallTopMargin}" />
+                    Margin="{StaticResource XSmallTopMargin}" />-->
             </StackPanel>
         </StackPanel>
     </Grid>

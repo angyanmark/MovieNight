@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -13,6 +14,14 @@ namespace MovieNight.ViewModels
 {
     public class MoviesDetailViewModel : ViewModelBase
     {
+        private Film film = new Film();
+
+        public Film Film
+        {
+            get { return film; }
+            set { Set(ref film, value); }
+        }
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommandCollection;
@@ -60,10 +69,10 @@ namespace MovieNight.ViewModels
             CrewSource = new ObservableCollection<Crew>();
             RecommendationsSource = new ObservableCollection<Result1>();
         }
-        
-        public void Initialize(int id)
+
+        async Task LoadMovie(int id)
         {
-            Item = APICalls.CallDetailedFilm(id);
+            Item = await Task.Run(() => APICalls.CallDetailedFilm(id));
 
             PosterSource.Clear();
             foreach (var posterItem in Item.images.posters)
@@ -94,7 +103,12 @@ namespace MovieNight.ViewModels
 
             CrewSource.Clear();
             foreach (var crewItem in Item.credits.crew)
-                CrewSource.Add(crewItem);            
+                CrewSource.Add(crewItem);
+        }
+
+        public void Initialize(int id)
+        {
+            LoadMovie(id);
         }
 
         private void OnItemClick(Part clickedItem)

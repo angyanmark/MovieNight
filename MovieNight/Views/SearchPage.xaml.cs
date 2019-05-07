@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
 
@@ -38,6 +41,17 @@ namespace MovieNight.Views
                 }
             }
         }
+
+        async Task LoadSearch(string text)
+        {
+            ViewModel.Source.Clear();
+            ObservableCollection<MultiSearchItem> items = await Task.Run(() => APICalls.CallMultiSearch(text));
+            foreach (var v in items)
+            {
+                ViewModel.Source.Add(v);
+            }
+        }
+
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             // Only get results when it was a user typing, 
@@ -47,15 +61,7 @@ namespace MovieNight.Views
             {
                 //Set the ItemsSource to be your filtered dataset
                 //sender.ItemsSource = dataset;
-                ViewModel.Source.Clear();
-                if(sender.Text != "")
-                {
-                    var s = APICalls.CallMultiSearch(sender.Text);
-                    foreach (var v in s)
-                    {
-                        ViewModel.Source.Add(v);
-                    }
-                }
+                LoadSearch(sender.Text);
             }
         }
     }

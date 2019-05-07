@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -15,6 +16,14 @@ namespace MovieNight.ViewModels
 {
     public class PeopleDetailViewModel : ViewModelBase
     {
+        private Person person = new Person();
+
+        public Person Person
+        {
+            get { return person; }
+            set { Set(ref person, value); }
+        }
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommandCast;
@@ -47,38 +56,11 @@ namespace MovieNight.ViewModels
 
         public Dictionary<string, string> tag;
 
-        public string tagPath
-        {
-            get
-            {
-                var s = tag.First();
-                return s.Key;
-            }
-        }
+        public string tagPath { get; set; }
 
-        public string tagTitle
-        {
-            get
-            {
-                var s = tag.First();
-                return s.Value;
-            }
-        }
+        public string tagTitle { get; set; }
 
-        public string isTagged
-        {
-            get
-            {
-                if(tagPath == "https://image.tmdb.org/t/p/original/")
-                {
-                    return "Collapsed";
-                }
-                else
-                {
-                    return "Visible";
-                }
-            }
-        }
+        public string isTagged { get; set; }
 
         public PeopleDetailViewModel()
         {
@@ -90,14 +72,25 @@ namespace MovieNight.ViewModels
             PermanentCrew = new ObservableCollection<Crew>();
         }
 
-        public void Initialize(int id)
+        async Task LoadPerson(int id)
         {
-            Item = APICalls.CallDetailedPerson(id);
-            tag = Item.getTagged;
+            Item = await Task.Run(() => APICalls.CallDetailedPerson(id));
+
+            /*tag = Item.getTagged;
+            tagPath = tag.First().Key;
+            tagTitle = tag.First().Value;
+            if (tagPath == "https://image.tmdb.org/t/p/original/")
+            {
+                isTagged = "Collapsed";
+            }
+            else
+            {
+                isTagged = "Visible";
+            }*/
 
             ProfilesSource.Clear();
             foreach (var imageItem in Item.images.profiles)
-                    ProfilesSource.Add(imageItem);
+                ProfilesSource.Add(imageItem);
 
             TaggedImagesSource.Clear();
             foreach (var taggedImageItem in Item.tagged_images.results)
@@ -118,6 +111,11 @@ namespace MovieNight.ViewModels
             PermanentCrew.Clear();
             foreach (var permCrewItem in CrewSource)
                 PermanentCrew.Add(permCrewItem);
+        }
+
+        public void Initialize(int id)
+        {
+            LoadPerson(id);
         }
 
         private void OnItemClick(Cast clickedItem)

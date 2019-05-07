@@ -21,7 +21,7 @@
                 <VisualState>
                     <VisualState.StateTriggers>
                         <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="849" />
+                        <AdaptiveTrigger MinWindowWidth="840" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="allprops.(RelativePanel.AlignTopWithPanel)" Value="true" />
@@ -46,7 +46,7 @@
             <StackPanel
                 x:Name="contentPanel"
                 Margin="{StaticResource MediumLeftRightMargin}"
-                HorizontalAlignment="Center">
+                HorizontalAlignment="Stretch">
 
                 <RelativePanel>
                     <Grid
@@ -54,35 +54,16 @@
                         RelativePanel.AlignLeftWithPanel="True"
                         x:Name="poster"
                         animations:Connected.Key="animationKeyPopular_Movies"
-                        Width="358"
+                        Width="334"
                         Height="514"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="0, 0, 0, 10">
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalPoster}" Visibility="{x:Bind ViewModel.Item.isNoPosters}">
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalPoster, Mode=OneWay}">
                             <Border Style="{StaticResource DetailPosterBorder}">
-                                <Image Source="/Assets/placeholder_poster.png"/>
+                                <Image Source="{x:Bind ViewModel.Item.poster_path, Mode=OneWay}"/>
                             </Border>
                         </HyperlinkButton>
-                        <StackPanel x:Name="posterpics" Visibility="{x:Bind ViewModel.Item.isPosters}">
-                            <StackPanel x:Name ="postersPanel" MaxWidth="334" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <FlipView x:Name="flipView1" MaxWidth="334" Height="514"
-                              ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
-                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
-                                    <FlipView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid HorizontalAlignment="Center">
-                                                <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
-                                                    <Border Style="{StaticResource DetailPosterBorder}">
-                                                        <Image Source="{Binding file_path}"/>
-                                                    </Border>
-                                                </HyperlinkButton>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </FlipView.ItemTemplate>
-                                </FlipView>
-                            </StackPanel>
-                        </StackPanel>
                     </Grid>
 
                     <StackPanel x:Name="allprops" RelativePanel.Below="poster" Margin="{StaticResource MediumLeftRightMargin}">
@@ -92,18 +73,18 @@
                             Style="{ThemeResource TitleTextBlockStyle}"
                             Width="350" />
 
-                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="{x:Bind ViewModel.Item.isAdult}">
+                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="{x:Bind ViewModel.Item.isAdult, Mode=OneWay}">
                             <TextBlock Text="adult" Style="{StaticResource DetailBodyStyle}" Margin="6, 0, 0, 0" Foreground="Tomato"/>
                         </StackPanel>
 
-                        <StackPanel x:Name="tagline" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind ViewModel.Item.isTagline}">
-                            <TextBlock Text="{x:Bind ViewModel.Item.getTagline}" Style="{StaticResource DetailBodyBaseMediumStyle}"
+                        <StackPanel x:Name="tagline" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind ViewModel.Item.isTagline, Mode=OneWay}">
+                            <TextBlock Text="{x:Bind ViewModel.Item.getTagline, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}"
                                        Width="350" MaxLines="5" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                         </StackPanel>
 
-                        <StackPanel x:Name="directedBy" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind ViewModel.Item.isDirectedBy}" Orientation="Horizontal">
+                        <StackPanel x:Name="directedBy" Margin="{StaticResource MediumTopMargin}" Visibility="{x:Bind ViewModel.Item.isDirectedBy, Mode=OneWay}" Orientation="Horizontal">
                             <TextBlock Text="Directed by" Style="{StaticResource DetailBodyStyle}" Margin="6, 0, 0, 0"/>
-                            <TextBlock Text="{x:Bind ViewModel.Item.getDirectors}" Style="{StaticResource DetailBodyBaseMediumStyle}"
+                            <TextBlock Text="{x:Bind ViewModel.Item.getDirectors, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}"
                                        Width="270" MaxLines="2" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="4, 0, 0, 0"/>
                         </StackPanel>
 
@@ -111,192 +92,215 @@
                             <StackPanel x:Name="propertiesGroup1" Orientation="Horizontal">
                                 <StackPanel x:Name="runtimeGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="200">
                                     <TextBlock Text="Runtime" Style="{StaticResource DetailSubTitleStyle}" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.runtime}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.runtime, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                                 </StackPanel>
 
                                 <StackPanel x:Name="certificationGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
                                     <TextBlock Text="Certification" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.certification}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.certification, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel x:Name="propertiesGroup2" Orientation="Horizontal">
                                 <StackPanel x:Name="releaseDateGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="200">
                                     <TextBlock Text="Release date" Style="{StaticResource DetailSubTitleStyle}" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.release_date}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.release_date, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                                 </StackPanel>
 
                                 <StackPanel x:Name="budgetGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
                                     <TextBlock Text="Budget" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.budget}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.budget, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel x:Name="propertiesGroup3" Orientation="Horizontal">
                                 <StackPanel x:Name="genresGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="200">
                                     <TextBlock Text="Genres" Style="{StaticResource DetailSubTitleStyle}" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.Genres}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.Genres, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
                                 </StackPanel>
 
                                 <StackPanel x:Name="revenueGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
                                     <TextBlock Text="Revenue" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.revenue}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.revenue, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel x:Name="propertiesGroup4" Orientation="Horizontal" Margin="{StaticResource MediumBottomMargin}">
                                 <StackPanel x:Name="companiesGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="200">
                                     <TextBlock Text="Companies" Style="{StaticResource DetailSubTitleStyle}" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.Production_companies}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="6"/>
+                                    <TextBlock Text="{x:Bind ViewModel.Item.Production_companies, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="6"/>
                                 </StackPanel>
 
                                 <StackPanel x:Name="statusVoteAverageGroup" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Width="130">
                                     <TextBlock Text="Status" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.status}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.status, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
 
                                     <TextBlock Text="Rating" Style="{StaticResource DetailSubTitleStyle}" HorizontalAlignment="Right" Margin="0, 16, 0, 0"/>
-                                    <TextBlock Text="{x:Bind ViewModel.Item.getVote_average}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{x:Bind ViewModel.Item.getVote_count}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.getVote_average, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{x:Bind ViewModel.Item.getVote_count, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" HorizontalAlignment="Right" />
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel  x:Name="backdrop" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" Visibility="{x:Bind ViewModel.Item.isBackdrops}">
-                        <!--<HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalBackdrop}" Visibility="{x:Bind ViewModel.Item.isBackDrop}">
+                    <StackPanel  x:Name="backdrop" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" Visibility="{x:Bind ViewModel.Item.isBackdrops, Mode=OneWay}">
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getOriginalBackdrop, Mode=OneWay}" Visibility="{x:Bind ViewModel.Item.isBackDrop, Mode=OneWay}">
                             <Border Style="{StaticResource DetailPosterBorder}">
-                                <Image Source="{x:Bind ViewModel.Item.backdrop_path}" MaxHeight="501" MinWidth="310" />
+                                <Image Source="{x:Bind ViewModel.Item.backdrop_path, Mode=OneWay}" MaxHeight="501" MinWidth="310" />
                             </Border>
-                        </HyperlinkButton>-->
-                        <StackPanel x:Name="backdroppics" Margin="0, 7, 0, 0">
-                            <StackPanel x:Name ="backdropPanel" MinWidth="310" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <FlipView x:Name="flipView2" MinWidth="310" MaxHeight="501" MaxWidth="889"
-                              ItemsSource="{x:Bind ViewModel.BackdropSource, Mode=OneWay}"
-                              Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
-                                    <FlipView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid HorizontalAlignment="Center">
-                                                <HyperlinkButton NavigateUri="{Binding file_path}" Padding="0">
-                                                    <Border Style="{StaticResource DetailPosterBorder}">
-                                                        <Image MaxHeight="501" MinWidth="310" Source="{Binding file_path}"/>
-                                                    </Border>
-                                                </HyperlinkButton>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </FlipView.ItemTemplate>
-                                </FlipView>
-                            </StackPanel>
-                        </StackPanel>
+                        </HyperlinkButton>
                     </StackPanel>
 
                     <TextBlock x:Name="overview" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="backdrop" />
-                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview}" RelativePanel.Below="overview" MaxWidth="1000"/>
+                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview, Mode=OneWay}" RelativePanel.Below="overview" MaxWidth="1000"/>
 
                     <TextBlock x:Name="keywords" Text="Keywords" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="overviewText" />
-                    <TextBlock x:Name="keywordsText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.getKeywords}" RelativePanel.Below="keywords" />
+                    <TextBlock x:Name="keywordsText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.getKeywords, Mode=OneWay}" RelativePanel.Below="keywords" />
 
                     <TextBlock x:Name="moreInfo" Text="More information" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="keywordsText" />
                     <StackPanel x:Name="links1" Orientation="Horizontal" Margin="{StaticResource SmallTopMargin}" RelativePanel.Below="moreInfo">
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getImdb_link}" Visibility="{x:Bind ViewModel.Item.isImdb}">
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getImdb_link, Mode=OneWay}" Visibility="{x:Bind ViewModel.Item.isImdb, Mode=OneWay}">
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/imdb_logo.png" />
                         </HyperlinkButton>
 
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getTmdb_link}" >
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getTmdb_link, Mode=OneWay}" >
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/tmdb_logo.png" />
                         </HyperlinkButton>
 
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getLetterboxd_link}" >
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getLetterboxd_link, Mode=OneWay}" >
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/letterboxd_logo.png" />
                         </HyperlinkButton>
 
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getYoutube_link}" Visibility="{x:Bind ViewModel.Item.isYoutube}">
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getYoutube_link, Mode=OneWay}" Visibility="{x:Bind ViewModel.Item.isYoutube, Mode=OneWay}">
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/youtube_logo.png" />
                         </HyperlinkButton>
                     </StackPanel>
 
                     <StackPanel x:Name="links2" Orientation="Horizontal" Margin="{StaticResource SmallTopMargin}" RelativePanel.Below="links1">
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getFacebook_link}" Visibility="{x:Bind ViewModel.Item.isFacebook}">
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getFacebook_link, Mode=OneWay}" Visibility="{x:Bind ViewModel.Item.isFacebook, Mode=OneWay}">
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/facebook_logo.png" />
                         </HyperlinkButton>
 
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getInstagram_link}" Visibility="{x:Bind ViewModel.Item.isInstagram}">
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getInstagram_link, Mode=OneWay}" Visibility="{x:Bind ViewModel.Item.isInstagram, Mode=OneWay}">
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/instagram_logo.png" />
                         </HyperlinkButton>
 
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getTwitter_link}" Visibility="{x:Bind ViewModel.Item.isTwitter}">
+                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.Item.getTwitter_link, Mode=OneWay}" Visibility="{x:Bind ViewModel.Item.isTwitter, Mode=OneWay}">
                             <Image Height="60" Margin="0, 0, 30, 0" Source="/Assets/SocialMediaLogos/twitter_logo.png" />
                         </HyperlinkButton>
                     </StackPanel>
                 </RelativePanel>
 
-                <Pivot MaxWidth="1434" HorizontalAlignment="Center">
-                    <PivotItem Header="Reviews" Visibility="{x:Bind ViewModel.Item.isReviews}">
-                        <StackPanel x:Name ="reviewsPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isReviews}">
-                            <controls:AdaptiveGridView
-                        ItemsSource="{x:Bind ViewModel.ReviewSource, Mode=OneWay}"
-                        StretchContentForSingleRow="False"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True"
-                        animations:Connected.ListItemElementName="itemThumbnail"
-                        DesiredWidth="1200">
-                                <controls:AdaptiveGridView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:ReviewResult">
-                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                            <HyperlinkButton NavigateUri="{x:Bind url}" Padding="0">
-                                                <Grid
-                                        x:Name="itemThumbnail"
-                                        Height="305">
-                                                    <RelativePanel>
-                                                        <StackPanel Name="author" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
-                                                            <TextBlock
-                                                Text="{x:Bind author}"
-                                                Style="{ThemeResource TitleTextBlockStyle}"/>
-                                                        </StackPanel>
-
-                                                        <StackPanel x:Name="contentGroup" RelativePanel.Below="author" Margin="24, 0, 24, 24">
-                                                            <TextBlock x:Name="content" Text="{x:Bind content}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="10" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                        </StackPanel>
-                                                    </RelativePanel>
-                                                </Grid>
-                                            </HyperlinkButton>
-                                        </Border>
-                                    </DataTemplate>
-                                </controls:AdaptiveGridView.ItemTemplate>
-                            </controls:AdaptiveGridView>
-                        </StackPanel>
+                <Pivot x:Name="pivot" Margin="{StaticResource MediumTopMargin}" >
+                    <PivotItem x:Name="recommendationsPivot" Header="Recommendations" >
+                        <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.RecommendationsSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandRecommendations, Mode=OneWay}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            DesiredWidth="200"
+                            Margin="{StaticResource MediumTopMargin}">
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Result1">
+                                    <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                        <Grid
+                                            x:Name="itemThumbnail">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                <Image Source="{x:Bind poster_path, Mode=OneWay}" Stretch="UniformToFill" Height="300">
+                                                    <ToolTipService.ToolTip>
+                                                        <TextBlock Text="{Binding getTitleDate, Mode=OneWay}" TextWrapping="Wrap"/>
+                                                    </ToolTipService.ToolTip>
+                                                </Image>
+                                                <TextBlock Margin="5, 5, 5, 2"
+                                                        HorizontalAlignment="Left"
+                                                        Text="{x:Bind getTitleDate, Mode=OneWay}"
+                                                        Style="{ThemeResource BodyTextStyle}"
+                                                        MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                <TextBlock
+                                                        Margin="5, 2, 5, 5"
+                                                        HorizontalAlignment="Left"
+                                                        Text="{x:Bind getVoteLine, Mode=OneWay}"
+                                                        Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                                        MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
                     </PivotItem>
-                    <PivotItem Header="Collection" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
-                        <StackPanel x:Name ="belongstoCollectionPanel" MaxWidth="1434" Visibility="{x:Bind ViewModel.Item.isBelongsToCollection}">
+                    <PivotItem x:Name="sep1" Header=""/>
+                    <PivotItem x:Name="reviewsPivot" Header="Reviews">
+                        <controls:AdaptiveGridView
+                            ItemsSource="{x:Bind ViewModel.ReviewSource, Mode=OneWay}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            DesiredWidth="1200"
+                            Margin="{StaticResource MediumTopMargin}">
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate x:DataType="models:ReviewResult">
+                                    <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                        <HyperlinkButton NavigateUri="{x:Bind url, Mode=OneWay}" Padding="0">
+                                            <Grid
+                                                x:Name="itemThumbnail"
+                                                Height="305">
+                                                <RelativePanel>
+                                                    <StackPanel Name="author" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Padding="{StaticResource MediumLeftTopRightBottomMargin}">
+                                                        <TextBlock
+                                                            Text="{x:Bind author, Mode=OneWay}"
+                                                            Style="{ThemeResource TitleTextBlockStyle}"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel x:Name="contentGroup" RelativePanel.Below="author" Margin="24, 0, 24, 24">
+                                                        <TextBlock x:Name="content" Text="{x:Bind content, Mode=OneWay}" Style="{StaticResource DetailBodyBaseMediumStyle}" MaxLines="10" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                    </StackPanel>
+                                                </RelativePanel>
+                                            </Grid>
+                                        </HyperlinkButton>
+                                    </Border>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
+                    </PivotItem>
+                    <PivotItem x:Name="sep2" Header=""/>
+                    <PivotItem x:Name="collectionPivot" Header="Collection">
+                        <StackPanel>
+                            <TextBlock Text="{x:Bind ViewModel.Item.belongs_to_collection.name, Mode=OneWay}" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" Margin="{StaticResource SmallTopBottomMargin}"/>
                             <controls:AdaptiveGridView
-                        ItemsSource="{x:Bind ViewModel.CollectionSource, Mode=OneWay}"
-                        ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCollection}"
-                        StretchContentForSingleRow="False"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True"
-                        animations:Connected.ListItemElementName="itemThumbnail"
-                        DesiredWidth="200">
+                            ItemsSource="{x:Bind ViewModel.CollectionSource, Mode=OneWay}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCollection, Mode=OneWay}"
+                            StretchContentForSingleRow="False"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            animations:Connected.ListItemElementName="itemThumbnail"
+                            DesiredWidth="200"
+                            Margin="{StaticResource MediumTopMargin}">
                                 <controls:AdaptiveGridView.ItemTemplate>
                                     <DataTemplate x:DataType="models:Part">
                                         <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
                                             <Grid
-                                    x:Name="itemThumbnail">
+                                            x:Name="itemThumbnail">
                                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                                    <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
+                                                    <Image Source="{x:Bind poster_path, Mode=OneWay}" Stretch="UniformToFill" Height="300">
                                                         <ToolTipService.ToolTip>
-                                                            <TextBlock Text="{Binding getTitleShortDate}" TextWrapping="Wrap"/>
+                                                            <TextBlock Text="{Binding getTitleShortDate, Mode=OneWay}" TextWrapping="Wrap"/>
                                                         </ToolTipService.ToolTip>
                                                     </Image>
                                                     <TextBlock Margin="5, 5, 5, 2"
-                                                HorizontalAlignment="Left"
-                                                Text="{x:Bind getTitleShortDate}"
-                                                Style="{ThemeResource BodyTextStyle}"
-                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                        HorizontalAlignment="Left"
+                                                        Text="{x:Bind getTitleShortDate, Mode=OneWay}"
+                                                        Style="{ThemeResource BodyTextStyle}"
+                                                        MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                                                     <TextBlock
-                                                Margin="5, 2, 5, 5"
-                                                HorizontalAlignment="Left"
-                                                Text="{x:Bind getVoteLine}"
-                                                Style="{ThemeResource DetailBodyBaseMediumStyle}"
-                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+                                                        Margin="5, 2, 5, 5"
+                                                        HorizontalAlignment="Left"
+                                                        Text="{x:Bind getVoteLine, Mode=OneWay}"
+                                                        Style="{ThemeResource DetailBodyBaseMediumStyle}"
+                                                        MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -305,128 +309,135 @@
                             </controls:AdaptiveGridView>
                         </StackPanel>
                     </PivotItem>
-                    <PivotItem Header="Recommendations">
-                        <StackPanel x:Name ="recommendationsPanel" MaxWidth="1434">
-                            <controls:AdaptiveGridView
-                            ItemsSource="{x:Bind ViewModel.RecommendationsSource, Mode=OneWay}"
-                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandRecommendations}"
-                            StretchContentForSingleRow="False"
-                            SelectionMode="None"
-                            IsItemClickEnabled="True"
-                            animations:Connected.ListItemElementName="itemThumbnail"
-                            DesiredWidth="200">
-                                <controls:AdaptiveGridView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:Result1">
-                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                            <Grid
-                                    x:Name="itemThumbnail">
-                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                                    <Image Source="{x:Bind poster_path}" Stretch="UniformToFill" Height="300">
-                                                        <ToolTipService.ToolTip>
-                                                            <TextBlock Text="{Binding getTitleDate}" TextWrapping="Wrap"/>
-                                                        </ToolTipService.ToolTip>
-                                                    </Image>
-                                                    <TextBlock Margin="5, 5, 5, 2"
-                                                HorizontalAlignment="Left"
-                                                Text="{x:Bind getTitleDate}"
-                                                Style="{ThemeResource BodyTextStyle}"
-                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                    <TextBlock
-                                                Margin="5, 2, 5, 5"
-                                                HorizontalAlignment="Left"
-                                                Text="{x:Bind getVoteLine}"
-                                                Style="{ThemeResource DetailBodyBaseMediumStyle}"
-                                                MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </controls:AdaptiveGridView.ItemTemplate>
-                            </controls:AdaptiveGridView>
-                        </StackPanel>
-                    </PivotItem>
-                    <PivotItem Header="Cast">
-                        <StackPanel x:Name ="castPanel" MaxWidth="1434">
-                            <controls:AdaptiveGridView
+                    <PivotItem x:Name="sep3" Header="" />
+                    <PivotItem x:Name="castPivot" Header="Cast">
+                        <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CastSource, Mode=OneWay}"
-                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCast}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCast, Mode=OneWay}"
                             StretchContentForSingleRow="False"
                             SelectionMode="None"
                             IsItemClickEnabled="True"
                             animations:Connected.ListItemElementName="itemThumbnail"
-                            DesiredWidth="200">
-                                <controls:AdaptiveGridView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:Cast">
-                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                            <Grid
+                            DesiredWidth="200"
+                                Margin="{StaticResource MediumTopMargin}">
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Cast">
+                                    <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                        <Grid
                                     x:Name="itemThumbnail">
-                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                                    <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300">
-                                                        <ToolTipService.ToolTip>
-                                                            <TextBlock Text="{Binding getNameCharacter}" TextWrapping="Wrap"/>
-                                                        </ToolTipService.ToolTip>
-                                                    </Image>
-                                                    <TextBlock
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                <Image Source="{x:Bind profile_path, Mode=OneWay}" Stretch="UniformToFill" Height="300">
+                                                    <ToolTipService.ToolTip>
+                                                        <TextBlock Text="{Binding getNameCharacter, Mode=OneWay}" TextWrapping="Wrap"/>
+                                                    </ToolTipService.ToolTip>
+                                                </Image>
+                                                <TextBlock
                                             Margin="5, 5, 5, 2"
                                             HorizontalAlignment="Left"
-                                            Text="{x:Bind getName}"
+                                            Text="{x:Bind getName, Mode=OneWay}"
                                             Style="{ThemeResource BodyTextStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                    <TextBlock
+                                                <TextBlock
                                             Margin="5, 2, 5, 5"
                                             HorizontalAlignment="Left"
-                                            Text="{x:Bind getCharacter}"
+                                            Text="{x:Bind getCharacter, Mode=OneWay}"
                                             Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </controls:AdaptiveGridView.ItemTemplate>
-                            </controls:AdaptiveGridView>
-                        </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
                     </PivotItem>
-                    <PivotItem Header="Crew">
-                        <StackPanel x:Name ="crewPanel" MaxWidth="1434">
-                            <controls:AdaptiveGridView
+                    <PivotItem x:Name="sep4" Header=""/>
+                    <PivotItem x:Name="crewPivot" Header="Crew">
+                        <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CrewSource, Mode=OneWay}"
-                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCrew}"
+                            ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCrew, Mode=OneWay}"
                             StretchContentForSingleRow="False"
                             SelectionMode="None"
                             IsItemClickEnabled="True"
                             animations:Connected.ListItemElementName="itemThumbnail"
-                            DesiredWidth="200">
-                                <controls:AdaptiveGridView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:Crew">
-                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                            <Grid
-                                    x:Name="itemThumbnail">
-                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                                    <Image Source="{x:Bind profile_path}" Stretch="UniformToFill" Height="300" >
-                                                        <ToolTipService.ToolTip>
-                                                            <TextBlock Text="{Binding getNameJob}" TextWrapping="Wrap"/>
-                                                        </ToolTipService.ToolTip>
-                                                    </Image>
-                                                    <TextBlock
+                            DesiredWidth="200"
+                            Margin="{StaticResource MediumTopMargin}">
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Crew">
+                                    <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                        <Grid
+                                            x:Name="itemThumbnail">
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                <Image Source="{x:Bind profile_path, Mode=OneWay}" Stretch="UniformToFill" Height="300" >
+                                                    <ToolTipService.ToolTip>
+                                                        <TextBlock Text="{Binding getNameJob, Mode=OneWay}" TextWrapping="Wrap"/>
+                                                    </ToolTipService.ToolTip>
+                                                </Image>
+                                                <TextBlock
                                             Margin="5, 5, 5, 2"
                                             HorizontalAlignment="Left"
-                                            Text="{x:Bind getName}"
+                                            Text="{x:Bind getName, Mode=OneWay}"
                                             Style="{ThemeResource BodyTextStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                    <TextBlock
+                                                <TextBlock
                                             Margin="5, 2, 5, 5"
                                             HorizontalAlignment="Left"
-                                            Text="{x:Bind getJob}"
+                                            Text="{x:Bind getJob, Mode=OneWay}"
                                             Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                             MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </controls:AdaptiveGridView.ItemTemplate>
-                            </controls:AdaptiveGridView>
-                        </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
                     </PivotItem>
+                    <PivotItem x:Name="sep5" Header=""/>
+                    <PivotItem x:Name="postersPivot" Header="Posters">
+                        <controls:AdaptiveGridView
+                                ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
+                                StretchContentForSingleRow="False"
+                                SelectionMode="None"
+                                IsItemClickEnabled="True"
+                                DesiredWidth="240"
+                                Margin="{StaticResource MediumTopMargin}">
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid
+                                            x:Name="itemThumbnail">
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <HyperlinkButton NavigateUri="{Binding getOriginalFilePath, Mode=OneWay}" Padding="0">
+                                                <Image Source="{Binding file_path, Mode=OneWay}"/>
+                                            </HyperlinkButton>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
+                    </PivotItem>
+                    <PivotItem x:Name="sep6" Header=""/>
+                    <PivotItem x:Name="imagesPivot" Header="Images">
+                        <controls:AdaptiveGridView
+                                ItemsSource="{x:Bind ViewModel.BackdropSource, Mode=OneWay}"
+                                StretchContentForSingleRow="False"
+                                SelectionMode="None"
+                                IsItemClickEnabled="True"
+                                DesiredWidth="600"
+                                Margin="{StaticResource MediumTopMargin}">
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid
+                                            x:Name="itemThumbnail">
+                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <HyperlinkButton NavigateUri="{Binding getOriginalFilePath, Mode=OneWay}" Padding="0">
+                                                <Image Source="{Binding file_path, Mode=OneWay}"/>
+                                            </HyperlinkButton>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
+                    </PivotItem>
+                    <PivotItem x:Name="sep7" Header=""/>
                 </Pivot>
             </StackPanel>
         </ScrollViewer>

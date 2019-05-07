@@ -1,5 +1,1 @@
-﻿images föl tv, tv season, person
-margins check
-pivot view
-smaller logo
-async
+﻿pivot item eltuntetese

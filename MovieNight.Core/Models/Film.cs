@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MovieNight.Core.Models
 {
-    public class FilmsResponse
+    public class FilmsResponse 
     {
         public int page { get; set; }
         public int total_results { get; set; }
@@ -223,20 +223,6 @@ namespace MovieNight.Core.Models
                 else
                 {
                     return "Collapsed";
-                }
-            }
-        }
-        public string isNoPosters
-        {
-            get
-            {
-                if (images.posters.Count > 0)
-                {
-                    return "Collapsed";
-                }
-                else
-                {
-                    return "Visible";
                 }
             }
         }
@@ -895,6 +881,20 @@ namespace MovieNight.Core.Models
                 File_path = value;
             }
         }
+        public string getOriginalFilePath
+        {
+            get
+            {
+                if (File_path == "" || File_path == null)
+                {
+                    return "https://www.themoviedb.org/";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/original/" + File_path;
+                }
+            }
+        }
         public int height { get; set; }
         public string iso_639_1 { get; set; }
         public float vote_average { get; set; }
@@ -922,6 +922,20 @@ namespace MovieNight.Core.Models
             set
             {
                 File_path = value;
+            }
+        }
+        public string getOriginalFilePath
+        {
+            get
+            {
+                if (File_path == "" || File_path == null)
+                {
+                    return "https://www.themoviedb.org/";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/original/" + File_path;
+                }
             }
         }
         public int height { get; set; }

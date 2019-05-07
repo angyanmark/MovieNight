@@ -97,5 +97,4 @@ namespace MovieNight.Core.Models
         public string name { get; set; }
         public string original_name { get; set; }
     }
-
 }
