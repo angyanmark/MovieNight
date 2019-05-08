@@ -73,7 +73,7 @@
                             Style="{ThemeResource TitleTextBlockStyle}"
                             Width="350" />
 
-                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="{x:Bind ViewModel.Item.isAdult, Mode=OneWay}">
+                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="Collapsed">
                             <TextBlock Text="adult" Style="{StaticResource DetailBodyStyle}" Margin="6, 0, 0, 0" Foreground="Tomato"/>
                         </StackPanel>
 
@@ -268,9 +268,7 @@
                     </PivotItem>
                     <PivotItem x:Name="sep2" Header=""/>
                     <PivotItem x:Name="collectionPivot" Header="Collection">
-                        <StackPanel>
-                            <TextBlock Text="{x:Bind ViewModel.Item.belongs_to_collection.name, Mode=OneWay}" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" Margin="{StaticResource SmallTopBottomMargin}"/>
-                            <controls:AdaptiveGridView
+                        <controls:AdaptiveGridView
                             ItemsSource="{x:Bind ViewModel.CollectionSource, Mode=OneWay}"
                             ItemClickCommand="{x:Bind ViewModel.ItemClickCommandCollection, Mode=OneWay}"
                             StretchContentForSingleRow="False"
@@ -279,35 +277,34 @@
                             animations:Connected.ListItemElementName="itemThumbnail"
                             DesiredWidth="200"
                             Margin="{StaticResource MediumTopMargin}">
-                                <controls:AdaptiveGridView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:Part">
-                                        <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                            <Grid
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Part">
+                                    <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
+                                        <Grid
                                             x:Name="itemThumbnail">
-                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                                    <Image Source="{x:Bind poster_path, Mode=OneWay}" Stretch="UniformToFill" Height="300">
-                                                        <ToolTipService.ToolTip>
-                                                            <TextBlock Text="{Binding getTitleShortDate, Mode=OneWay}" TextWrapping="Wrap"/>
-                                                        </ToolTipService.ToolTip>
-                                                    </Image>
-                                                    <TextBlock Margin="5, 5, 5, 2"
+                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                <Image Source="{x:Bind poster_path, Mode=OneWay}" Stretch="UniformToFill" Height="300">
+                                                    <ToolTipService.ToolTip>
+                                                        <TextBlock Text="{Binding getTitleShortDate, Mode=OneWay}" TextWrapping="Wrap"/>
+                                                    </ToolTipService.ToolTip>
+                                                </Image>
+                                                <TextBlock Margin="5, 5, 5, 2"
                                                         HorizontalAlignment="Left"
                                                         Text="{x:Bind getTitleShortDate, Mode=OneWay}"
                                                         Style="{ThemeResource BodyTextStyle}"
                                                         MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                    <TextBlock
+                                                <TextBlock
                                                         Margin="5, 2, 5, 5"
                                                         HorizontalAlignment="Left"
                                                         Text="{x:Bind getVoteLine, Mode=OneWay}"
                                                         Style="{ThemeResource DetailBodyBaseMediumStyle}"
                                                         MaxLines="1" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </controls:AdaptiveGridView.ItemTemplate>
-                            </controls:AdaptiveGridView>
-                        </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                        </controls:AdaptiveGridView>
                     </PivotItem>
                     <PivotItem x:Name="sep3" Header="" />
                     <PivotItem x:Name="castPivot" Header="Cast">

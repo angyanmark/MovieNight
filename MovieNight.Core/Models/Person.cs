@@ -305,7 +305,7 @@ namespace MovieNight.Core.Models
                 }
             }
         }
-        /*public Dictionary<string, string> getTagged
+        public Dictionary<string, string> getTagged
         {
             get
             {
@@ -523,7 +523,7 @@ namespace MovieNight.Core.Models
                 return dic2;
             }
             private set { }
-        }*/
+        }
 
         public string getImdb_link
         {

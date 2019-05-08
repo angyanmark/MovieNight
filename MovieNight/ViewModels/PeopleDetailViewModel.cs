@@ -24,6 +24,9 @@ namespace MovieNight.ViewModels
             set { Set(ref person, value); }
         }
 
+        public delegate void loadCompleted();
+        public event loadCompleted LoadCompleted;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommandCast;
@@ -54,14 +57,6 @@ namespace MovieNight.ViewModels
             set { Set(ref _item, value); }
         }
 
-        public Dictionary<string, string> tag;
-
-        public string tagPath { get; set; }
-
-        public string tagTitle { get; set; }
-
-        public string isTagged { get; set; }
-
         public PeopleDetailViewModel()
         {
             ProfilesSource = new ObservableCollection<Profile>();
@@ -75,18 +70,6 @@ namespace MovieNight.ViewModels
         async Task LoadPerson(int id)
         {
             Item = await Task.Run(() => APICalls.CallDetailedPerson(id));
-
-            /*tag = Item.getTagged;
-            tagPath = tag.First().Key;
-            tagTitle = tag.First().Value;
-            if (tagPath == "https://image.tmdb.org/t/p/original/")
-            {
-                isTagged = "Collapsed";
-            }
-            else
-            {
-                isTagged = "Visible";
-            }*/
 
             ProfilesSource.Clear();
             foreach (var imageItem in Item.images.profiles)
@@ -111,6 +94,8 @@ namespace MovieNight.ViewModels
             PermanentCrew.Clear();
             foreach (var permCrewItem in CrewSource)
                 PermanentCrew.Add(permCrewItem);
+
+            LoadCompleted();
         }
 
         public void Initialize(int id)

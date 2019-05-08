@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Toolkit.Uwp.UI.Animations;
@@ -23,6 +24,49 @@ namespace MovieNight.Views
         public Popular_PeopleDetailPage()
         {
             InitializeComponent();
+            ViewModel.LoadCompleted += ViewModel_LoadCompleted;
+        }
+
+        public Dictionary<string, string> tag;
+
+        public string tagPath { get; set; } = "https://image.tmdb.org/t/p/original/";
+
+        public string tagTitle { get; set; } = "";
+
+        private void ViewModel_LoadCompleted()
+        {
+            if (ViewModel.Item.isAdult.Equals("Visible"))
+            {
+                adult.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
+            tag = ViewModel.Item.getTagged;
+            tagPath = tag.First().Key;
+            tagTitle = tag.First().Value;
+            if (tagPath != "https://image.tmdb.org/t/p/original/")
+            {
+                //tagged.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
+
+            if (ViewModel.CastSource.Count < 1)
+            {
+                pivot.Items.Remove(castPivot);
+                pivot.Items.Remove(sep1);
+            }
+            if (ViewModel.CrewSource.Count < 1)
+            {
+                pivot.Items.Remove(crewPivot);
+                pivot.Items.Remove(sep2);
+            }
+            if (ViewModel.ProfilesSource.Count < 1)
+            {
+                pivot.Items.Remove(profilePivot);
+                pivot.Items.Remove(sep3);
+            }
+            if (ViewModel.TaggedImagesSource.Count < 1)
+            {
+                pivot.Items.Remove(imagesPivot);
+                pivot.Items.Remove(sep4);
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -27,7 +27,7 @@ namespace MovieNight.Core.Services
 
         public static readonly string STILL_SIZE = "original";     // w92 w185 w300 original
 
-        public static readonly string FILE_SIZE = "w780";  // same as psoter size
+        public static readonly string FILE_SIZE = "w500";  // same as poster size
 
         public static ObservableCollection<Film> CallPopularFilms()
         {

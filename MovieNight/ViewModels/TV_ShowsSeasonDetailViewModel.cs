@@ -21,6 +21,9 @@ namespace MovieNight.ViewModels
             set { Set(ref tvshowseason, value); }
         }
 
+        public delegate void loadCompleted();
+        public event loadCompleted LoadCompleted;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommandCast;
@@ -74,6 +77,8 @@ namespace MovieNight.ViewModels
             EpisodeSource.Clear();
             foreach (var episodeItem in Item.episodes)
                 EpisodeSource.Add(episodeItem);
+
+            LoadCompleted();
         }
 
         public void Initialize(int tv_id, int season_number, string showName)

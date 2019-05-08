@@ -22,6 +22,9 @@ namespace MovieNight.ViewModels
             set { Set(ref film, value); }
         }
 
+        public delegate void loadCompleted();
+        public event loadCompleted LoadCompleted;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommandCollection;
@@ -104,6 +107,8 @@ namespace MovieNight.ViewModels
             CrewSource.Clear();
             foreach (var crewItem in Item.credits.crew)
                 CrewSource.Add(crewItem);
+
+            LoadCompleted();
         }
 
         public void Initialize(int id)

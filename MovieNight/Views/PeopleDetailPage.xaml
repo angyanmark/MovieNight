@@ -26,6 +26,8 @@
                     <VisualState.Setters>
                         <Setter Target="allprops.(RelativePanel.AlignTopWithPanel)" Value="true" />
                         <Setter Target="allprops.(RelativePanel.RightOf)" Value="profilePicture" />
+                        <Setter Target="tagged.(RelativePanel.AlignTopWithPanel)" Value="true" />
+                        <Setter Target="tagged.(RelativePanel.RightOf)" Value="allprops" />
                         <Setter Target="biography.(RelativePanel.Below)" Value="profilePicture" />
                         <Setter Target="biographyText.(RelativePanel.Below)" Value="biography" />
                         <Setter Target="moreInfo.(RelativePanel.Below)" Value="biographyText" />
@@ -69,7 +71,7 @@
                             Style="{ThemeResource TitleTextBlockStyle}"
                             Width="350" />
 
-                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="{x:Bind ViewModel.Item.isAdult, Mode=OneWay}">
+                        <StackPanel x:Name="adult" Margin="{StaticResource XXSmallTopMargin}" Visibility="Collapsed">
                             <TextBlock Text="adult" Style="{StaticResource DetailBodyStyle}" Margin="6, 0, 0, 0" Foreground="Tomato"/>
                         </StackPanel>
 
@@ -119,19 +121,19 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <!--<StackPanel x:Name="tagged" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" >
-                        <HyperlinkButton NavigateUri="{x:Bind ViewModel.tagPath, Mode=OneWay}" Visibility="{x:Bind ViewModel.isTagged, Mode=OneWay}">
+                    <StackPanel x:Name="tagged" RelativePanel.Below="allprops" RelativePanel.AlignRightWithPanel="True" Visibility="Collapsed">
+                        <HyperlinkButton NavigateUri="{x:Bind tagPath, Mode=OneWay}">
                             <Border Style="{StaticResource DetailPosterBorder}">
-                                <Image Source="{x:Bind ViewModel.tagPath, Mode=OneWay}" MaxHeight="501" MinWidth="310">
+                                <Image x:Name="taggedImage" Source="{x:Bind tagPath, Mode=OneWay}" MaxHeight="501" MinWidth="310">
                                     <ToolTipService.ToolTip>
-                                        <TextBlock Text="{x:Bind ViewModel.tagTitle, Mode=OneWay}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{x:Bind tagTitle, Mode=OneWay}" TextWrapping="Wrap"/>
                                     </ToolTipService.ToolTip>
                                 </Image>
                             </Border>
                         </HyperlinkButton>
-                    </StackPanel>-->
+                    </StackPanel>
 
-                    <TextBlock x:Name="biography" Text="Biography" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="smallprops" />
+                    <TextBlock x:Name="biography" Text="Biography" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="tagged" />
                     <TextBlock x:Name="biographyText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.biography, Mode=OneWay}" RelativePanel.Below="biography" MaxWidth="1000" />
 
                     <TextBlock x:Name="moreInfo" Text="More information" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="biographyText" />
