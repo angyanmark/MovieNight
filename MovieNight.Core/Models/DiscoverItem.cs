@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MovieNight.Core.Models
 {
+    /// <summary>
+    /// Class containing response data for DiscoverItems.
+    /// </summary>
     public class DiscoverResponse
     {
         public int page { get; set; }
@@ -15,6 +18,10 @@ namespace MovieNight.Core.Models
         public string status_message { get; set; }
         public int status_code { get; set; }
     }
+
+    /// <summary>
+    /// Class containing DiscoverItem results.
+    /// </summary>
     public class DiscoverItem
     {
         public int vote_count { get; set; }

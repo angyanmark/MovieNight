@@ -6,6 +6,9 @@ using System.Text;
 
 namespace MovieNight.Core.Models
 {
+    /// <summary>
+    /// Class containing response data for People.
+    /// </summary>
     public class PeopleResponse
     {
         public int page { get; set; }
@@ -15,6 +18,10 @@ namespace MovieNight.Core.Models
         public string status_message { get; set; }
         public int status_code { get; set; }
     }
+
+    /// <summary>
+    /// Class containing Person data.
+    /// </summary>
     public class Person
     {
         public Person()
@@ -625,6 +632,9 @@ namespace MovieNight.Core.Models
         }
     }
 
+    /// <summary>
+    /// Class containing Persons Combined Credits.
+    /// </summary>
     public class Combined_Credits
     {
         //public Cast[] cast { get; set; }
@@ -633,6 +643,9 @@ namespace MovieNight.Core.Models
         public List<Crew> crew { get; set; }
     }
 
+    /// <summary>
+    /// Class containing Cast for a Person.
+    /// </summary>
     public class Cast
     {
         public int id { get; set; }
@@ -813,6 +826,9 @@ namespace MovieNight.Core.Models
 
     }
 
+    /// <summary>
+    /// Class containing Crew for a Person.
+    /// </summary>
     public class Crew
     {
         public int id { get; set; }
@@ -1023,6 +1039,9 @@ namespace MovieNight.Core.Models
         public string cast_id { get; set; }
     }
 
+    /// <summary>
+    /// Class containing Tagged Images for a Person.
+    /// </summary>
     public class Tagged_Images
     {
         //public Result3[] results { get; set; }
@@ -1033,6 +1052,9 @@ namespace MovieNight.Core.Models
         public int total_pages { get; set; }
     }
 
+    /// <summary>
+    /// Class containing Tagged Images results for a Person.
+    /// </summary>
     public class Result3
     {
         public object iso_639_1 { get; set; }
@@ -1085,6 +1107,9 @@ namespace MovieNight.Core.Models
         public int width { get; set; }
     }
 
+    /// <summary>
+    /// Class containing Media for Tagged Images result for a Person.
+    /// </summary>
     public class Media
     {
         public string Poster_path;
@@ -1135,11 +1160,17 @@ namespace MovieNight.Core.Models
         public string first_air_date { get; set; }
     }
 
+    /// <summary>
+    /// Class containing profile Images for a Person.
+    /// </summary>
     public class Images
     {
         public List<Profile> profiles { get; set; }
     }
 
+    /// <summary>
+    /// Class containing data of a profile Image for a Person.
+    /// </summary>
     public class Profile
     {
         public float aspect_ratio { get; set; }

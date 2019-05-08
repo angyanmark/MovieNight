@@ -150,7 +150,7 @@
                     </StackPanel>
 
                     <TextBlock x:Name="overview" Text="Overview" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="backdrop" />
-                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview, Mode=OneWay}" RelativePanel.Below="overview" MaxWidth="1000"/>
+                    <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.overview, Mode=OneWay}" RelativePanel.Below="overview" />
 
                     <TextBlock x:Name="keywords" Text="Keywords" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource MediumTopMargin}" RelativePanel.Below="overviewText" />
                     <TextBlock x:Name="keywordsText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind ViewModel.Item.getKeywords, Mode=OneWay}" RelativePanel.Below="keywords" />

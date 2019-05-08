@@ -48,9 +48,7 @@ namespace MovieNight.Views
             }
             else
             {
-                /*pivot.Items.item
-                pivot.Items.IndexOf(collectionPivot)
-                    ViewModel.Item.belongs_to_collection.name;*/
+                collectionPivot.Header = ViewModel.Item.belongs_to_collection.name;
             }
             if (ViewModel.CastSource.Count < 1)
             {

@@ -6,6 +6,9 @@ using System.Text;
 
 namespace MovieNight.Core.Models
 {
+    /// <summary>
+    /// Class containing response data for TV Show.
+    /// </summary>
     public class TVShowsResponse
     {
         public int page { get; set; }
@@ -15,6 +18,10 @@ namespace MovieNight.Core.Models
         public string status_message { get; set; }
         public int status_code { get; set; }
     }
+
+    /// <summary>
+    /// Class containing TV Show data.
+    /// </summary>
     public class TVShow
     {
         private string Backdrop_path;
@@ -520,6 +527,9 @@ namespace MovieNight.Core.Models
         }
     }
 
+    /// <summary>
+    /// Class containing data for Last Episode to Air.
+    /// </summary>
     public class Last_Episode_To_Air
     {
         public string air_date { get; set; }
@@ -546,6 +556,9 @@ namespace MovieNight.Core.Models
         public int vote_count { get; set; }
     }
 
+    /// <summary>
+    /// Class containing data for Next Episode to Air.
+    /// </summary>
     public class Next_Episode_To_Air
     {
         public string air_date { get; set; }
@@ -572,6 +585,9 @@ namespace MovieNight.Core.Models
         public int vote_count { get; set; }
     }
 
+    /// <summary>
+    /// Class containing External IDs.
+    /// </summary>
     public class External_Ids
     {
         public string imdb_id { get; set; }
@@ -584,6 +600,9 @@ namespace MovieNight.Core.Models
         public string twitter_id { get; set; }
     }
 
+    /// <summary>
+    /// Class containing TV Show Credits.
+    /// </summary>
     public class Credits
     {
         //public Cast[] cast { get; set; }
@@ -592,6 +611,9 @@ namespace MovieNight.Core.Models
         public List<Crew> crew { get; set; }
     }
 
+    /// <summary>
+    /// Class containing Film recommendation Networks.
+    /// </summary>
     public class Network
     {
         public int id { get; set; }
@@ -600,6 +622,9 @@ namespace MovieNight.Core.Models
         public string origin_country { get; set; }
     }
 
+    /// <summary>
+    /// Class containing Network Logos.
+    /// </summary>
     public class Logo
     {
         private string Path;
@@ -617,6 +642,9 @@ namespace MovieNight.Core.Models
         public float aspect_ratio { get; set; }
     }
 
+    /// <summary>
+    /// Class containing TV Show Creators.
+    /// </summary>
     public class Created_By
     {
         public int id { get; set; }
@@ -644,6 +672,9 @@ namespace MovieNight.Core.Models
         }
     }
 
+    /// <summary>
+    /// Class containing TV Show Networks.
+    /// </summary>
     public class Network1
     {
         public string name { get; set; }
@@ -663,6 +694,9 @@ namespace MovieNight.Core.Models
         public string origin_country { get; set; }
     }
 
+    /// <summary>
+    /// Class containing TV Show Season data.
+    /// </summary>
     public class Season
     {
         public string air_date { get; set; }
@@ -734,12 +768,18 @@ namespace MovieNight.Core.Models
         }
     }
 
+    /// <summary>
+    /// Class containing TV Show certification results.
+    /// </summary>
     public class Content_Ratings
     {
         //public Result6[] results { get; set; }
         public List<Result6> results { get; set; }
     }
 
+    /// <summary>
+    /// Class containing TV Show certification data.
+    /// </summary>
     public class Result6
     {
         public string iso_3166_1 { get; set; }

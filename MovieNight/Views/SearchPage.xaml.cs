@@ -23,7 +23,7 @@ namespace MovieNight.Views
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (args.ChosenSuggestion != null)
+            /*if (args.ChosenSuggestion != null)
             {
                 // User selected an item from the suggestion list, take an action on it here.
             }
@@ -31,15 +31,10 @@ namespace MovieNight.Views
             {
                 if (args.QueryText != "")
                 {
-                    ViewModel.Source.Clear();
                     // Use args.QueryText to determine what to do.
-                    var s = APICalls.CallMultiSearch(args.QueryText);
-                    foreach (var v in s)
-                    {
-                        ViewModel.Source.Add(v);
-                    }
+                    LoadSearch(args.QueryText);
                 }
-            }
+            }*/
         }
 
         async Task LoadSearch(string text)
@@ -61,6 +56,10 @@ namespace MovieNight.Views
             {
                 //Set the ItemsSource to be your filtered dataset
                 //sender.ItemsSource = dataset;
+                /*if(sender.Text == "")
+                {
+                    ViewModel.Source.Clear();
+                }*/
                 LoadSearch(sender.Text);
             }
         }
