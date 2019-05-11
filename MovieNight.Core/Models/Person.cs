@@ -1100,6 +1100,20 @@ namespace MovieNight.Core.Models
                 }
             }
         }
+        public string getOriginalFilePath
+        {
+            get
+            {
+                if (File_path == "" || File_path == null)
+                {
+                    return "https://www.themoviedb.org/";
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/original/" + File_path;
+                }
+            }
+        }
         public float aspect_ratio { get; set; }
         public Media media { get; set; }
         public int height { get; set; }
