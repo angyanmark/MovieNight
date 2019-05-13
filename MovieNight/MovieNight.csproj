@@ -125,15 +125,19 @@
     <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="ViewModels\BackdropFlipViewModel.cs" />
     <Compile Include="ViewModels\Coming_SoonViewModel.cs" />
     <Compile Include="ViewModels\DiscoverTVViewModel.cs" />
     <Compile Include="ViewModels\DiscoverViewModel.cs" />
+    <Compile Include="ViewModels\PosterFlipViewModel.cs" />
     <Compile Include="ViewModels\Now_Playing_MoviesViewModel.cs" />
     <Compile Include="ViewModels\MoviesDetailViewModel.cs" />
     <Compile Include="ViewModels\Popular_MoviesViewModel.cs" />
     <Compile Include="ViewModels\PeopleDetailViewModel.cs" />
     <Compile Include="ViewModels\Popular_PeopleViewModel.cs" />
+    <Compile Include="ViewModels\ProfileFlipViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\TaggedImageFlipViewModel.cs" />
     <Compile Include="ViewModels\TV_Airing_TodayViewModel.cs" />
     <Compile Include="ViewModels\TV_ShowsDetailViewModel.cs" />
     <Compile Include="ViewModels\Popular_TV_ShowsViewModel.cs" />
@@ -143,6 +147,9 @@
     <Compile Include="ViewModels\TV_ShowsSeasonDetailViewModel.cs" />
     <Compile Include="ViewModels\Upcoming_MoviesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\BackdropFlipPage.xaml.cs">
+      <DependentUpon>BackdropFlipPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Coming_SoonPage.xaml.cs">
       <DependentUpon>Coming_SoonPage.xaml</DependentUpon>
     </Compile>
@@ -151,6 +158,9 @@
     </Compile>
     <Compile Include="Views\DiscoverTVPage.xaml.cs">
       <DependentUpon>DiscoverTVPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PosterFlipPage.xaml.cs">
+      <DependentUpon>PosterFlipPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Now_Playing_MoviesPage.xaml.cs">
       <DependentUpon>Now_Playing_MoviesPage.xaml</DependentUpon>
@@ -166,6 +176,12 @@
     </Compile>
     <Compile Include="Views\Popular_PeoplePage.xaml.cs">
       <DependentUpon>Popular_PeoplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfileFlipPage.xaml.cs">
+      <DependentUpon>ProfileFlipPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaggedImageFlipPage.xaml.cs">
+      <DependentUpon>TaggedImageFlipPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TV_Airing_TodayPage.xaml.cs">
       <DependentUpon>TV_Airing_TodayPage.xaml</DependentUpon>
@@ -222,6 +238,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BackdropFlipPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Coming_SoonPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,6 +251,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DiscoverTVPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PosterFlipPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -251,6 +275,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Popular_PeoplePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProfileFlipPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TaggedImageFlipPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

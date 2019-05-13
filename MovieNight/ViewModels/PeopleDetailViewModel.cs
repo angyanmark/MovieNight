@@ -37,9 +37,17 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandCrew => _itemClickCommandCrew ?? (_itemClickCommandCrew = new RelayCommand<Crew>(OnItemClick));
 
+        private ICommand _itemClickCommandProfile;
+
+        public ICommand ItemClickCommandProfile => _itemClickCommandProfile ?? (_itemClickCommandProfile = new RelayCommand<Profile>(OnItemClick));
+
+        private ICommand _itemClickCommandTaggedImage;
+
+        public ICommand ItemClickCommandTaggedImage => _itemClickCommandTaggedImage ?? (_itemClickCommandTaggedImage = new RelayCommand<TaggedImagesResult>(OnItemClick));
+
         public ObservableCollection<Profile> ProfilesSource { get; set; }
 
-        public ObservableCollection<Result3> TaggedImagesSource { get; set; }
+        public ObservableCollection<TaggedImagesResult> TaggedImagesSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
 
@@ -60,7 +68,7 @@ namespace MovieNight.ViewModels
         public PeopleDetailViewModel()
         {
             ProfilesSource = new ObservableCollection<Profile>();
-            TaggedImagesSource = new ObservableCollection<Result3>();
+            TaggedImagesSource = new ObservableCollection<TaggedImagesResult>();
             CastSource = new ObservableCollection<Cast>();
             PermanentCast = new ObservableCollection<Cast>();
             CrewSource = new ObservableCollection<Crew>();
@@ -70,6 +78,7 @@ namespace MovieNight.ViewModels
         async Task LoadPerson(int id)
         {
             Item = await Task.Run(() => APICalls.CallDetailedPerson(id));
+            Item.profile_path = "";
 
             ProfilesSource.Clear();
             foreach (var imageItem in Item.images.profiles)
@@ -134,6 +143,50 @@ namespace MovieNight.ViewModels
                     NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                     NavigationService.Navigate(typeof(TV_ShowsDetailViewModel).FullName, clickedItem.id);
                 }
+            }
+        }
+
+        private void OnItemClick(Profile clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                int idx = 0;
+                foreach (Profile p in ProfilesSource)
+                {
+                    if (clickedItem.file_path == p.file_path)
+                    {
+                        break;
+                    }
+                    idx++;
+                }
+                ImageHolder ih = new ImageHolder();
+                ih.Profiles = ProfilesSource;
+                ih.selectedIndex = idx;
+
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(ProfileFlipViewModel).FullName, ih);
+            }
+        }
+
+        private void OnItemClick(TaggedImagesResult clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                int idx = 0;
+                foreach (TaggedImagesResult b in TaggedImagesSource)
+                {
+                    if (clickedItem.file_path == b.file_path)
+                    {
+                        break;
+                    }
+                    idx++;
+                }
+                ImageHolder ih = new ImageHolder();
+                ih.TaggedImages = TaggedImagesSource;
+                ih.selectedIndex = idx;
+
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(TaggedImageFlipViewModel).FullName, ih);
             }
         }
     }

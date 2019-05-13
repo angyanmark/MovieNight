@@ -34,7 +34,19 @@ namespace MovieNight.ViewModels
             Register<DiscoverViewModel, DiscoverPage>();
             Register<DiscoverTVViewModel, DiscoverTVPage>();
             Register<TV_ShowsSeasonDetailViewModel, TV_ShowsSeasonDetailPage>();
+            Register<PosterFlipViewModel, ImageFlipPage>();
+            Register<BackdropFlipViewModel, BackdropFlipPage>();
+            Register<ProfileFlipViewModel, ProfileFlipPage>();
+            Register<TaggedImageFlipViewModel, TaggedImageFlipPage>();
         }
+
+        public TaggedImageFlipViewModel TaggedImageFlipViewModel => SimpleIoc.Default.GetInstance<TaggedImageFlipViewModel>();
+
+        public ProfileFlipViewModel ProfileFlipViewModel => SimpleIoc.Default.GetInstance<ProfileFlipViewModel>();
+
+        public BackdropFlipViewModel BackdropFlipViewModel => SimpleIoc.Default.GetInstance<BackdropFlipViewModel>();
+
+        public PosterFlipViewModel ImageFlipViewModel => SimpleIoc.Default.GetInstance<PosterFlipViewModel>();
 
         public TV_ShowsSeasonDetailViewModel TV_ShowsSeasonDetailViewModel => SimpleIoc.Default.GetInstance<TV_ShowsSeasonDetailViewModel>();
 

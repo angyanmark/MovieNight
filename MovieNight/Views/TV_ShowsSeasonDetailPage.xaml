@@ -247,6 +247,7 @@
                     <PivotItem x:Name="postersPivot" Header="Posters">
                         <controls:AdaptiveGridView
                                 ItemsSource="{x:Bind ViewModel.PosterSource, Mode=OneWay}"
+                                ItemClickCommand="{x:Bind ViewModel.ItemClickCommandPoster, Mode=OneWay}"
                                 StretchContentForSingleRow="False"
                                 SelectionMode="None"
                                 IsItemClickEnabled="True"
@@ -257,9 +258,7 @@
                                     <Grid
                                             x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                            <HyperlinkButton NavigateUri="{Binding getOriginalFilePath, Mode=OneWay}" Padding="0">
-                                                <Image Source="{Binding file_path, Mode=OneWay}"/>
-                                            </HyperlinkButton>
+                                            <Image Source="{Binding file_path, Mode=OneWay}"/>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>

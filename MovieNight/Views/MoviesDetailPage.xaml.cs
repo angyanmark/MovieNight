@@ -1,7 +1,6 @@
 ﻿using System;
 
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using MovieNight.Services;
 using MovieNight.ViewModels;
 

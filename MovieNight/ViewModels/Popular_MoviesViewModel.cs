@@ -21,13 +21,16 @@ namespace MovieNight.ViewModels
 
         private ICommand _itemClickCommand;
 
-        public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<Film>(OnItemClick));
+        //public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<Film>(OnItemClick));
+        public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<DiscoverItem>(OnItemClick));
 
-        public ObservableCollection<Film> Source { get; set; } = new ObservableCollection<Film>();
+        //public ObservableCollection<Film> Source { get; set; } = new ObservableCollection<Film>();
+        public ObservableCollection<DiscoverItem> Source { get; set; } = new ObservableCollection<DiscoverItem>();
 
         async Task LoadMovies()
         {
-            ObservableCollection<Film> films = await Task.Run(() => APICalls.CallPopularFilms());
+            //ObservableCollection<Film> films = await Task.Run(() => APICalls.CallPopularFilms());
+            ObservableCollection<DiscoverItem> films = await Task.Run(() => APICalls.CallDiscoverPage("", 0, 0, 0, 0, "popularity.desc", false));
             foreach (var v in films)
             {
                 Source.Add(v);
@@ -39,7 +42,8 @@ namespace MovieNight.ViewModels
             LoadMovies();
         }
 
-        private void OnItemClick(Film clickedItem)
+        //private void OnItemClick(Film clickedItem)
+        private void OnItemClick(DiscoverItem clickedItem)
         {
             if (clickedItem != null)
             {

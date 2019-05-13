@@ -18,7 +18,7 @@ namespace MovieNight.Core.Services
 
         private static RestClient client = new RestClient("https://api.themoviedb.org/3");
 
-        private static readonly int pages = 3;
+        private static readonly int pages = 5;
 
         public static readonly string BACKDROP_SIZE = "w1280"; // w300 w780 w1280 original
 
@@ -606,22 +606,29 @@ namespace MovieNight.Core.Services
                 request2.AddUrlSegment("collection_id", data.belongs_to_collection.id);
                 data.collection_films = client.Execute<CollectionResponse>(request2).Data;
 
-                data.collection_films.parts = data.collection_films.parts.OrderBy(o => o.release_date).ToList();
-
-                int size = data.collection_films.parts.Count;
-                int cnt = 0;
-                for (int i = 0; i < data.collection_films.parts.Count; i++)
+                if(data.collection_films.parts != null)
                 {
-                    if (data.collection_films.parts[cnt].release_date == "" || data.collection_films.parts[cnt].release_date == null)
+                    data.collection_films.parts = data.collection_films.parts.OrderBy(o => o.release_date).ToList();
+
+                    int size = data.collection_films.parts.Count;
+                    int cnt = 0;
+                    for (int i = 0; i < data.collection_films.parts.Count; i++)
                     {
-                        var item = data.collection_films.parts[cnt];
-                        data.collection_films.parts.RemoveAt(cnt);
-                        data.collection_films.parts.Add(item);
+                        if (data.collection_films.parts[cnt].release_date == "" || data.collection_films.parts[cnt].release_date == null)
+                        {
+                            var item = data.collection_films.parts[cnt];
+                            data.collection_films.parts.RemoveAt(cnt);
+                            data.collection_films.parts.Add(item);
+                        }
+                        else
+                        {
+                            cnt++;
+                        }
                     }
-                    else
-                    {
-                        cnt++;
-                    }
+                }
+                else
+                {
+                    data.belongs_to_collection = null;
                 }
             }
 

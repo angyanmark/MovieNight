@@ -23,7 +23,8 @@
             animations:Connected.ListItemKey="animationKeyPopular_Movies"
             DesiredWidth="240">
             <controls:AdaptiveGridView.ItemTemplate>
-                <DataTemplate x:DataType="models:Film">
+                <!--<DataTemplate x:DataType="models:Film">-->
+                <DataTemplate x:DataType="models:DiscoverItem">
                     <Grid
                         x:Name="itemThumbnail">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >

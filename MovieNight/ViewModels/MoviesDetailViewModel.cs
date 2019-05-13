@@ -12,6 +12,14 @@ using MovieNight.Services;
 
 namespace MovieNight.ViewModels
 {
+    public class ImageHolder
+    {
+        public ObservableCollection<Poster> Posters = new ObservableCollection<Poster>();
+        public ObservableCollection<Backdrop> Backdrops = new ObservableCollection<Backdrop>();
+        public ObservableCollection<Profile> Profiles = new ObservableCollection<Profile>();
+        public ObservableCollection<TaggedImagesResult> TaggedImages = new ObservableCollection<TaggedImagesResult>();
+        public int selectedIndex = 0;
+    }
     public class MoviesDetailViewModel : ViewModelBase
     {
         private Film film = new Film();
@@ -42,6 +50,14 @@ namespace MovieNight.ViewModels
         private ICommand _itemClickCommandRecommendations;
 
         public ICommand ItemClickCommandRecommendations => _itemClickCommandRecommendations ?? (_itemClickCommandRecommendations = new RelayCommand<Result1>(OnItemClick));
+
+        private ICommand _itemClickCommandPoster;
+
+        public ICommand ItemClickCommandPoster => _itemClickCommandPoster ?? (_itemClickCommandPoster = new RelayCommand<Poster>(OnItemClick));
+
+        private ICommand _itemClickCommandImage;
+
+        public ICommand ItemClickCommandImage => _itemClickCommandImage ?? (_itemClickCommandImage = new RelayCommand<Backdrop>(OnItemClick));
 
         public ObservableCollection<Poster> PosterSource { get; set; }
         public ObservableCollection<Backdrop> BackdropSource { get; set; }
@@ -76,6 +92,8 @@ namespace MovieNight.ViewModels
         async Task LoadMovie(int id)
         {
             Item = await Task.Run(() => APICalls.CallDetailedFilm(id));
+            Item.poster_path = "";
+            Item.backdrop_path = "";
 
             PosterSource.Clear();
             foreach (var posterItem in Item.images.posters)
@@ -149,6 +167,50 @@ namespace MovieNight.ViewModels
             {
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(MoviesDetailViewModel).FullName, clickedItem.id);
+            }
+        }
+
+        private void OnItemClick(Poster clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                int idx = 0;
+                foreach(Poster p in PosterSource)
+                {
+                    if(clickedItem.file_path == p.file_path)
+                    {
+                        break;
+                    }
+                    idx++;
+                }
+                ImageHolder ih = new ImageHolder();
+                ih.Posters = PosterSource;
+                ih.selectedIndex = idx;
+
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(PosterFlipViewModel).FullName, ih);
+            }
+        }
+
+        private void OnItemClick(Backdrop clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                int idx = 0;
+                foreach (Backdrop b in BackdropSource)
+                {
+                    if (clickedItem.file_path == b.file_path)
+                    {
+                        break;
+                    }
+                    idx++;
+                }
+                ImageHolder ih = new ImageHolder();
+                ih.Backdrops = BackdropSource;
+                ih.selectedIndex = idx;
+
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(BackdropFlipViewModel).FullName, ih);
             }
         }
     }

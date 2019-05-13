@@ -237,4 +237,20 @@
     <value>TV_ShowsSeason</value>
     <comment>Navigation view item name for TV_ShowsSeason</comment>
   </data>
+  <data name="Shell_ImageFlip.Content" xml:space="preserve">
+    <value>ImageFlip</value>
+    <comment>Navigation view item name for ImageFlip</comment>
+  </data>
+  <data name="Shell_BackdropFlip.Content" xml:space="preserve">
+    <value>BackdropFlip</value>
+    <comment>Navigation view item name for BackdropFlip</comment>
+  </data>
+  <data name="Shell_ProfileFlip.Content" xml:space="preserve">
+    <value>ProfileFlip</value>
+    <comment>Navigation view item name for ProfileFlip</comment>
+  </data>
+  <data name="Shell_TaggedImageFlip.Content" xml:space="preserve">
+    <value>TaggedImageFlip</value>
+    <comment>Navigation view item name for TaggedImageFlip</comment>
+  </data>
 </root>

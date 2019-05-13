@@ -278,6 +278,7 @@
                     <PivotItem x:Name="profilePivot" Header="Profile pictures">
                         <controls:AdaptiveGridView
                                 ItemsSource="{x:Bind ViewModel.ProfilesSource, Mode=OneWay}"
+                                ItemClickCommand="{x:Bind ViewModel.ItemClickCommandProfile, Mode=OneWay}"
                                 StretchContentForSingleRow="False"
                                 SelectionMode="None"
                                 IsItemClickEnabled="True"
@@ -288,9 +289,7 @@
                                     <Grid
                                             x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                            <HyperlinkButton NavigateUri="{Binding getOriginalFilePath, Mode=OneWay}" Padding="0">
-                                                <Image Source="{Binding file_path, Mode=OneWay}"/>
-                                            </HyperlinkButton>
+                                            <Image Source="{Binding file_path, Mode=OneWay}"/>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -301,6 +300,7 @@
                     <PivotItem x:Name="imagesPivot" Header="Tagged images">
                         <controls:AdaptiveGridView
                                 ItemsSource="{x:Bind ViewModel.TaggedImagesSource, Mode=OneWay}"
+                                ItemClickCommand="{x:Bind ViewModel.ItemClickCommandTaggedImage, Mode=OneWay}"
                                 StretchContentForSingleRow="False"
                                 SelectionMode="None"
                                 IsItemClickEnabled="True"
@@ -311,13 +311,11 @@
                                     <Grid
                                             x:Name="itemThumbnail">
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                            <HyperlinkButton NavigateUri="{Binding getOriginalFilePath, Mode=OneWay}" Padding="0">
-                                                <Image Source="{Binding file_path, Mode=OneWay}">
-                                                    <ToolTipService.ToolTip>
-                                                        <TextBlock Text="{Binding getTitleShortDate, Mode=OneWay}" TextWrapping="Wrap"/>
-                                                    </ToolTipService.ToolTip>
-                                                </Image>
-                                            </HyperlinkButton>
+                                            <Image Source="{Binding file_path, Mode=OneWay}">
+                                                <ToolTipService.ToolTip>
+                                                    <TextBlock Text="{Binding getTitleShortDate, Mode=OneWay}" TextWrapping="Wrap"/>
+                                                </ToolTipService.ToolTip>
+                                            </Image>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>

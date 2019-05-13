@@ -1045,7 +1045,7 @@ namespace MovieNight.Core.Models
     public class Tagged_Images
     {
         //public Result3[] results { get; set; }
-        public List<Result3> results { get; set; }
+        public List<TaggedImagesResult> results { get; set; }
         public int page { get; set; }
         public int total_results { get; set; }
         public int id { get; set; }
@@ -1055,7 +1055,7 @@ namespace MovieNight.Core.Models
     /// <summary>
     /// Class containing Tagged Images results for a Person.
     /// </summary>
-    public class Result3
+    public class TaggedImagesResult
     {
         public object iso_639_1 { get; set; }
         public int vote_count { get; set; }

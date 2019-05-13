@@ -34,6 +34,10 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandCrew => _itemClickCommandCrew ?? (_itemClickCommandCrew = new RelayCommand<Crew>(OnItemClick));
 
+        private ICommand _itemClickCommandPoster;
+
+        public ICommand ItemClickCommandPoster => _itemClickCommandPoster ?? (_itemClickCommandPoster = new RelayCommand<Poster>(OnItemClick));
+
         public ObservableCollection<Poster> PosterSource { get; set; }
 
         public ObservableCollection<Cast> CastSource { get; set; }
@@ -61,6 +65,7 @@ namespace MovieNight.ViewModels
         async Task LoadTVShowSeason(int tv_id, int season_number, string showName)
         {
             Item = await Task.Run(() => APICalls.CallDetailedTVShowSeason(tv_id, season_number, showName));
+            Item.poster_path = "";
 
             PosterSource.Clear();
             foreach (var posterItem in Item.images.posters)
@@ -101,6 +106,28 @@ namespace MovieNight.ViewModels
             {
                 //NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(PeopleDetailViewModel).FullName, clickedItem.id);
+            }
+        }
+
+        private void OnItemClick(Poster clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                int idx = 0;
+                foreach (Poster p in PosterSource)
+                {
+                    if (clickedItem.file_path == p.file_path)
+                    {
+                        break;
+                    }
+                    idx++;
+                }
+                ImageHolder ih = new ImageHolder();
+                ih.Posters = PosterSource;
+                ih.selectedIndex = idx;
+
+                //NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(PosterFlipViewModel).FullName, ih);
             }
         }
     }

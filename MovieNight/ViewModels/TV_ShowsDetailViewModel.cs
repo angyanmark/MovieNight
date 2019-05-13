@@ -50,6 +50,14 @@ namespace MovieNight.ViewModels
 
         public ICommand ItemClickCommandSeason => _itemClickCommandSeason ?? (_itemClickCommandSeason = new RelayCommand<Season>(OnItemClick));
 
+        private ICommand _itemClickCommandPoster;
+
+        public ICommand ItemClickCommandPoster => _itemClickCommandPoster ?? (_itemClickCommandPoster = new RelayCommand<Poster>(OnItemClick));
+
+        private ICommand _itemClickCommandBackdrop;
+
+        public ICommand ItemClickCommandBackdrop => _itemClickCommandBackdrop ?? (_itemClickCommandBackdrop = new RelayCommand<Backdrop>(OnItemClick));
+
         public ObservableCollection<Poster> PosterSource { get; set; }
         public ObservableCollection<Backdrop> BackdropSource { get; set; }
         public ObservableCollection<ReviewResult> ReviewSource { get; set; }
@@ -83,6 +91,8 @@ namespace MovieNight.ViewModels
         async Task LoadTVShow(int id)
         {
             Item = await Task.Run(() => APICalls.CallDetailedTVShow(id));
+            Item.poster_path = "";
+            Item.backdrop_path = "";
 
             PosterSource.Clear();
             foreach (var posterItem in Item.images.posters)
@@ -159,6 +169,50 @@ namespace MovieNight.ViewModels
             {
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(PeopleDetailViewModel).FullName, clickedItem.id);
+            }
+        }
+
+        private void OnItemClick(Poster clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                int idx = 0;
+                foreach (Poster p in PosterSource)
+                {
+                    if (clickedItem.file_path == p.file_path)
+                    {
+                        break;
+                    }
+                    idx++;
+                }
+                ImageHolder ih = new ImageHolder();
+                ih.Posters = PosterSource;
+                ih.selectedIndex = idx;
+
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(PosterFlipViewModel).FullName, ih);
+            }
+        }
+
+        private void OnItemClick(Backdrop clickedItem)
+        {
+            if (clickedItem != null)
+            {
+                int idx = 0;
+                foreach (Backdrop b in BackdropSource)
+                {
+                    if (clickedItem.file_path == b.file_path)
+                    {
+                        break;
+                    }
+                    idx++;
+                }
+                ImageHolder ih = new ImageHolder();
+                ih.Backdrops = BackdropSource;
+                ih.selectedIndex = idx;
+
+                NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
+                NavigationService.Navigate(typeof(BackdropFlipViewModel).FullName, ih);
             }
         }
     }
