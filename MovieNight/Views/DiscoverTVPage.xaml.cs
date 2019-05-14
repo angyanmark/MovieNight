@@ -39,11 +39,18 @@ namespace MovieNight.Views
             fillYears();
             fillGenres();
 
-            yearCombo.SelectedIndex = dc.YearIdx;
+            /*yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
             minimumVotesCombo.SelectedIndex = dc.CountIdx;
             sortByCombo.SelectedIndex = dc.SortByIdx;
-            keywordText.Text = dc.keyword;
+            keywordText.Text = dc.keyword;*/
+
+            ViewModel.LoadCompleted += ViewModel_LoadCompleted;
+        }
+
+        private void ViewModel_LoadCompleted()
+        {
+            findButton.IsEnabled = true;
         }
 
         public List<ComboBoxItem> years = new List<ComboBoxItem>();
@@ -193,6 +200,7 @@ namespace MovieNight.Views
 
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
+            findButton.IsEnabled = false;
             dc.keyword = keywordText.Text;
             setYear();
             setGenre();
@@ -200,6 +208,8 @@ namespace MovieNight.Views
             setSortBy();
 
             ViewModel.Source.Clear();
+            ViewModel.loadedPages = 0;
+            ViewModel.noMore = false;
 
             string yearValue = (string)(yearCombo.SelectedItem as ComboBoxItem).Content;
 
@@ -219,16 +229,7 @@ namespace MovieNight.Views
                 year = Int32.Parse(yearValue);
             }
 
-            LoadTVShows(keywordText.Text, decade, year, genre, count, sortby);
-        }
-
-        async Task LoadTVShows(string keyword, int decade, int year, int genre, int count, string sortby)
-        {
-            ObservableCollection<DiscoverItem> tvshows = await Task.Run(() => APICalls.CallDiscoverTVPage(keyword, decade, year, genre, count, sortby));
-            foreach (var v in tvshows)
-            {
-                ViewModel.Source.Add(v);
-            }
+            ViewModel.LoadTVShows(keywordText.Text, decade, year, genre, count, sortby);
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)

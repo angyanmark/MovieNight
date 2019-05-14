@@ -16,6 +16,9 @@ namespace MovieNight.ViewModels
 {
     public class Upcoming_MoviesViewModel : ViewModelBase
     {
+        private int loadedPages = 0;
+        private bool noMore = false;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommand;
@@ -26,10 +29,23 @@ namespace MovieNight.ViewModels
 
         async Task LoadMovies()
         {
-            ObservableCollection<Film> films = await Task.Run(() => APICalls.CallUpcomingFilms());
-            foreach (var v in films)
+            if (!noMore)
             {
-                Source.Add(v);
+                ObservableCollection<Film> films = new ObservableCollection<Film>();
+
+                for (int i = 0; i < APICalls.pages; i++)
+                {
+                    films = await Task.Run(() => APICalls.CallUpcomingFilms(++loadedPages));
+                    if (films.Count == 0)
+                    {
+                        noMore = true;
+                        break;
+                    }
+                    foreach (var v in films)
+                    {
+                        Source.Add(v);
+                    }
+                }
             }
         }
 

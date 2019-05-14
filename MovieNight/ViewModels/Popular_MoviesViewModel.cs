@@ -17,23 +17,36 @@ namespace MovieNight.ViewModels
 {
     public class Popular_MoviesViewModel : ViewModelBase
     {
+        private int loadedPages = 0;
+        private bool noMore = false;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommand;
 
-        //public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<Film>(OnItemClick));
         public ICommand ItemClickCommand => _itemClickCommand ?? (_itemClickCommand = new RelayCommand<DiscoverItem>(OnItemClick));
 
-        //public ObservableCollection<Film> Source { get; set; } = new ObservableCollection<Film>();
         public ObservableCollection<DiscoverItem> Source { get; set; } = new ObservableCollection<DiscoverItem>();
 
-        async Task LoadMovies()
+        public async Task LoadMovies()
         {
-            //ObservableCollection<Film> films = await Task.Run(() => APICalls.CallPopularFilms());
-            ObservableCollection<DiscoverItem> films = await Task.Run(() => APICalls.CallDiscoverPage("", 0, 0, 0, 0, "popularity.desc", false));
-            foreach (var v in films)
+            if (!noMore)
             {
-                Source.Add(v);
+                ObservableCollection<DiscoverItem> films = new ObservableCollection<DiscoverItem>();
+
+                for (int i = 0; i < APICalls.pages; i++)
+                {
+                    films = await Task.Run(() => APICalls.CallDiscoverPage(++loadedPages, "", 0, 0, 0, 0, "popularity.desc", false));
+                    if (films.Count == 0)
+                    {
+                        noMore = true;
+                        break;
+                    }
+                    foreach (var v in films)
+                    {
+                        Source.Add(v);
+                    }
+                }
             }
         }
 
@@ -42,7 +55,6 @@ namespace MovieNight.ViewModels
             LoadMovies();
         }
 
-        //private void OnItemClick(Film clickedItem)
         private void OnItemClick(DiscoverItem clickedItem)
         {
             if (clickedItem != null)

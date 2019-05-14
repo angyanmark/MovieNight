@@ -12,7 +12,7 @@
 
     <Grid x:Name="ContentArea"
           Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-          Margin="{StaticResource SmallLeftRightMargin}">
+          Margin="12, 12, 12, 0">
         <controls:AdaptiveGridView
             ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
             ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"

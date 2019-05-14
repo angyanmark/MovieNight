@@ -107,7 +107,7 @@
         </winui:NavigationView.MenuItems>
         
         <i:Interaction.Behaviors>
-            <behaviors:NavigationViewHeaderBehavior
+            <!--<behaviors:NavigationViewHeaderBehavior
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
@@ -119,7 +119,7 @@
                         </Grid>
                     </DataTemplate>
                 </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-            </behaviors:NavigationViewHeaderBehavior>
+            </behaviors:NavigationViewHeaderBehavior>-->
             <ic:EventTriggerBehavior EventName="ItemInvoked">
                 <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
             </ic:EventTriggerBehavior>

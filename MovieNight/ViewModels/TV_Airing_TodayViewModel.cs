@@ -16,6 +16,9 @@ namespace MovieNight.ViewModels
 {
     public class TV_Airing_TodayViewModel : ViewModelBase
     {
+        private int loadedPages = 0;
+        private bool noMore = false;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommand;
@@ -26,10 +29,23 @@ namespace MovieNight.ViewModels
 
         async Task LoadTVShows()
         {
-            ObservableCollection<TVShow> tvshows = await Task.Run(() => APICalls.CallTvAiringToday());
-            foreach (var v in tvshows)
+            if (!noMore)
             {
-                Source.Add(v);
+                ObservableCollection<TVShow> tvshows = new ObservableCollection<TVShow>();
+
+                for (int i = 0; i < APICalls.pages; i++)
+                {
+                    tvshows = await Task.Run(() => APICalls.CallTvAiringToday(++loadedPages));
+                    if (tvshows.Count == 0)
+                    {
+                        noMore = true;
+                        break;
+                    }
+                    foreach (var v in tvshows)
+                    {
+                        Source.Add(v);
+                    }
+                }
             }
         }
 

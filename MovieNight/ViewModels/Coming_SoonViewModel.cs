@@ -16,6 +16,12 @@ namespace MovieNight.ViewModels
 {
     public class Coming_SoonViewModel : ViewModelBase
     {
+        public int loadedPages = 0;
+        public bool noMore = false;
+
+        public delegate void loadCompleted();
+        public event loadCompleted LoadCompleted;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommand;
@@ -24,18 +30,32 @@ namespace MovieNight.ViewModels
 
         public ObservableCollection<DiscoverItem> Source { get; set; } = new ObservableCollection<DiscoverItem>();
 
-        async Task LoadMovies()
+        public async Task LoadMovies(int time)
         {
-            ObservableCollection<DiscoverItem> films = await Task.Run(() => APICalls.CallComingSoon(1));
-            foreach (var v in films)
+            if (!noMore)
             {
-                Source.Add(v);
+                ObservableCollection<DiscoverItem> films = new ObservableCollection<DiscoverItem>();
+                
+                for (int i = 0; i < APICalls.pages; i++)
+                {
+                    films = await Task.Run(() => APICalls.CallComingSoon(++loadedPages, time));
+                    if (films.Count == 0)
+                    {
+                        noMore = true;
+                        break;
+                    }
+                    foreach (var v in films)
+                    {
+                        Source.Add(v);
+                    }
+                }
             }
+            LoadCompleted();
         }
 
         public Coming_SoonViewModel()
         {
-            LoadMovies();
+            LoadMovies(1);
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

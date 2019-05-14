@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <Grid x:Name="ContentArea"
-          Margin="{StaticResource SmallLeftRightMargin}">
+          Margin="12, 12, 12, 0">
         <ScrollViewer>
             <StackPanel Margin="0, 20, 0, 0">
                 <StackPanel x:Name="timeStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center" Orientation="Horizontal">

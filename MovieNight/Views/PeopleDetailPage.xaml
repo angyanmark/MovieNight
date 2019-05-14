@@ -12,7 +12,7 @@
 
     <Grid
         x:Name="ContentArea"
-        Margin="21, 10, 21, 0"
+        Margin="21, 21, 21, 0"
         animations:Connected.AnchorElement="{x:Bind profilePicture}"
         Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
 

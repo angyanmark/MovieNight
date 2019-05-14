@@ -26,6 +26,12 @@ namespace MovieNight.Views
         {
             InitializeComponent();
             timeCombo.SelectedIndex = tc.TimeIdx;
+            ViewModel.LoadCompleted += ViewModel_LoadCompleted;
+        }
+
+        private void ViewModel_LoadCompleted()
+        {
+            findButton.IsEnabled = true;
         }
 
         public void setTime()
@@ -56,21 +62,15 @@ namespace MovieNight.Views
             }
         }
 
-        async Task LoadMovies(int time)
-        {
-            ObservableCollection<DiscoverItem> films = await Task.Run(() => APICalls.CallComingSoon(time));
-            foreach (var v in films)
-            {
-                ViewModel.Source.Add(v);
-            }
-        }
-
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
+            findButton.IsEnabled = false;
             tc.TimeIdx = timeCombo.SelectedIndex;
             setTime();
             ViewModel.Source.Clear();
-            LoadMovies(time);
+            ViewModel.loadedPages = 0;
+            ViewModel.noMore = false;
+            ViewModel.LoadMovies(time);
         }
     }
 }

@@ -16,6 +16,9 @@ namespace MovieNight.ViewModels
 {
     public class Popular_PeopleViewModel : ViewModelBase
     {
+        private int loadedPages = 0;
+        private bool noMore = false;
+
         public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         private ICommand _itemClickCommand;
@@ -26,10 +29,23 @@ namespace MovieNight.ViewModels
 
         async Task LoadPeople()
         {
-            ObservableCollection<Person> people = await Task.Run(() => APICalls.CallPopularPeople());
-            foreach (var v in people)
+            if (!noMore)
             {
-                Source.Add(v);
+                ObservableCollection<Person> people = new ObservableCollection<Person>();
+
+                for (int i = 0; i < APICalls.pages; i++)
+                {
+                    people = await Task.Run(() => APICalls.CallPopularPeople(++loadedPages));
+                    if (people.Count == 0)
+                    {
+                        noMore = true;
+                        break;
+                    }
+                    foreach (var v in people)
+                    {
+                        Source.Add(v);
+                    }
+                }
             }
         }
 
