@@ -1,2 +1,1 @@
-﻿async fix
-headtitle removed + margin every view
+﻿

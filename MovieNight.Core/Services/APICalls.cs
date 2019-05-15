@@ -18,7 +18,7 @@ namespace MovieNight.Core.Services
 
         private static RestClient client = new RestClient("https://api.themoviedb.org/3");
 
-        public static readonly int pages = 3;
+        public static readonly int pages = 6;
 
         public static readonly string BACKDROP_SIZE = "w1280"; // w300 w780 w1280 original
 

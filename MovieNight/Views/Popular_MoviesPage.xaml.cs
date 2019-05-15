@@ -18,7 +18,7 @@ namespace MovieNight.Views
             InitializeComponent();
         }
 
-        private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        /*private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             var verticalOffset = sv.VerticalOffset;
             var maxVerticalOffset = sv.ScrollableHeight; //sv.ExtentHeight - sv.ViewportHeight;
@@ -33,6 +33,6 @@ namespace MovieNight.Views
             {
                 // Not scrolled to bottom
             }
-        }
+        }*/
     }
 }

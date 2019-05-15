@@ -39,11 +39,11 @@ namespace MovieNight.Views
             fillYears();
             fillGenres();
 
-            /*yearCombo.SelectedIndex = dc.YearIdx;
+            yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
             minimumVotesCombo.SelectedIndex = dc.CountIdx;
             sortByCombo.SelectedIndex = dc.SortByIdx;
-            keywordText.Text = dc.keyword;*/
+            keywordText.Text = dc.keyword;
 
             ViewModel.LoadCompleted += ViewModel_LoadCompleted;
         }
