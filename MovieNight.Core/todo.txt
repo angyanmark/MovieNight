@@ -1,4 +1,6 @@
-﻿Review page
- Person homepage icon, Also knows as move upper, more lines and clickable
- Production companies clickable
+Review page
+Episode page
+Season episodes rating
+Person homepage icon, Also knows as move upper, more lines and clickable
+Production companies clickable
  
