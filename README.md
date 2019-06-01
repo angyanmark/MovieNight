@@ -4,7 +4,7 @@
 </p>
 
 ## About
-In Movie Night you can browse among the popular films, tv shows and people. You are also able to see the movies that now playing in theatres or tv shows that are airing today. You can search movies and shows by keyword or genre, and sort the results.
+In Movie Night you can browse among the popular films, tv shows and people. You are also able to see the movies that are now playing in theatres or tv shows that are airing today. You can search any movie and show by keyword or genre, and sort the results. There are many more functions and features.
 
 ## API
 Movie Night is using [The TMDb API](https://www.themoviedb.org/documentation/api).
