@@ -1,5 +1,7 @@
 # Movie Night
-![icon](https://user-images.githubusercontent.com/47695008/58746859-951f5c80-8463-11e9-82b5-f7954c089a4c.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/47695008/58746859-951f5c80-8463-11e9-82b5-f7954c089a4c.png">
+</p>
 
 ## About
 In Movie Night you can browse among the popular films, tv shows and people. You are also able to see the movies that now playing in theatres or tv shows that are airing today. You can search movies and shows by keyword or genre, and sort the results.
