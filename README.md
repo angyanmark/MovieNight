@@ -14,6 +14,6 @@ Movie Night is using the [TMDb API](https://www.themoviedb.org/documentation/api
 ## Screenshots
 ![popular](https://user-images.githubusercontent.com/47695008/58732194-0b36ab80-83f1-11e9-99ba-8fa4d1a5a10c.png)
 ![tvshow](https://user-images.githubusercontent.com/47695008/58732197-0bcf4200-83f1-11e9-983e-e0c434901be4.png)
-![person](https://user-images.githubusercontent.com/47695008/58732192-0b36ab80-83f1-11e9-9475-479a13847e94.png)
+![person](https://user-images.githubusercontent.com/47695008/58762486-bad65f80-8550-11e9-8000-7e6f6b71baf2.png)
 ![discover](https://user-images.githubusercontent.com/47695008/58732191-0b36ab80-83f1-11e9-8907-825e0c67ffe3.png)
-![search](https://user-images.githubusercontent.com/47695008/58732195-0bcf4200-83f1-11e9-80d9-a86389751508.png)
+![search](https://user-images.githubusercontent.com/47695008/58762421-31269200-8550-11e9-9937-51d6ebd1d06b.png)
