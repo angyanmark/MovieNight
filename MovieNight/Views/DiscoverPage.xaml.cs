@@ -146,6 +146,12 @@ namespace MovieNight.Views
                 case "Votes":
                     count = -1;
                     break;
+                case "100":
+                    count = 100;
+                    break;
+                case "500":
+                    count = 500;
+                    break;
                 case "1,000":
                     count = 1000;
                     break;

@@ -61,6 +61,14 @@
                                 </ComboBoxItem>
 
                                 <ComboBoxItem IsEnabled="True">
+                                    <x:String>100</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
+                                    <x:String>500</x:String>
+                                </ComboBoxItem>
+
+                                <ComboBoxItem IsEnabled="True">
                                     <x:String>1,000</x:String>
                                 </ComboBoxItem>
 
