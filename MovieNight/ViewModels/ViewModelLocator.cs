@@ -1,7 +1,4 @@
-﻿using System;
-
-using GalaSoft.MvvmLight.Ioc;
-
+﻿using GalaSoft.MvvmLight.Ioc;
 using MovieNight.Services;
 using MovieNight.Views;
 

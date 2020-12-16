@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace MovieNight.Core.Models
 {
-    /// <summary>
-    /// Class containing response data for Keywords.
-    /// </summary>
     public class KeywordResponse
     {
         public int page { get; set; }
@@ -16,9 +11,6 @@ namespace MovieNight.Core.Models
         public int total_results { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Keyword results.
-    /// </summary>
     public class Result7
     {
         public int id { get; set; }

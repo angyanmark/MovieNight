@@ -1,13 +1,8 @@
 ﻿using MovieNight.Core.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MovieNight.Core.Models
 {
-    /// <summary>
-    /// Class containing response data for MultiSearchItem.
-    /// </summary>
     public class MultiSearchResponse
     {
         public int page { get; set; }
@@ -18,9 +13,6 @@ namespace MovieNight.Core.Models
         public int status_code { get; set; }
     }
 
-    /// <summary>
-    /// Class containing MultiSearchItem data.
-    /// </summary>
     public class MultiSearchItem
     {
         public float vote_average { get; set; }
@@ -269,9 +261,6 @@ namespace MovieNight.Core.Models
         }
     }
 
-    /// <summary>
-    /// Class containing Know For items for a MultiSearch Person.
-    /// </summary>
     public class Known_For
     {
         public float vote_average { get; set; }
@@ -291,5 +280,4 @@ namespace MovieNight.Core.Models
         public string overview { get; set; }
         public string release_date { get; set; }
     }
-
 }

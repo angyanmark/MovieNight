@@ -1,17 +1,12 @@
 ﻿using MovieNight.Core.Models;
 using RestSharp;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace MovieNight.Core.Services
 {
-    /// <summary>
-    /// Static class used for API calls.
-    /// </summary>
     public static class APICalls
     {
         private static readonly string API_KEY = "5e9bcb638329a15acf75c1b2d85ae67e";
@@ -22,20 +17,16 @@ namespace MovieNight.Core.Services
 
         public static readonly string BACKDROP_SIZE = "w1280"; // w300 w780 w1280 original
 
-        public static readonly string LOGO_SIZE = "w500";      // w45 w92 w154 w185 w300 w500 original
+        public static readonly string LOGO_SIZE = "w500"; // w45 w92 w154 w185 w300 w500 original
 
-        public static readonly string POSTER_SIZE = "w500";    // w92 w154 w185 w342 w500 w780 original
+        public static readonly string POSTER_SIZE = "w500"; // w92 w154 w185 w342 w500 w780 original
 
-        public static readonly string PROFILE_SIZE = "h632";   // w45 w185 h632 original
+        public static readonly string PROFILE_SIZE = "h632"; // w45 w185 h632 original
 
-        public static readonly string STILL_SIZE = "original";     // w92 w185 w300 original
+        public static readonly string STILL_SIZE = "original"; // w92 w185 w300 original
 
-        public static readonly string FILE_SIZE = "w500";  // same as poster size
+        public static readonly string FILE_SIZE = "w500"; // same as poster size
 
-        /// <summary>
-        /// Static method used for calling popular films.
-        /// </summary>
-        /// <returns>ObservableCollection of Films</returns>
         public static ObservableCollection<Film> CallPopularFilms(int loadPage)
         {
             ObservableCollection<Film> data1 = new ObservableCollection<Film>();
@@ -55,10 +46,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling now playing films.
-        /// </summary>
-        /// <returns>ObservableCollection of Films</returns>
         public static ObservableCollection<Film> CallNowPlayingFilms(int loadPage)
         {
             ObservableCollection<Film> data1 = new ObservableCollection<Film>();
@@ -78,10 +65,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling upcoming films.
-        /// </summary>
-        /// <returns>ObservableCollection of Films</returns>
         public static ObservableCollection<Film> CallUpcomingFilms(int loadPage)
         {
             ObservableCollection<Film> data1 = new ObservableCollection<Film>();
@@ -101,11 +84,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling coming soon films.
-        /// </summary>
-        /// <param name="time">Year until films called.</param>
-        /// <returns>ObservableCollection of Discovered Films</returns>
         public static ObservableCollection<DiscoverItem> CallComingSoon(int loadPage, int time)
         {
             ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
@@ -145,11 +123,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling keywords ID.
-        /// </summary>
-        /// <param name="keyword">Keyword</param>
-        /// <returns>Returns the first keyword ID</returns>
         public static string CallKeywordIDs(string keyword)
         {
             RestRequest request = new RestRequest("/search/keyword");
@@ -180,17 +153,6 @@ namespace MovieNight.Core.Services
             return builder;
         }
 
-        /// <summary>
-        /// Static method used for calling discovered films based on multiple parameters.
-        /// </summary>
-        /// <param name="keyword">Keyword</param>
-        /// <param name="decade">Decade</param>
-        /// <param name="year">Year</param>
-        /// <param name="genre">Genre ID</param>
-        /// <param name="count">Minimum vote count</param>
-        /// <param name="sortby">Sort by parameter</param>
-        /// <param name="adult">Include adult content</param>
-        /// <returns>ObservableCollection of discovered films</returns>
         public static ObservableCollection<DiscoverItem> CallDiscoverPage(int loadPage, string keyword, int decade, int year, int genre, int count, string sortby, bool adult)
         {
             string keywordIDs = "";
@@ -251,16 +213,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling discovered tv shows based on multiple parameters.
-        /// </summary>
-        /// <param name="keyword">Keyword</param>
-        /// <param name="decade">Decade</param>
-        /// <param name="year">Year</param>
-        /// <param name="genre">Genre ID</param>
-        /// <param name="count">Minimum vote count</param>
-        /// <param name="sortby">Sort by parameter</param>
-        /// <returns>ObservableCollection of discovered tv shows</returns>
         public static ObservableCollection<DiscoverItem> CallDiscoverTVPage(int loadPage, string keyword, int decade, int year, int genre, int count, string sortby)
         {
             string keywordIDs = "";
@@ -316,10 +268,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling popular tv shows.
-        /// </summary>
-        /// <returns>ObservableCollection of tv shows</returns>
         public static ObservableCollection<TVShow> CallPopularTVShows(int loadPage)
         {
             ObservableCollection<TVShow> data1 = new ObservableCollection<TVShow>();
@@ -338,10 +286,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling tv shows on the air.
-        /// </summary>
-        /// <returns>ObservableCollection of tv shows</returns>
         public static ObservableCollection<TVShow> CallTvOnTheAir(int loadPage)
         {
             ObservableCollection<TVShow> data1 = new ObservableCollection<TVShow>();
@@ -360,10 +304,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling tv shows airing today.
-        /// </summary>
-        /// <returns>ObservableCollection of tv shows</returns>
         public static ObservableCollection<TVShow> CallTvAiringToday(int loadPage)
         {
             ObservableCollection<TVShow> data1 = new ObservableCollection<TVShow>();
@@ -383,10 +323,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling popular people.
-        /// </summary>
-        /// <returns>ObservableCollection of people</returns>
         public static ObservableCollection<Person> CallPopularPeople(int loadPage)
         {
             ObservableCollection<Person> data1 = new ObservableCollection<Person>();
@@ -405,11 +341,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling detailed film data.
-        /// </summary>
-        /// <param name="id">Person ID</param>
-        /// <returns>Film with data</returns>
         public static Film CallDetailedFilm(int id)
         {
             RestRequest request = new RestRequest("/movie/{id}");
@@ -455,11 +386,6 @@ namespace MovieNight.Core.Services
             return data;
         }
 
-        /// <summary>
-        /// Static method used for calling detailed tv show data.
-        /// </summary>
-        /// <param name="id">Tv show ID</param>
-        /// <returns>Tv show with data</returns>
         public static TVShow CallDetailedTVShow(int id)
         {
             RestRequest request = new RestRequest("/tv/{id}");
@@ -472,13 +398,6 @@ namespace MovieNight.Core.Services
             return data;
         }
 
-        /// <summary>
-        /// Static method used for calling detailed tv show season data.
-        /// </summary>
-        /// <param name="tv_id">Tv show ID</param>
-        /// <param name="season_number">Number of season</param>
-        /// <param name="showName">Tv show name</param>
-        /// <returns>Tv show season with data</returns>
         public static TVShowSeason CallDetailedTVShowSeason(int tv_id, int season_number, string showName)
         {
             RestRequest request = new RestRequest("/tv/{tv_id}/season/{season_number}");
@@ -494,11 +413,6 @@ namespace MovieNight.Core.Services
             return data;
         }
 
-        /// <summary>
-        /// Static method used for calling detailed person data.
-        /// </summary>
-        /// <param name="id">Person ID</param>
-        /// <returns>Person with data</returns>
         public static Person CallDetailedPerson(int id)
         {
             RestRequest request = new RestRequest("/person/{id}");
@@ -515,11 +429,6 @@ namespace MovieNight.Core.Services
             return data;
         }
 
-        /// <summary>
-        /// Static method used for calling search results.
-        /// </summary>
-        /// <param name="searchString">Search string</param>
-        /// <returns>ObservableCollection of search items</returns>
         public static ObservableCollection<MultiSearchItem> CallMultiSearch(string searchString)
         {
             ObservableCollection<MultiSearchItem> data1 = new ObservableCollection<MultiSearchItem>();
@@ -539,11 +448,6 @@ namespace MovieNight.Core.Services
             return data1;
         }
 
-        /// <summary>
-        /// Static method used for calling all genres for film or tv show.
-        /// </summary>
-        /// <param name="media">Film or tv show</param>
-        /// <returns>ObservableCollection of genres with genre name and ID</returns>
         public static ObservableCollection<Genres> CallGenres(string media)
         {
             ObservableCollection<Genres> data1 = new ObservableCollection<Genres>();
@@ -561,7 +465,6 @@ namespace MovieNight.Core.Services
             }
 
             return data1;
-
         }
     }
 }

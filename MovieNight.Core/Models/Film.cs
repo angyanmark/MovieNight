@@ -1,14 +1,9 @@
 ﻿using MovieNight.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace MovieNight.Core.Models
 {
-    /// <summary>
-    /// Class containing response data for Films.
-    /// </summary>
     public class FilmsResponse 
     {
         public int page { get; set; }
@@ -19,9 +14,6 @@ namespace MovieNight.Core.Models
         public int status_code { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Film results.
-    /// </summary>
     public class Film
     {
         public bool adult { get; set; }
@@ -339,7 +331,7 @@ namespace MovieNight.Core.Models
             }
             set
             {
-                Runtime = Int32.Parse(value);
+                Runtime = int.Parse(value);
             }
         }
         public Reviews reviews { get; set; }
@@ -610,18 +602,12 @@ namespace MovieNight.Core.Models
         }
     }
 
-    /// <summary>
-    /// Class containing Videos for a Film.
-    /// </summary>
     public class Videos
     {
         //public Result[] results { get; set; }
         public List<Result> results { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Video result for a Film.
-    /// </summary>
     public class Result
     {
         public string id { get; set; }
@@ -634,9 +620,6 @@ namespace MovieNight.Core.Models
         public string type { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Recommendations for a Film.
-    /// </summary>
     public class Recommendations
     {
         public int page { get; set; }
@@ -646,9 +629,6 @@ namespace MovieNight.Core.Models
         public int total_results { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Recommendation results for a Film.
-    /// </summary>
     public class Result1
     {
         public int id { get; set; }
@@ -716,7 +696,6 @@ namespace MovieNight.Core.Models
             }
         }
         public float popularity { get; set; }
-        //--------
         public string first_air_date { get; set; }
         public string name { get; set; }
         public string getNameDate
@@ -740,18 +719,12 @@ namespace MovieNight.Core.Models
         public List<Network> networks { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Genres for a Film.
-    /// </summary>
     public class Genre
     {
         public int id { get; set; }
         public string name { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Production Companies for a Film.
-    /// </summary>
     public class Production_Companies
     {
         public int id { get; set; }
@@ -771,36 +744,24 @@ namespace MovieNight.Core.Models
         public string origin_country { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Production Countries for a Film.
-    /// </summary>
     public class Production_Countries
     {
         public string iso_3166_1 { get; set; }
         public string name { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Spoken Languages for a Film.
-    /// </summary>
     public class Spoken_Languages
     {
         public string iso_639_1 { get; set; }
         public string name { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Release Dates for a Film.
-    /// </summary>
     public class Release_Dates
     {
         //public Result5[] results { get; set; }
         public List<Result5> results { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Release Date results for a Film.
-    /// </summary>
     public class Result5
     {
         public string iso_3166_1 { get; set; }
@@ -808,9 +769,6 @@ namespace MovieNight.Core.Models
         public List<Release_Dates1> release_dates { get; set; }
     }
 
-    /// <summary>
-    /// Class containing result of a Release Date result for a Film.
-    /// </summary>
     public class Release_Dates1
     {
         public string certification { get; set; }
@@ -820,9 +778,6 @@ namespace MovieNight.Core.Models
         public string note { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Collection infos for a Film.
-    /// </summary>
     public class Belongs_to_Collection
     {
         public int id { get; set; }
@@ -831,9 +786,6 @@ namespace MovieNight.Core.Models
         public string backdrop_path { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Collection Response for a Film.
-    /// </summary>
     public class CollectionResponse
     {
         public int id { get; set; }
@@ -845,9 +797,6 @@ namespace MovieNight.Core.Models
         public List<Part> parts { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Films in a Collection.
-    /// </summary>
     public class Part
     {
         public bool adult { get; set; }
@@ -906,9 +855,6 @@ namespace MovieNight.Core.Models
         public float popularity { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Images for a Film.
-    /// </summary>
     public class FilmImages
     {
         //public Backdrop[] backdrops { get; set; }
@@ -917,9 +863,6 @@ namespace MovieNight.Core.Models
         public List<Poster> posters { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Backdrop Images for a Film.
-    /// </summary>
     public class Backdrop
     {
         public float aspect_ratio { get; set; }
@@ -956,9 +899,6 @@ namespace MovieNight.Core.Models
         public int width { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Poster Images for a Film.
-    /// </summary>
     public class Poster
     {
         public float aspect_ratio { get; set; }
@@ -1002,9 +942,6 @@ namespace MovieNight.Core.Models
         public int width { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Reviews for a Film.
-    /// </summary>
     public class Reviews
     {
         public int page { get; set; }
@@ -1014,9 +951,6 @@ namespace MovieNight.Core.Models
         public int total_results { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Review results for a Film.
-    /// </summary>
     public class ReviewResult
     {
         public string author { get; set; }
@@ -1025,9 +959,6 @@ namespace MovieNight.Core.Models
         public string url { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Keywords for a Film.
-    /// </summary>
     public class Keywords
     {
         //public Keyword[] keywords { get; set; }
@@ -1035,9 +966,6 @@ namespace MovieNight.Core.Models
         public List<Keyword> results { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Keyword results for a Film.
-    /// </summary>
     public class Keyword
     {
         public int id { get; set; }

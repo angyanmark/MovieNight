@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using MovieNight.Helpers;
-
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -20,7 +18,6 @@ namespace MovieNight.Services
         private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
         private Frame _frame;
-        private object _lastParamUsed;
 
         public Frame Frame
         {
@@ -71,15 +68,9 @@ namespace MovieNight.Services
                 }
             }
 
-            if (Frame.Content?.GetType() != page || (parameter != null /*&& !parameter.Equals(_lastParamUsed)*/))
+            if (Frame.Content?.GetType() != page || (parameter != null))
             {
-                var navigationResult = Frame.Navigate(page, parameter, infoOverride);
-                if (navigationResult)
-                {
-                    _lastParamUsed = parameter;
-                }
-
-                return navigationResult;
+                return Frame.Navigate(page, parameter, infoOverride);
             }
             else
             {

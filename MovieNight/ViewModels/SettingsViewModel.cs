@@ -1,13 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
 using MovieNight.Helpers;
 using MovieNight.Services;
-
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 
@@ -67,9 +63,7 @@ namespace MovieNight.ViewModels
         private string GetVersionDescription()
         {
             var appName = "AppDisplayName".GetLocalized();
-            var package = Package.Current;
-            var packageId = package.Id;
-            var version = packageId.Version;
+            var version = Package.Current.Id.Version;
 
             return $"{appName} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
         }

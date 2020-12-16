@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using MovieNight.Core.Models;
 using MovieNight.Services;
@@ -38,10 +37,12 @@ namespace MovieNight.ViewModels
                         NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                         NavigationService.Navigate(typeof(TV_ShowsDetailViewModel).FullName, clickedItem.id);
                         break;
-                    default: //person
+                    case "person":
                         NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                         NavigationService.Navigate(typeof(PeopleDetailViewModel).FullName, clickedItem.id);
                         break;
+                    default:
+                        throw new ArgumentException(string.Format("Invalid media type: {0}", clickedItem.media_type), "clickedItem");
                 }
             }
         }

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using MovieNight.Activation;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,15 +12,11 @@ namespace MovieNight.Services
     // For more information on application activation see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/activation.md
     internal class ActivationService
     {
-        private readonly App _app;
         private readonly Type _defaultNavItem;
-        private Lazy<UIElement> _shell;
+        private readonly Lazy<UIElement> _shell;
 
-        private object _lastActivationArgs;
-
-        public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
+        public ActivationService(Type defaultNavItem, Lazy<UIElement> shell = null)
         {
-            _app = app;
             _shell = shell;
             _defaultNavItem = defaultNavItem;
         }
@@ -44,7 +38,6 @@ namespace MovieNight.Services
             }
 
             await HandleActivationAsync(activationArgs);
-            _lastActivationArgs = activationArgs;
 
             if (IsInteractive(activationArgs))
             {
@@ -64,7 +57,7 @@ namespace MovieNight.Services
         private async Task HandleActivationAsync(object activationArgs)
         {
             var activationHandler = GetActivationHandlers()
-                                                .FirstOrDefault(h => h.CanHandle(activationArgs));
+                .FirstOrDefault(h => h.CanHandle(activationArgs));
 
             if (activationHandler != null)
             {

@@ -1,7 +1,5 @@
 ﻿using System;
-
 using MovieNight.Services;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -39,7 +37,7 @@ namespace MovieNight
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(ViewModels.Popular_MoviesViewModel), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(typeof(ViewModels.Popular_MoviesViewModel), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
@@ -76,8 +74,10 @@ namespace MovieNight.Views
                 years.Add(cbi1);
                 if ((i + 1) % 10 == 0)
                 {
-                    ComboBoxItem cbi2 = new ComboBoxItem();
-                    cbi2.Content = (i - 9).ToString() + "s";
+                    ComboBoxItem cbi2 = new ComboBoxItem
+                    {
+                        Content = (i - 9).ToString() + "s"
+                    };
                     years.Add(cbi2);
                 }
             }
@@ -137,7 +137,7 @@ namespace MovieNight.Views
             dc.GenreIdx = genreCombo.SelectedIndex;
         }
 
-        private void setCount()
+        private void SetCount()
         {
             var comboBoxItem = minimumVotesCombo.SelectedItem as ComboBoxItem;
             if (comboBoxItem == null) return;
@@ -183,7 +183,7 @@ namespace MovieNight.Views
             dc.CountIdx = minimumVotesCombo.SelectedIndex;
         }
 
-        private void setSortBy()
+        private void SetSortBy()
         {
             var comboBoxItem = sortByCombo.SelectedItem as ComboBoxItem;
             if (comboBoxItem == null)
@@ -235,8 +235,8 @@ namespace MovieNight.Views
             dc.keyword = keywordText.Text;
             SetYear();
             SetGenre();
-            setCount();
-            setSortBy();
+            SetCount();
+            SetSortBy();
             adult = (bool)includeAdultCheck.IsChecked;
             dc.adult = adult;
 

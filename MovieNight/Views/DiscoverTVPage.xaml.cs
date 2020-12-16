@@ -121,7 +121,7 @@ namespace MovieNight.Views
             dc.YearIdx = yearCombo.SelectedIndex;
         }
 
-        private void setGenre()
+        private void SetGenre()
         {
             string genreValue = genreCombo.SelectedItem.ToString();
 
@@ -216,7 +216,7 @@ namespace MovieNight.Views
             findButton.IsEnabled = false;
             dc.keyword = keywordText.Text;
             SetYear();
-            setGenre();
+            SetGenre();
             SetCount();
             SetSortBy();
 
