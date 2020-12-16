@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
-
 using Windows.UI.Xaml.Controls;
 
 namespace MovieNight.Views
@@ -60,7 +58,7 @@ namespace MovieNight.Views
                 {
                     ViewModel.Source.Clear();
                 }*/
-                LoadSearch(sender.Text);
+                _ = LoadSearch(sender.Text);
             }
         }
     }

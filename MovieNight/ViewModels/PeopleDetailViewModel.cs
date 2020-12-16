@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -10,7 +7,6 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.Services;
-using Windows.UI.Xaml.Controls;
 
 namespace MovieNight.ViewModels
 {
@@ -109,7 +105,7 @@ namespace MovieNight.ViewModels
 
         public void Initialize(int id)
         {
-            LoadPerson(id);
+            _ = LoadPerson(id);
         }
 
         private void OnItemClick(Cast clickedItem)
@@ -159,9 +155,11 @@ namespace MovieNight.ViewModels
                     }
                     idx++;
                 }
-                ImageHolder ih = new ImageHolder();
-                ih.Profiles = ProfilesSource;
-                ih.selectedIndex = idx;
+                ImageHolder ih = new ImageHolder
+                {
+                    Profiles = ProfilesSource,
+                    selectedIndex = idx
+                };
 
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(ProfileFlipViewModel).FullName, ih);
@@ -181,9 +179,11 @@ namespace MovieNight.ViewModels
                     }
                     idx++;
                 }
-                ImageHolder ih = new ImageHolder();
-                ih.TaggedImages = TaggedImagesSource;
-                ih.selectedIndex = idx;
+                ImageHolder ih = new ImageHolder
+                {
+                    TaggedImages = TaggedImagesSource,
+                    selectedIndex = idx
+                };
 
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(TaggedImageFlipViewModel).FullName, ih);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -20,6 +18,7 @@ namespace MovieNight.ViewModels
         public ObservableCollection<TaggedImagesResult> TaggedImages = new ObservableCollection<TaggedImagesResult>();
         public int selectedIndex = 0;
     }
+
     public class MoviesDetailViewModel : ViewModelBase
     {
         private Film film = new Film();
@@ -131,7 +130,7 @@ namespace MovieNight.ViewModels
 
         public void Initialize(int id)
         {
-            LoadMovie(id);
+            _ = LoadMovie(id);
         }
 
         private void OnItemClick(Part clickedItem)

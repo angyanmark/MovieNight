@@ -55,7 +55,7 @@ namespace MovieNight.ViewModels
 
         public DiscoverTVViewModel()
         {
-            LoadTVShows("", 0, 0, 0, 0, "popularity.desc");
+            _ = LoadTVShows("", 0, 0, 0, 0, "popularity.desc");
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

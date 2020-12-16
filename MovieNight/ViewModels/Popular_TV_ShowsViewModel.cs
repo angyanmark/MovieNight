@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.Services;
@@ -51,7 +47,7 @@ namespace MovieNight.ViewModels
 
         public Popular_TV_ShowsViewModel()
         {
-            LoadTVShows();
+            _ = LoadTVShows();
         }
 
         private void OnItemClick(TVShow clickedItem)

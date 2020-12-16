@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -52,7 +51,7 @@ namespace MovieNight.ViewModels
 
         public DiscoverViewModel()
         {
-            LoadMovies("", 0, 0, 0, 0, "popularity.desc", false);
+            _ = LoadMovies("", 0, 0, 0, 0, "popularity.desc", false);
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

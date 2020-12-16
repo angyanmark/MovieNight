@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using MovieNight.Core.Models;
-using MovieNight.Core.Services;
-using MovieNight.ViewModels;
+﻿using MovieNight.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace MovieNight.Views
 {
-    public class timeContainer
+    public class TimeContainer
     {
         public int TimeIdx = 1;
     }
+
     public sealed partial class Coming_SoonPage : Page
     {
-        static timeContainer tc = new timeContainer();
-        int time = 1;
+        private static readonly TimeContainer tc = new TimeContainer();
+        private int time = 1;
+
         private Coming_SoonViewModel ViewModel
         {
             get { return ViewModelLocator.Current.Coming_SoonViewModel; }
@@ -34,7 +31,7 @@ namespace MovieNight.Views
             findButton.IsEnabled = true;
         }
 
-        public void setTime()
+        public void SetTime()
         {
             switch (timeCombo.SelectedIndex)
             {
@@ -66,11 +63,11 @@ namespace MovieNight.Views
         {
             findButton.IsEnabled = false;
             tc.TimeIdx = timeCombo.SelectedIndex;
-            setTime();
+            SetTime();
             ViewModel.Source.Clear();
             ViewModel.loadedPages = 0;
             ViewModel.noMore = false;
-            ViewModel.LoadMovies(time);
+            _ = ViewModel.LoadMovies(time);
         }
     }
 }

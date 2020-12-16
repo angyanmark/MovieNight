@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using MovieNight.Core.Models;
 
@@ -16,18 +14,18 @@ namespace MovieNight.ViewModels
             PosterSource = new ObservableCollection<Poster>();
         }
 
-        async Task LoadImage(ImageHolder ih)
+        public void Initialize(ImageHolder ih)
+        {
+            LoadImage(ih);
+        }
+
+        private void LoadImage(ImageHolder ih)
         {
             PosterSource.Clear();
             foreach (Poster p in ih.Posters)
                 PosterSource.Add(p);
 
             selectedIndex = ih.selectedIndex;
-        }
-
-        public void Initialize(ImageHolder ih)
-        {
-            LoadImage(ih);
         }
     }
 }

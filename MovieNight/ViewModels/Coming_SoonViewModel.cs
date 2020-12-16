@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.Services;
@@ -55,7 +51,7 @@ namespace MovieNight.ViewModels
 
         public Coming_SoonViewModel()
         {
-            LoadMovies(1);
+            _ = LoadMovies(1);
         }
 
         private void OnItemClick(DiscoverItem clickedItem)
