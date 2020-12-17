@@ -1,101 +1,102 @@
-﻿<Page
-    x:Class="MovieNight.Views.SearchPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:MovieNight.Core.Models"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    Style="{StaticResource PageStyle}"
-    mc:Ignorable="d">
-    <Grid
-        x:Name="ContentArea"
-        Margin="12, 12, 12, 0">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="800" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.-->
+﻿<Page x:Class="MovieNight.Views.SearchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:MovieNight.Core.Models"
+      Style="{StaticResource PageStyle}"
+      mc:Ignorable="d">
+    <Grid Margin="12,12,12,0">
         <ScrollViewer>
             <StackPanel>
-                <StackPanel x:Name="search" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="{StaticResource MediumTopBottomMargin}">
-                    <AutoSuggestBox x:Name="searchBox"
-                        PlaceholderText="Search for a film, tv show, person..." QueryIcon="Find" Width="400"
-                        QuerySubmitted="AutoSuggestBox_QuerySubmitted"
-                        TextChanged="AutoSuggestBox_TextChanged"
-                        Margin="{StaticResource XSmallLeftTopRightBottomMargin}"/>
+                <StackPanel x:Name="search"
+                            Margin="{StaticResource MediumTopBottomMargin}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                    <AutoSuggestBox Width="400"
+                                    Margin="{StaticResource XSmallLeftTopRightBottomMargin}"
+                                    PlaceholderText="Search for a film, tv show, person..."
+                                    QueryIcon="Find"
+                                    TextChanged="AutoSuggestBox_TextChangedAsync" />
                 </StackPanel>
 
                 <StackPanel>
-                    <controls:AdaptiveGridView
-                        Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-                        ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
-                        ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
-                        StretchContentForSingleRow="False"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True"
-                        animations:Connected.ListItemElementName="itemThumbnail"
-                        animations:Connected.ListItemKey="animationKeyPopular_Movies"
-                        Margin="{StaticResource MediumBottomMargin}"
-                        DesiredWidth="1200"
-                        MaxWidth="1200">
+                    <controls:AdaptiveGridView MaxWidth="1200"
+                                               Margin="{StaticResource MediumBottomMargin}"
+                                               animations:Connected.ListItemElementName="itemThumbnail"
+                                               animations:Connected.ListItemKey="animationKeyPopular_Movies"
+                                               Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
+                                               DesiredWidth="1200"
+                                               IsItemClickEnabled="True"
+                                               ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
+                                               ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                                               SelectionMode="None"
+                                               StretchContentForSingleRow="False">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:MultiSearchItem">
-                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}" >
-                                    <Grid
-                                    x:Name="itemThumbnail">
+                                <Border Style="{ThemeResource TmdbSecondaryColorBorder}">
+                                    <Grid x:Name="itemThumbnail">
                                         <RelativePanel>
-                                            <Grid
-                                            RelativePanel.AlignTopWithPanel="True"
-                                            RelativePanel.AlignLeftWithPanel="True"
-                                            x:Name="poster"
-                                            Width="250"
-                                            Height="375"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            Margin="{StaticResource MediumRightMargin}">
-                                                <Image Source="{x:Bind getPoster}"/>
+                                            <Grid x:Name="poster"
+                                                  Width="250"
+                                                  Height="375"
+                                                  Margin="{StaticResource MediumRightMargin}"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Top"
+                                                  RelativePanel.AlignLeftWithPanel="True"
+                                                  RelativePanel.AlignTopWithPanel="True">
+                                                <Image Source="{x:Bind getPoster}" />
                                             </Grid>
 
-                                            <StackPanel Name="mediatype" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Margin="{StaticResource MediumRightMargin}">
-                                                <TextBlock
-                                                Margin="{StaticResource SmallTopMargin}"
-                                                Text="{x:Bind getMediaType}"
-                                                Style="{StaticResource DetailSubTitleStyle}"
-                                                HorizontalAlignment="Right"/>
-                                                <TextBlock
-                                                Text="{x:Bind getAdult}"
-                                                Style="{StaticResource DetailBodyStyle}"
-                                                HorizontalAlignment="Right"
-                                                Foreground="Tomato"/>
+                                            <StackPanel Name="mediatype"
+                                                        Margin="{StaticResource MediumRightMargin}"
+                                                        RelativePanel.AlignRightWithPanel="True"
+                                                        RelativePanel.AlignTopWithPanel="True">
+                                                <TextBlock Margin="{StaticResource SmallTopMargin}"
+                                                           HorizontalAlignment="Right"
+                                                           Style="{StaticResource DetailSubTitleStyle}"
+                                                           Text="{x:Bind getMediaType}" />
+                                                <TextBlock HorizontalAlignment="Right"
+                                                           Foreground="Tomato"
+                                                           Style="{StaticResource DetailBodyStyle}"
+                                                           Text="{x:Bind getAdult}" />
                                             </StackPanel>
 
-                                            <StackPanel Name="title" RelativePanel.RightOf="poster" RelativePanel.Below="mediatype" Margin="{StaticResource MediumBottomMargin}">
-                                                <TextBlock
-                                                Text="{x:Bind getTitle}"
-                                                Style="{ThemeResource TitleTextBlockStyle}"/>
+                                            <StackPanel Name="title"
+                                                        Margin="{StaticResource MediumBottomMargin}"
+                                                        RelativePanel.Below="mediatype"
+                                                        RelativePanel.RightOf="poster">
+                                                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="{x:Bind getTitle}" />
                                             </StackPanel>
 
-                                            <StackPanel Name="overviewGroup" RelativePanel.RightOf="poster" RelativePanel.Below="title" Margin="{StaticResource MediumRightMargin}">
-                                                <TextBlock x:Name="overview" Text="{x:Bind getOverviewTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="{StaticResource SmallTopBottomMargin}"/>
-                                                <TextBlock x:Name="overviewText" Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind getOverview}"
-                                                       MaxLines="{x:Bind getMaxLines}" TextWrapping="Wrap" TextTrimming="WordEllipsis" Margin="0, 0, 60, 0"/>
+                                            <StackPanel Name="overviewGroup"
+                                                        Margin="{StaticResource MediumRightMargin}"
+                                                        RelativePanel.Below="title"
+                                                        RelativePanel.RightOf="poster">
+                                                <TextBlock x:Name="overview"
+                                                           Margin="{StaticResource SmallTopBottomMargin}"
+                                                           Style="{StaticResource DetailSubTitleStyle}"
+                                                           Text="{x:Bind getOverviewTitle}" />
+                                                <TextBlock x:Name="overviewText"
+                                                           Margin="0,0,60,0"
+                                                           MaxLines="{x:Bind getMaxLines}"
+                                                           Style="{StaticResource DetailBodyBaseMediumStyle}"
+                                                           Text="{x:Bind getOverview}"
+                                                           TextTrimming="WordEllipsis"
+                                                           TextWrapping="Wrap" />
                                             </StackPanel>
 
-                                            <StackPanel x:Name="voteAverageGroup" RelativePanel.AlignBottomWithPanel="true" RelativePanel.RightOf="poster" Margin="0, 0, 30, 50">
-                                                <TextBlock Text="{x:Bind getVoteAverageTitle}" Style="{StaticResource DetailSubTitleStyle}" Margin="0, 0, 0, 6"/>
-                                                <TextBlock Text="{x:Bind getVoteAverage}" Style="{StaticResource DetailBodyBaseMediumStyle}" />
+                                            <StackPanel x:Name="voteAverageGroup"
+                                                        Margin="0,0,30,50"
+                                                        RelativePanel.AlignBottomWithPanel="true"
+                                                        RelativePanel.RightOf="poster">
+                                                <TextBlock Margin="0,0,0,6"
+                                                           Style="{StaticResource DetailSubTitleStyle}"
+                                                           Text="{x:Bind getVoteAverageTitle}" />
+                                                <TextBlock Style="{StaticResource DetailBodyBaseMediumStyle}" Text="{x:Bind getVoteAverage}" />
                                             </StackPanel>
 
                                         </RelativePanel>
@@ -107,5 +108,16 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!--  641 is the default CompactModeThresholdWidth in NavigationView  -->
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters />
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

@@ -316,7 +316,7 @@ namespace MovieNight.Core.Services
             return person;
         }
 
-        public static async Task<ObservableCollection<MultiSearchItem>> GetMultiSearchAsync(string searchString)
+        public static async Task<IEnumerable<MultiSearchItem>> GetMultiSearchAsync(string searchString)
         {
             RestRequest request = new RestRequest("/search/multi");
             request.AddParameter("api_key", API_KEY);
@@ -324,7 +324,7 @@ namespace MovieNight.Core.Services
             request.AddParameter("query", searchString);
 
             MultiSearchResponse response = await client.GetAsync<MultiSearchResponse>(request);
-            return new ObservableCollection<MultiSearchItem>(response.results);
+            return response.results;
         }
 
         public static async Task<ObservableCollection<Genres>> GetGenresAsync(string media)
