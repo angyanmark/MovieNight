@@ -90,7 +90,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadMovie(int id)
         {
-            Item = await Task.Run(() => TMDbService.GetDetailedFilm(id));
+            Item = await TMDbService.GetDetailedFilmAsync(id);
             Item.poster_path = "";
             Item.backdrop_path = "";
 
@@ -109,7 +109,7 @@ namespace MovieNight.ViewModels
             CollectionSource.Clear();
             if (Item.belongs_to_collection != null && Item.collection_films != null)
             {
-                foreach (var collectionItem in Item.collection_films.parts)
+                foreach (var collectionItem in Item.collection_films)
                     CollectionSource.Add(collectionItem);
             }
 

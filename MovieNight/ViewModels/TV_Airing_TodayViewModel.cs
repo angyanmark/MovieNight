@@ -31,7 +31,7 @@ namespace MovieNight.ViewModels
 
                 for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    tvshows = await Task.Run(() => TMDbService.GetTvAiringToday(++loadedPages));
+                    tvshows = await Task.Run(() => TMDbService.GetTvAiringTodayAsync(++loadedPages));
                     if (tvshows.Count == 0)
                     {
                         noMore = true;

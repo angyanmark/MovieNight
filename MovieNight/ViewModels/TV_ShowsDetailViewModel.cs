@@ -87,7 +87,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadTVShow(int id)
         {
-            Item = await Task.Run(() => TMDbService.GetDetailedTVShow(id));
+            Item = await Task.Run(() => TMDbService.GetDetailedTVShowAsync(id));
             Item.poster_path = "";
             Item.backdrop_path = "";
 

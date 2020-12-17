@@ -89,7 +89,7 @@ namespace MovieNight.Core.Models
                 }
             }
         }
-        public CollectionResponse collection_films { get; set; }
+        public List<Part> collection_films { get; set; }
         public Belongs_to_Collection belongs_to_collection { get; set; }
         public string isBelongsToCollection
         {

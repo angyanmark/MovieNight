@@ -73,7 +73,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadPerson(int id)
         {
-            Item = await Task.Run(() => TMDbService.GetDetailedPerson(id));
+            Item = await Task.Run(() => TMDbService.GetDetailedPersonAsync(id));
             Item.profile_path = "";
 
             ProfilesSource.Clear();

@@ -34,7 +34,7 @@ namespace MovieNight.ViewModels
 
                 for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    films = await Task.Run(() => TMDbService.GetDiscoverPage(++loadedPages, keyword, decade, year, genre, count, sortby, adult));
+                    films = await Task.Run(() => TMDbService.GetDiscoverPageAsync(++loadedPages, keyword, decade, year, genre, count, sortby, adult));
                     if (films.Count == 0)
                     {
                         noMore = true;

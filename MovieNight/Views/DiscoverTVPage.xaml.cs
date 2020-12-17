@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
 using MovieNight.ViewModels;
@@ -36,7 +37,7 @@ namespace MovieNight.Views
         {
             InitializeComponent();
             FillYears();
-            FillGenres();
+            _ = FillGenresAsync();
 
             yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
@@ -85,11 +86,11 @@ namespace MovieNight.Views
         public List<string> genres = new List<string>();
         public Dictionary<string, int> genresDictionary = new Dictionary<string, int>();
 
-        public void FillGenres()
+        public async Task FillGenresAsync()
         {
             genres.Add("Genre");
 
-            ObservableCollection<Genres> genreList = TMDbService.GetGenres("tv");
+            ObservableCollection<Genres> genreList = await TMDbService.GetGenresAsync("tv");
 
             foreach (Genres g in genreList)
             {

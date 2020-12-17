@@ -23,15 +23,13 @@ namespace MovieNight.ViewModels
 
         public ObservableCollection<Film> Source { get; set; } = new ObservableCollection<Film>();
 
-        async Task LoadMovies()
+        private async Task LoadMovies()
         {
             if (!noMore)
             {
-                ObservableCollection<Film> films = new ObservableCollection<Film>();
-
                 for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    films = await Task.Run(() => TMDbService.GetUpcomingFilms(++loadedPages));
+                    var films = await TMDbService.GetUpcomingFilmsAsync(++loadedPages);
                     if (films.Count == 0)
                     {
                         noMore = true;

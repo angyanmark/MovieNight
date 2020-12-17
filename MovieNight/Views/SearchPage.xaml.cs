@@ -38,7 +38,7 @@ namespace MovieNight.Views
         async Task LoadSearch(string text)
         {
             ViewModel.Source.Clear();
-            ObservableCollection<MultiSearchItem> items = await Task.Run(() => TMDbService.GetMultiSearch(text));
+            ObservableCollection<MultiSearchItem> items = await Task.Run(() => TMDbService.GetMultiSearchAsync(text));
             foreach (var v in items)
             {
                 ViewModel.Source.Add(v);
