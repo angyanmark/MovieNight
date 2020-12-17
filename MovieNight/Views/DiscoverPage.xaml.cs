@@ -97,7 +97,7 @@ namespace MovieNight.Views
         {
             genres.Add("Genre");
 
-            ObservableCollection<Genres> genreList = await TMDbService.GetGenresAsync("movie");
+            var genreList = await TMDbService.GetGenresAsync("movie");
 
             foreach (Genres g in genreList)
             {

@@ -2,7 +2,6 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,39 +28,39 @@ namespace MovieNight.Core.Services
 
         public static readonly int pages = 6;
 
-        public static async Task<ObservableCollection<Film>> GetPopularFilmsAsync(int page)
+        public static async Task<IEnumerable<Film>> GetPopularFilmsAsync(int page)
         {
             RestRequest request = new RestRequest("/movie/popular");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", page);
 
-            FilmsResponse response = await client.GetAsync<FilmsResponse>(request);
-            return new ObservableCollection<Film>(response.results);
+            var response = await client.GetAsync<FilmsResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<Film>> GetNowPlayingFilmsAsync(int page)
+        public static async Task<IEnumerable<Film>> GetNowPlayingFilmsAsync(int page)
         {
             RestRequest request = new RestRequest("/movie/now_playing");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             request.AddParameter("page", page);
 
-            FilmsResponse response = await client.GetAsync<FilmsResponse>(request);
-            return new ObservableCollection<Film>(response.results);
+            var response = await client.GetAsync<FilmsResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<Film>> GetUpcomingFilmsAsync(int page)
+        public static async Task<IEnumerable<Film>> GetUpcomingFilmsAsync(int page)
         {
             RestRequest request = new RestRequest("/movie/upcoming");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             request.AddParameter("page", page);
 
-            FilmsResponse response = await client.GetAsync<FilmsResponse>(request);
-            return new ObservableCollection<Film>(response.results);
+            var response = await client.GetAsync<FilmsResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<DiscoverItem>> GetComingSoonAsync(int page, int time)
+        public static async Task<IEnumerable<DiscoverItem>> GetComingSoonAsync(int page, int time)
         {
             RestRequest request = new RestRequest("/discover/movie");
 
@@ -90,8 +89,8 @@ namespace MovieNight.Core.Services
             }
             request.AddParameter("sort_by", "popularity.desc");
 
-            DiscoverResponse response = await client.GetAsync<DiscoverResponse>(request);
-            return new ObservableCollection<DiscoverItem>(response.results);
+            var response = await client.GetAsync<DiscoverResponse>(request);
+            return response.results;
         }
 
         private static async Task<string> GetKeywordIdsAsync(string keyword)
@@ -109,7 +108,7 @@ namespace MovieNight.Core.Services
             return ids.FirstOrDefault().ToString();
         }
 
-        public static async Task<ObservableCollection<DiscoverItem>> GetDiscoverPageAsync(int page, string keyword, int decade, int year, int genre, int count, string sortby, bool adult)
+        public static async Task<IEnumerable<DiscoverItem>> GetDiscoverPageAsync(int page, string keyword, int decade, int year, int genre, int count, string sortby, bool adult)
         {
             string keywordIds = string.Empty;
 
@@ -156,11 +155,11 @@ namespace MovieNight.Core.Services
                 request.AddParameter("include_adult", "true");
             }
 
-            DiscoverResponse response = await client.GetAsync<DiscoverResponse>(request);
-            return new ObservableCollection<DiscoverItem>(response.results);
+            var response = await client.GetAsync<DiscoverResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<DiscoverItem>> GetDiscoverTVPageAsync(int page, string keyword, int decade, int year, int genre, int count, string sortby)
+        public static async Task<IEnumerable<DiscoverItem>> GetDiscoverTVPageAsync(int page, string keyword, int decade, int year, int genre, int count, string sortby)
         {
             string keywordIds = string.Empty;
 
@@ -202,48 +201,48 @@ namespace MovieNight.Core.Services
 
             request.AddParameter("sort_by", sortby);
 
-            DiscoverResponse response = await client.GetAsync<DiscoverResponse>(request);
-            return new ObservableCollection<DiscoverItem>(response.results);
+            var response = await client.GetAsync<DiscoverResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<TVShow>> GetPopularTVShowsAsync(int page)
+        public static async Task<IEnumerable<TVShow>> GetPopularTVShowsAsync(int page)
         {
             RestRequest request = new RestRequest("/tv/popular");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", page);
 
-            TVShowsResponse response = await client.GetAsync<TVShowsResponse>(request);
-            return new ObservableCollection<TVShow>(response.results);
+            var response = await client.GetAsync<TVShowsResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<TVShow>> GetTvOnTheAirAsync(int page)
+        public static async Task<IEnumerable<TVShow>> GetTvOnTheAirAsync(int page)
         {
             RestRequest request = new RestRequest("/tv/on_the_air");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", page);
 
-            TVShowsResponse response = await client.GetAsync<TVShowsResponse>(request);
-            return new ObservableCollection<TVShow>(response.results);
+            var response = await client.GetAsync<TVShowsResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<TVShow>> GetTvAiringTodayAsync(int page)
+        public static async Task<IEnumerable<TVShow>> GetTvAiringTodayAsync(int page)
         {
             RestRequest request = new RestRequest("/tv/airing_today");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", page);
 
-            TVShowsResponse response = await client.GetAsync<TVShowsResponse>(request);
-            return new ObservableCollection<TVShow>(response.results);
+            var response = await client.GetAsync<TVShowsResponse>(request);
+            return response.results;
         }
 
-        public static async Task<ObservableCollection<Person>> GetPopularPeopleAsync(int page)
+        public static async Task<IEnumerable<Person>> GetPopularPeopleAsync(int page)
         {
             RestRequest request = new RestRequest("/person/popular");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", page);
 
-            PeopleResponse response = await client.GetAsync<PeopleResponse>(request);
-            return new ObservableCollection<Person>(response.results);
+            var response = await client.GetAsync<PeopleResponse>(request);
+            return response.results;
         }
 
         public static async Task<Film> GetDetailedFilmAsync(int id)
@@ -257,13 +256,14 @@ namespace MovieNight.Core.Services
 
             if (film.belongs_to_collection != null)
             {
-                film.collection_films = await GetFilmCollectionAsync(film.belongs_to_collection.id);
+                var parts = await GetFilmCollectionAsync(film.belongs_to_collection.id);
+                film.collection_films = parts.ToList();
             }
 
             return film;
         }
 
-        private static async Task<List<Part>> GetFilmCollectionAsync(int collection_id)
+        private static async Task<IEnumerable<Part>> GetFilmCollectionAsync(int collection_id)
         {
             RestRequest request = new RestRequest("/collection/{collection_id}");
             request.AddParameter("api_key", API_KEY);
@@ -273,8 +273,7 @@ namespace MovieNight.Core.Services
 
             return response.parts?
                 .OrderByDescending(p => !string.IsNullOrEmpty(p.release_date))
-                .ThenBy(p => p.release_date)
-                .ToList();
+                .ThenBy(p => p.release_date);
         }
 
         public static async Task<TVShow> GetDetailedTVShowAsync(int id)
@@ -316,24 +315,24 @@ namespace MovieNight.Core.Services
             return person;
         }
 
-        public static async Task<IEnumerable<MultiSearchItem>> GetMultiSearchAsync(string searchString)
+        public static async Task<IEnumerable<MultiSearchItem>> GetMultiSearchAsync(string searchValue)
         {
             RestRequest request = new RestRequest("/search/multi");
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("include_adult", "true");
-            request.AddParameter("query", searchString);
+            request.AddParameter("query", searchValue);
 
-            MultiSearchResponse response = await client.GetAsync<MultiSearchResponse>(request);
+            var response = await client.GetAsync<MultiSearchResponse>(request);
             return response.results;
         }
 
-        public static async Task<ObservableCollection<Genres>> GetGenresAsync(string media)
+        public static async Task<IEnumerable<Genres>> GetGenresAsync(string media)
         {
             RestRequest request = new RestRequest($"/genre/{media}/list");
             request.AddParameter("api_key", API_KEY);
 
-            GenreResponse response = await client.GetAsync<GenreResponse>(request);
-            return new ObservableCollection<Genres>(response.genres);
+            var response = await client.GetAsync<GenreResponse>(request);
+            return response.genres;
         }
     }
 }

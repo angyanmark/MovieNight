@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
+using MovieNight.Helpers;
 using MovieNight.Services;
 
 namespace MovieNight.ViewModels
@@ -27,12 +28,10 @@ namespace MovieNight.ViewModels
         {
             if (!noMore)
             {
-                ObservableCollection<TVShow> tvshows = new ObservableCollection<TVShow>();
-
                 for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    tvshows = await Task.Run(() => TMDbService.GetPopularTVShowsAsync(++loadedPages));
-                    if (tvshows.Count == 0)
+                    var tvshows = await TMDbService.GetPopularTVShowsAsync(++loadedPages);
+                    if (!tvshows.IsAny())
                     {
                         noMore = true;
                         break;

@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
+using MovieNight.Helpers;
 using MovieNight.Services;
 
 namespace MovieNight.ViewModels
@@ -30,7 +31,7 @@ namespace MovieNight.ViewModels
                 for (int i = 0; i < TMDbService.pages; i++)
                 {
                     var films = await TMDbService.GetUpcomingFilmsAsync(++loadedPages);
-                    if (films.Count == 0)
+                    if (!films.IsAny())
                     {
                         noMore = true;
                         break;
