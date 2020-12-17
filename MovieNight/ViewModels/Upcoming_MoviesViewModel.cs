@@ -29,9 +29,9 @@ namespace MovieNight.ViewModels
             {
                 ObservableCollection<Film> films = new ObservableCollection<Film>();
 
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    films = await Task.Run(() => APICalls.CallUpcomingFilms(++loadedPages));
+                    films = await Task.Run(() => TMDbService.GetUpcomingFilms(++loadedPages));
                     if (films.Count == 0)
                     {
                         noMore = true;

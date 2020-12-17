@@ -32,9 +32,9 @@ namespace MovieNight.ViewModels
             {
                 ObservableCollection<DiscoverItem> films = new ObservableCollection<DiscoverItem>();
                 
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    films = await Task.Run(() => APICalls.CallComingSoon(++loadedPages, time));
+                    films = await Task.Run(() => TMDbService.GetComingSoon(++loadedPages, time));
                     if (films.Count == 0)
                     {
                         noMore = true;

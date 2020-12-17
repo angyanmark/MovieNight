@@ -62,7 +62,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadTVShowSeason(int tv_id, int season_number, string showName)
         {
-            Item = await Task.Run(() => APICalls.CallDetailedTVShowSeason(tv_id, season_number, showName));
+            Item = await Task.Run(() => TMDbService.GetDetailedTVShowSeason(tv_id, season_number, showName));
             Item.poster_path = "";
 
             PosterSource.Clear();

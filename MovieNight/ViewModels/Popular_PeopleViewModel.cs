@@ -29,9 +29,9 @@ namespace MovieNight.ViewModels
             {
                 ObservableCollection<Person> people = new ObservableCollection<Person>();
 
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    people = await Task.Run(() => APICalls.CallPopularPeople(++loadedPages));
+                    people = await Task.Run(() => TMDbService.GetPopularPeople(++loadedPages));
                     if (people.Count == 0)
                     {
                         noMore = true;

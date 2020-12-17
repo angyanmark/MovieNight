@@ -29,9 +29,9 @@ namespace MovieNight.ViewModels
             {
                 ObservableCollection<TVShow> tvshows = new ObservableCollection<TVShow>();
 
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    tvshows = await Task.Run(() => APICalls.CallPopularTVShows(++loadedPages));
+                    tvshows = await Task.Run(() => TMDbService.GetPopularTVShows(++loadedPages));
                     if (tvshows.Count == 0)
                     {
                         noMore = true;

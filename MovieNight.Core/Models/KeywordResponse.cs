@@ -5,8 +5,7 @@ namespace MovieNight.Core.Models
     public class KeywordResponse
     {
         public int page { get; set; }
-        //public Result[] results { get; set; }
-        public List<Result7> results { get; set; }
+        public List<Result7> results { get; set; } = new List<Result7>();
         public int total_pages { get; set; }
         public int total_results { get; set; }
     }

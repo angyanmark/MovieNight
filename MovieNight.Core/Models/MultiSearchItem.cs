@@ -69,7 +69,7 @@ namespace MovieNight.Core.Models
                     }
                     else
                     {
-                        return "https://image.tmdb.org/t/p/" + APICalls.PROFILE_SIZE + "/" + profile_path;
+                        return "https://image.tmdb.org/t/p/" + TMDbService.PROFILE_SIZE + "/" + profile_path;
                     }
                 }
                 else
@@ -80,7 +80,7 @@ namespace MovieNight.Core.Models
                     }
                     else
                     {
-                        return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + poster_path;
+                        return "https://image.tmdb.org/t/p/" + TMDbService.POSTER_SIZE + "/" + poster_path;
                     }
                 }
             }

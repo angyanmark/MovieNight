@@ -90,7 +90,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadMovie(int id)
         {
-            Item = await Task.Run(() => APICalls.CallDetailedFilm(id));
+            Item = await Task.Run(() => TMDbService.GetDetailedFilm(id));
             Item.poster_path = "";
             Item.backdrop_path = "";
 

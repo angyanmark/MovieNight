@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace MovieNight.Core.Services
 {
-    public static class APICalls
+    public static class TMDbService
     {
         private static readonly string API_KEY = "5e9bcb638329a15acf75c1b2d85ae67e";
 
-        private static RestClient client = new RestClient("https://api.themoviedb.org/3");
+        private static readonly RestClient client = new RestClient("https://api.themoviedb.org/3");
 
         public static readonly int pages = 6;
 
@@ -27,79 +27,77 @@ namespace MovieNight.Core.Services
 
         public static readonly string FILE_SIZE = "w500"; // same as poster size
 
-        public static ObservableCollection<Film> CallPopularFilms(int loadPage)
+        public static ObservableCollection<Film> GetPopularFilms(int loadPage)
         {
-            ObservableCollection<Film> data1 = new ObservableCollection<Film>();
-
             RestRequest request = new RestRequest("/movie/popular");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", loadPage);
+
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<Film>(result.results);
+                return new ObservableCollection<Film>(result.results);
             }
-            
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<Film>();
+            }
         }
 
-        public static ObservableCollection<Film> CallNowPlayingFilms(int loadPage)
+        public static ObservableCollection<Film> GetNowPlayingFilms(int loadPage)
         {
-            ObservableCollection<Film> data1 = new ObservableCollection<Film>();
-
             RestRequest request = new RestRequest("/movie/now_playing");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             request.AddParameter("page", loadPage);
+
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<Film>(result.results);
+                return new ObservableCollection<Film>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<Film>();
+            }
         }
 
-        public static ObservableCollection<Film> CallUpcomingFilms(int loadPage)
+        public static ObservableCollection<Film> GetUpcomingFilms(int loadPage)
         {
-            ObservableCollection<Film> data1 = new ObservableCollection<Film>();
-
             RestRequest request = new RestRequest("/movie/upcoming");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             request.AddParameter("page", loadPage);
+
             FilmsResponse result = client.Execute<FilmsResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<Film>(result.results);
+                return new ObservableCollection<Film>(result.results);
             }
-            
-            return data1;
+            else
+            {
+                return new ObservableCollection<Film>();
+            }
         }
 
-        public static ObservableCollection<DiscoverItem> CallComingSoon(int loadPage, int time)
+        public static ObservableCollection<DiscoverItem> GetComingSoon(int loadPage, int time)
         {
-            ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
-
             RestRequest request = new RestRequest("/discover/movie");
 
-            DateTime d = DateTime.Now;
-            string from = d.AddMonths(1).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+            DateTime now = DateTime.Now;
+            string from = now.AddMonths(1).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
             string to = "";
+
             if (time == 0)
             {
-                to = d.AddMonths(6).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+                to = now.AddMonths(6).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
             }
             else if(time > 0)
             {
-                to = d.AddYears(time).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
+                to = now.AddYears(time).ToString("u", DateTimeFormatInfo.InvariantInfo).Substring(0, 10);
             }
 
             request.AddParameter("api_key", API_KEY);
@@ -113,59 +111,44 @@ namespace MovieNight.Core.Services
                 request.AddParameter("release_date.lte", to);
             }
             request.AddParameter("sort_by", "popularity.desc");
+
             DiscoverResponse result = client.Execute<DiscoverResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<DiscoverItem>(result.results);
+                return new ObservableCollection<DiscoverItem>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<DiscoverItem>();
+            }
         }
 
-        public static string CallKeywordIDs(string keyword)
+        private static string GetKeywordIds(string keyword)
         {
             RestRequest request = new RestRequest("/search/keyword");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("query", keyword);
+
             KeywordResponse data = client.Execute<KeywordResponse>(request).Data;
 
-            string builder = "";
+            var ids = data.results.Select(result => result.id);
 
-            /*foreach(Result7 r in data.results)
-            {
-                builder += r.id + ",";
-            }
-            if(builder.Length > 0)
-            {
-                builder = builder.Substring(0, builder.Length - 1);
-            }*/
+            //return string.Join(",", ids.Select(x => x.ToString()).ToArray());
 
-            if(data.results != null)
-            {
-                if(data.results.Count > 0)
-                {
-                    builder += data.results[0].id.ToString();
-                }
-            }
-
-            return builder;
+            return ids.FirstOrDefault().ToString();
         }
 
-        public static ObservableCollection<DiscoverItem> CallDiscoverPage(int loadPage, string keyword, int decade, int year, int genre, int count, string sortby, bool adult)
+        public static ObservableCollection<DiscoverItem> GetDiscoverPage(int loadPage, string keyword, int decade, int year, int genre, int count, string sortby, bool adult)
         {
-            string keywordIDs = "";
+            string keywordIds = string.Empty;
 
-            if(keyword != "")
+            if(!string.IsNullOrWhiteSpace(keyword))
             {
-                keywordIDs = CallKeywordIDs(keyword);
+                keywordIds = GetKeywordIds(keyword);
             }
 
-            ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
-
             RestRequest request = new RestRequest("/discover/movie");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             request.AddParameter("page", loadPage);
@@ -186,9 +169,9 @@ namespace MovieNight.Core.Services
                 request.AddParameter("with_genres", genre);
             }   
 
-            if(keywordIDs != "")
+            if(!string.IsNullOrWhiteSpace(keywordIds))
             {
-                request.AddParameter("with_keywords", keywordIDs);
+                request.AddParameter("with_keywords", keywordIds);
             }
             
             if(count > 0)
@@ -207,25 +190,24 @@ namespace MovieNight.Core.Services
             
             if(result.results != null)
             {
-                data1 = new ObservableCollection<DiscoverItem>(result.results);
+                return new ObservableCollection<DiscoverItem>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<DiscoverItem>();
+            }
         }
 
-        public static ObservableCollection<DiscoverItem> CallDiscoverTVPage(int loadPage, string keyword, int decade, int year, int genre, int count, string sortby)
+        public static ObservableCollection<DiscoverItem> GetDiscoverTVPage(int loadPage, string keyword, int decade, int year, int genre, int count, string sortby)
         {
-            string keywordIDs = "";
+            string keywordIds = string.Empty;
 
-            if (keyword != "")
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                keywordIDs = CallKeywordIDs(keyword);
+                keywordIds = GetKeywordIds(keyword);
             }
 
-            ObservableCollection<DiscoverItem> data1 = new ObservableCollection<DiscoverItem>();
-
             RestRequest request = new RestRequest("/discover/tv");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("region", "US");
             request.AddParameter("page", loadPage);
@@ -246,9 +228,9 @@ namespace MovieNight.Core.Services
                 request.AddParameter("with_genres", genre);
             }   
 
-            if (keywordIDs != "")
+            if (!string.IsNullOrWhiteSpace(keywordIds))
             {
-                request.AddParameter("with_keywords", keywordIDs);
+                request.AddParameter("with_keywords", keywordIds);
             }
 
             if (count > 0)
@@ -262,114 +244,114 @@ namespace MovieNight.Core.Services
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<DiscoverItem>(result.results);
+                return new ObservableCollection<DiscoverItem>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<DiscoverItem>();
+            }
         }
 
-        public static ObservableCollection<TVShow> CallPopularTVShows(int loadPage)
+        public static ObservableCollection<TVShow> GetPopularTVShows(int loadPage)
         {
-            ObservableCollection<TVShow> data1 = new ObservableCollection<TVShow>();
-
             RestRequest request = new RestRequest("/tv/popular");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", loadPage);
+
             TVShowsResponse result = client.Execute<TVShowsResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<TVShow>(result.results);
+                return new ObservableCollection<TVShow>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<TVShow>();
+            }
         }
 
-        public static ObservableCollection<TVShow> CallTvOnTheAir(int loadPage)
+        public static ObservableCollection<TVShow> GetTvOnTheAir(int loadPage)
         {
-            ObservableCollection<TVShow> data1 = new ObservableCollection<TVShow>();
-
             RestRequest request = new RestRequest("/tv/on_the_air");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", loadPage);
+
             TVShowsResponse result = client.Execute<TVShowsResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<TVShow>(result.results);
+                return new ObservableCollection<TVShow>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<TVShow>();
+            }
         }
 
-        public static ObservableCollection<TVShow> CallTvAiringToday(int loadPage)
+        public static ObservableCollection<TVShow> GetTvAiringToday(int loadPage)
         {
-            ObservableCollection<TVShow> data1 = new ObservableCollection<TVShow>();
-
             RestRequest request = new RestRequest("/tv/airing_today");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", loadPage);
+
             TVShowsResponse result = client.Execute<TVShowsResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<TVShow>(result.results);
+                return new ObservableCollection<TVShow>(result.results);
             }
-            
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<TVShow>();
+            }
         }
 
-        public static ObservableCollection<Person> CallPopularPeople(int loadPage)
+        public static ObservableCollection<Person> GetPopularPeople(int loadPage)
         {
-            ObservableCollection<Person> data1 = new ObservableCollection<Person>();
-
             RestRequest request = new RestRequest("/person/popular");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("page", loadPage);
+
             PeopleResponse result = client.Execute<PeopleResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<Person>(result.results);
+                return new ObservableCollection<Person>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<Person>();
+            }
         }
 
-        public static Film CallDetailedFilm(int id)
+        public static Film GetDetailedFilm(int id)
         {
             RestRequest request = new RestRequest("/movie/{id}");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("append_to_response", "external_ids,videos,recommendations,release_dates,credits,images,reviews,keywords");
             request.AddUrlSegment("id", id);
-            Film data = client.Execute<Film>(request).Data;
 
-            if(data.belongs_to_collection != null)
+            Film film = client.Execute<Film>(request).Data;
+
+            if(film.belongs_to_collection != null)
             {
                 RestRequest request2 = new RestRequest("/collection/{collection_id}");
                 request2.AddParameter("api_key", API_KEY);
-                request2.AddUrlSegment("collection_id", data.belongs_to_collection.id);
-                data.collection_films = client.Execute<CollectionResponse>(request2).Data;
+                request2.AddUrlSegment("collection_id", film.belongs_to_collection.id);
+                film.collection_films = client.Execute<CollectionResponse>(request2).Data;
 
-                if(data.collection_films.parts != null)
+                if(film.collection_films.parts != null)
                 {
-                    data.collection_films.parts = data.collection_films.parts.OrderBy(o => o.release_date).ToList();
+                    film.collection_films.parts = film.collection_films.parts.OrderBy(o => o.release_date).ToList();
 
-                    int size = data.collection_films.parts.Count;
                     int cnt = 0;
-                    for (int i = 0; i < data.collection_films.parts.Count; i++)
+                    for (int i = 0; i < film.collection_films.parts.Count; i++)
                     {
-                        if (data.collection_films.parts[cnt].release_date == "" || data.collection_films.parts[cnt].release_date == null)
+                        if (film.collection_films.parts[cnt].release_date == "" || film.collection_films.parts[cnt].release_date == null)
                         {
-                            var item = data.collection_films.parts[cnt];
-                            data.collection_films.parts.RemoveAt(cnt);
-                            data.collection_films.parts.Add(item);
+                            var item = film.collection_films.parts[cnt];
+                            film.collection_films.parts.RemoveAt(cnt);
+                            film.collection_films.parts.Add(item);
                         }
                         else
                         {
@@ -379,92 +361,86 @@ namespace MovieNight.Core.Services
                 }
                 else
                 {
-                    data.belongs_to_collection = null;
+                    film.belongs_to_collection = null;
                 }
             }
 
-            return data;
+            return film;
         }
 
-        public static TVShow CallDetailedTVShow(int id)
+        public static TVShow GetDetailedTVShow(int id)
         {
             RestRequest request = new RestRequest("/tv/{id}");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("append_to_response", "external_ids,videos,recommendations,credits,content_ratings,images,reviews,keywords");
             request.AddUrlSegment("id", id);
-            TVShow data = client.Execute<TVShow>(request).Data;
 
-            return data;
+            return client.Execute<TVShow>(request).Data;
         }
 
-        public static TVShowSeason CallDetailedTVShowSeason(int tv_id, int season_number, string showName)
+        public static TVShowSeason GetDetailedTVShowSeason(int tv_id, int season_number, string showName)
         {
             RestRequest request = new RestRequest("/tv/{tv_id}/season/{season_number}");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("append_to_response", "credits,images");
             request.AddUrlSegment("tv_id", tv_id);
             request.AddUrlSegment("season_number", season_number);
-            TVShowSeason data = client.Execute<TVShowSeason>(request).Data;
 
-            data.showName = showName;
+            TVShowSeason season = client.Execute<TVShowSeason>(request).Data;
+            season.showName = showName;
 
-            return data;
+            return season;
         }
 
-        public static Person CallDetailedPerson(int id)
+        public static Person GetDetailedPerson(int id)
         {
             RestRequest request = new RestRequest("/person/{id}");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("append_to_response", "external_ids,combined_credits,tagged_images,images");
             request.AddUrlSegment("id", id);
-            Person data = client.Execute<Person>(request).Data;
-            string cont = client.Execute<Person>(request).Content;
 
-            data.combined_credits.cast = data.combined_credits.cast.OrderByDescending(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
-            data.combined_credits.crew = data.combined_credits.crew.OrderByDescending(o => ((o.vote_count + 400) * (o.popularity + 10) * (o.vote_average + 3))).ToList();
+            Person person = client.Execute<Person>(request).Data;
 
-            return data;
+            person.combined_credits.cast = person.combined_credits.cast.OrderByDescending(o => o.popularity).ToList();
+            person.combined_credits.crew = person.combined_credits.crew.OrderByDescending(o => o.popularity).ToList();
+
+            return person;
         }
 
-        public static ObservableCollection<MultiSearchItem> CallMultiSearch(string searchString)
+        public static ObservableCollection<MultiSearchItem> GetMultiSearch(string searchString)
         {
-            ObservableCollection<MultiSearchItem> data1 = new ObservableCollection<MultiSearchItem>();
-
             RestRequest request = new RestRequest("/search/multi");
-
             request.AddParameter("api_key", API_KEY);
             request.AddParameter("include_adult", "true");
             request.AddParameter("query", searchString);
+
             MultiSearchResponse result = client.Execute<MultiSearchResponse>(request).Data;
 
             if(result.results != null)
             {
-                data1 = new ObservableCollection<MultiSearchItem>(result.results);
+                return new ObservableCollection<MultiSearchItem>(result.results);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<MultiSearchItem>();
+            }
         }
 
-        public static ObservableCollection<Genres> CallGenres(string media)
+        public static ObservableCollection<Genres> GetGenres(string media)
         {
-            ObservableCollection<Genres> data1 = new ObservableCollection<Genres>();
-
             RestRequest request = new RestRequest("/genre/" + media + "/list");
-
             request.AddParameter("api_key", API_KEY);
-            //request.AddParameter("include_adult", "true");
-            //request.AddParameter("include_video", "true");
+
             GenreResponse result = client.Execute<GenreResponse>(request).Data;
 
-            if(result.genres != null)
+            if (result.genres != null)
             {
-                data1 = new ObservableCollection<Genres>(result.genres);
+                return new ObservableCollection<Genres>(result.genres);
             }
-
-            return data1;
+            else
+            {
+                return new ObservableCollection<Genres>();
+            }
         }
     }
 }

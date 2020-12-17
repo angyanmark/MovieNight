@@ -32,9 +32,9 @@ namespace MovieNight.ViewModels
             {
                 ObservableCollection<DiscoverItem> tvshows = new ObservableCollection<DiscoverItem>();
 
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    tvshows = await Task.Run(() => APICalls.CallDiscoverTVPage(++loadedPages, keyword, decade, year, genre, count, sortby));
+                    tvshows = await Task.Run(() => TMDbService.GetDiscoverTVPage(++loadedPages, keyword, decade, year, genre, count, sortby));
                     if (tvshows.Count == 0)
                     {
                         noMore = true;

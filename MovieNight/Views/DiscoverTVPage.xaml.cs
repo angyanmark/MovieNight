@@ -89,7 +89,7 @@ namespace MovieNight.Views
         {
             genres.Add("Genre");
 
-            ObservableCollection<Genres> genreList = APICalls.CallGenres("tv");
+            ObservableCollection<Genres> genreList = TMDbService.GetGenres("tv");
 
             foreach (Genres g in genreList)
             {
