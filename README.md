@@ -6,10 +6,8 @@
 ## About
 In Movie Night you can browse among the popular films, tv shows and people. You are also able to see the movies that are now playing in theatres or tv shows that are airing today. You can search any movie and show by keyword or genre, and sort the results. There are many more functions and features.
 
-## API
-Movie Night is using the [TMDb API](https://www.themoviedb.org/documentation/api).
-
-![tmdb_powered_rectangle_logo](https://user-images.githubusercontent.com/47695008/58746873-c304a100-8463-11e9-9306-ab82ccdf4151.png)
+## Data
+This product uses the [TMDb API](https://www.themoviedb.org/documentation/api) but is not endorsed or certified by [TMDb](https://www.themoviedb.org/).
 
 ## Screenshots
 ![popular](https://user-images.githubusercontent.com/47695008/58732194-0b36ab80-83f1-11e9-99ba-8fa4d1a5a10c.png)
