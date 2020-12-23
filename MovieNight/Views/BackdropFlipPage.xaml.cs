@@ -1,7 +1,4 @@
-﻿using System;
-
-using MovieNight.ViewModels;
-
+﻿using MovieNight.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 

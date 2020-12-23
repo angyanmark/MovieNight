@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -20,6 +18,7 @@ namespace MovieNight.ViewModels
         public ObservableCollection<TaggedImagesResult> TaggedImages = new ObservableCollection<TaggedImagesResult>();
         public int selectedIndex = 0;
     }
+
     public class MoviesDetailViewModel : ViewModelBase
     {
         private Film film = new Film();
@@ -91,7 +90,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadMovie(int id)
         {
-            Item = await Task.Run(() => APICalls.CallDetailedFilm(id));
+            Item = await TMDbService.GetDetailedFilmAsync(id);
             Item.poster_path = "";
             Item.backdrop_path = "";
 
@@ -110,7 +109,7 @@ namespace MovieNight.ViewModels
             CollectionSource.Clear();
             if (Item.belongs_to_collection != null && Item.collection_films != null)
             {
-                foreach (var collectionItem in Item.collection_films.parts)
+                foreach (var collectionItem in Item.collection_films)
                     CollectionSource.Add(collectionItem);
             }
 
@@ -131,7 +130,7 @@ namespace MovieNight.ViewModels
 
         public void Initialize(int id)
         {
-            LoadMovie(id);
+            _ = LoadMovie(id);
         }
 
         private void OnItemClick(Part clickedItem)

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using MovieNight.Services;
 using MovieNight.ViewModels;
-
 using Windows.ApplicationModel.Activation;
 
 namespace MovieNight.Activation

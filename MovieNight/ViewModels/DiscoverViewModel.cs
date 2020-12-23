@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -7,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
+using MovieNight.Helpers;
 using MovieNight.Services;
 
 namespace MovieNight.ViewModels
@@ -31,12 +31,10 @@ namespace MovieNight.ViewModels
         {
             if (!noMore)
             {
-                ObservableCollection<DiscoverItem> films = new ObservableCollection<DiscoverItem>();
-
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    films = await Task.Run(() => APICalls.CallDiscoverPage(++loadedPages, keyword, decade, year, genre, count, sortby, adult));
-                    if (films.Count == 0)
+                    var films = await TMDbService.GetDiscoverPageAsync(++loadedPages, keyword, decade, year, genre, count, sortby, adult);
+                    if (!films.IsAny())
                     {
                         noMore = true;
                         break;
@@ -52,7 +50,7 @@ namespace MovieNight.ViewModels
 
         public DiscoverViewModel()
         {
-            LoadMovies("", 0, 0, 0, 0, "popularity.desc", false);
+            _ = LoadMovies("", 0, 0, 0, 0, "popularity.desc", false);
         }
 
         private void OnItemClick(DiscoverItem clickedItem)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -64,7 +62,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadTVShowSeason(int tv_id, int season_number, string showName)
         {
-            Item = await Task.Run(() => APICalls.CallDetailedTVShowSeason(tv_id, season_number, showName));
+            Item = await Task.Run(() => TMDbService.GetDetailedTVShowSeasonAsync(tv_id, season_number, showName));
             Item.poster_path = "";
 
             PosterSource.Clear();
@@ -88,7 +86,7 @@ namespace MovieNight.ViewModels
 
         public void Initialize(int tv_id, int season_number, string showName)
         {
-            LoadTVShowSeason(tv_id, season_number, showName);
+            _ = LoadTVShowSeason(tv_id, season_number, showName);
         }
 
         private void OnItemClick(Cast clickedItem)
@@ -122,9 +120,11 @@ namespace MovieNight.ViewModels
                     }
                     idx++;
                 }
-                ImageHolder ih = new ImageHolder();
-                ih.Posters = PosterSource;
-                ih.selectedIndex = idx;
+                ImageHolder ih = new ImageHolder
+                {
+                    Posters = PosterSource,
+                    selectedIndex = idx
+                };
 
                 //NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(PosterFlipViewModel).FullName, ih);

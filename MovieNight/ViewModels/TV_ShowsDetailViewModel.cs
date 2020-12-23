@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -90,7 +87,7 @@ namespace MovieNight.ViewModels
 
         async Task LoadTVShow(int id)
         {
-            Item = await Task.Run(() => APICalls.CallDetailedTVShow(id));
+            Item = await Task.Run(() => TMDbService.GetDetailedTVShowAsync(id));
             Item.poster_path = "";
             Item.backdrop_path = "";
 
@@ -127,7 +124,7 @@ namespace MovieNight.ViewModels
 
         public void Initialize(int id)
         {
-            LoadTVShow(id);
+            _ = LoadTVShow(id);
         }
 
         private void OnItemClick(Season clickedItem)
@@ -185,9 +182,11 @@ namespace MovieNight.ViewModels
                     }
                     idx++;
                 }
-                ImageHolder ih = new ImageHolder();
-                ih.Posters = PosterSource;
-                ih.selectedIndex = idx;
+                ImageHolder ih = new ImageHolder
+                {
+                    Posters = PosterSource,
+                    selectedIndex = idx
+                };
 
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(PosterFlipViewModel).FullName, ih);
@@ -207,9 +206,11 @@ namespace MovieNight.ViewModels
                     }
                     idx++;
                 }
-                ImageHolder ih = new ImageHolder();
-                ih.Backdrops = BackdropSource;
-                ih.selectedIndex = idx;
+                ImageHolder ih = new ImageHolder
+                {
+                    Backdrops = BackdropSource,
+                    selectedIndex = idx
+                };
 
                 NavigationService.Frame.SetListDataItemForNextConnectedAnimation(clickedItem);
                 NavigationService.Navigate(typeof(BackdropFlipViewModel).FullName, ih);

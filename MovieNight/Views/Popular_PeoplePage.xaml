@@ -1,35 +1,32 @@
-﻿<Page
-    x:Class="MovieNight.Views.Popular_PeoplePage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:models="using:MovieNight.Core.Models"
-    Style="{StaticResource PageStyle}"
-    mc:Ignorable="d">
+﻿<Page x:Class="MovieNight.Views.Popular_PeoplePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:MovieNight.Core.Models"
+      Style="{StaticResource PageStyle}"
+      mc:Ignorable="d">
 
     <Grid x:Name="ContentArea"
-          Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-          Margin="12, 12, 12, 0">
-        <controls:AdaptiveGridView
-            ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
-            ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
-            StretchContentForSingleRow="False"
-            SelectionMode="None"
-            IsItemClickEnabled="True"
-            animations:Connected.ListItemElementName="itemThumbnail"
-            animations:Connected.ListItemKey="animationKeyPopular_People"
-            DesiredWidth="240" >
+          Margin="12,12,12,0"
+          Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+        <controls:AdaptiveGridView animations:Connected.ListItemElementName="itemThumbnail"
+                                   animations:Connected.ListItemKey="animationKeyPopular_People"
+                                   DesiredWidth="240"
+                                   IsItemClickEnabled="True"
+                                   ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
+                                   ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                                   SelectionMode="None"
+                                   StretchContentForSingleRow="False">
             <controls:AdaptiveGridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Person">
-                    <Grid
-                        x:Name="itemThumbnail">
+                    <Grid x:Name="itemThumbnail">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="{x:Bind profile_path}">
                                 <ToolTipService.ToolTip>
-                                    <TextBlock Text="{x:Bind name}" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{x:Bind name}" TextWrapping="Wrap" />
                                 </ToolTipService.ToolTip>
                             </Image>
                             <!--<TextBlock

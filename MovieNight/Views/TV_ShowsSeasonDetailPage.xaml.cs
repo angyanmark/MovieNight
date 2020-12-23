@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Toolkit.Uwp.UI.Animations;
-
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using MovieNight.Services;
 using MovieNight.ViewModels;
-
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 

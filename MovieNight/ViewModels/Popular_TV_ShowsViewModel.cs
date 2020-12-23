@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
+using MovieNight.Helpers;
 using MovieNight.Services;
 
 namespace MovieNight.ViewModels
@@ -31,12 +28,10 @@ namespace MovieNight.ViewModels
         {
             if (!noMore)
             {
-                ObservableCollection<TVShow> tvshows = new ObservableCollection<TVShow>();
-
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    tvshows = await Task.Run(() => APICalls.CallPopularTVShows(++loadedPages));
-                    if (tvshows.Count == 0)
+                    var tvshows = await TMDbService.GetPopularTVShowsAsync(++loadedPages);
+                    if (!tvshows.IsAny())
                     {
                         noMore = true;
                         break;
@@ -51,7 +46,7 @@ namespace MovieNight.ViewModels
 
         public Popular_TV_ShowsViewModel()
         {
-            LoadTVShows();
+            _ = LoadTVShows();
         }
 
         private void OnItemClick(TVShow clickedItem)

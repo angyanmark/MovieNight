@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using MovieNight.Core.Models;
 
@@ -16,18 +14,18 @@ namespace MovieNight.ViewModels
             BackdropSource = new ObservableCollection<Backdrop>();
         }
 
-        async Task LoadImage(ImageHolder ih)
+        public void Initialize(ImageHolder ih)
+        {
+            LoadImage(ih);
+        }
+
+        private void LoadImage(ImageHolder ih)
         {
             BackdropSource.Clear();
             foreach (Backdrop b in ih.Backdrops)
                 BackdropSource.Add(b);
 
             selectedIndex = ih.selectedIndex;
-        }
-
-        public void Initialize(ImageHolder ih)
-        {
-            LoadImage(ih);
         }
     }
 }

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using MovieNight.Core.Models;
 using MovieNight.Core.Services;
+using MovieNight.Helpers;
 using MovieNight.Services;
 
 namespace MovieNight.ViewModels
@@ -27,16 +24,14 @@ namespace MovieNight.ViewModels
 
         public ObservableCollection<Film> Source { get; set; } = new ObservableCollection<Film>();
 
-        async Task LoadMovies()
+        private async Task LoadMovies()
         {
             if (!noMore)
             {
-                ObservableCollection<Film> films = new ObservableCollection<Film>();
-
-                for (int i = 0; i < APICalls.pages; i++)
+                for (int i = 0; i < TMDbService.pages; i++)
                 {
-                    films = await Task.Run(() => APICalls.CallUpcomingFilms(++loadedPages));
-                    if (films.Count == 0)
+                    var films = await TMDbService.GetUpcomingFilmsAsync(++loadedPages);
+                    if (!films.IsAny())
                     {
                         noMore = true;
                         break;
@@ -51,7 +46,7 @@ namespace MovieNight.ViewModels
 
         public Upcoming_MoviesViewModel()
         {
-            LoadMovies();
+            _ = LoadMovies();
         }
 
         private void OnItemClick(Film clickedItem)

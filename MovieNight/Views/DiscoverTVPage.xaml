@@ -1,61 +1,71 @@
-﻿<Page
-    x:Class="MovieNight.Views.DiscoverTVPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:models="using:MovieNight.Core.Models"
-    Style="{StaticResource PageStyle}"
-    mc:Ignorable="d">
+﻿<Page x:Class="MovieNight.Views.DiscoverTVPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:MovieNight.Core.Models"
+      Style="{StaticResource PageStyle}"
+      mc:Ignorable="d">
 
-    <Grid
-        x:Name="ContentArea"
-        Margin="12, 12, 12, 0">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
-                        <AdaptiveTrigger MinWindowWidth="1550" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="discover.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="true" />
-                        <Setter Target="discover.(RelativePanel.Orientation)" Value="Horizontal" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.-->
+    <Grid x:Name="ContentArea" Margin="12,12,12,0">
+        <!--
+            The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
+            Place your content here.
+        -->
         <ScrollViewer>
             <StackPanel Margin="0, 20, 0, 0">
                 <RelativePanel>
-                    <StackPanel x:Name="discover" RelativePanel.AlignHorizontalCenterWithPanel="True" >
+                    <StackPanel x:Name="discover" RelativePanel.AlignHorizontalCenterWithPanel="True">
 
-                        <StackPanel x:Name="clear" Margin="24, 23, 24, 15" HorizontalAlignment="Center" RelativePanel.AlignHorizontalCenterWithPanel="True">
-                            <Button x:Name="clearButton" Click="ClearButton_Click" Content="Clear" Width="100"
-                            Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
-                            BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
-                            Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}"/>
-                        </StackPanel>
-                        
-                        <StackPanel x:Name="keywordStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center" RelativePanel.Below="clear">
-                            <TextBox x:Name="keywordText" Width="250"
-                                     Header="Keyword" PlaceholderText="Enter keyword here..." />
-                        </StackPanel>
-
-                        <StackPanel x:Name="yearStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
-                            <ComboBox x:Name="yearCombo" Header="Year" Width="150" ItemsSource="{x:Bind years}" />
+                        <StackPanel x:Name="clear"
+                                    Margin="24, 23, 24, 15"
+                                    HorizontalAlignment="Center"
+                                    RelativePanel.AlignHorizontalCenterWithPanel="True">
+                            <Button x:Name="clearButton"
+                                    Width="100"
+                                    Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
+                                    BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
+                                    Click="ClearButton_Click"
+                                    Content="Clear"
+                                    Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}" />
                         </StackPanel>
 
-                        <StackPanel x:Name="genreStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
-                            <ComboBox x:Name="genreCombo" Header="Genre" Width="150" ItemsSource="{x:Bind genres}" />
+                        <StackPanel x:Name="keywordStack"
+                                    Margin="24, 0, 24, 15"
+                                    HorizontalAlignment="Center"
+                                    RelativePanel.Below="clear">
+                            <TextBox x:Name="keywordText"
+                                     Width="250"
+                                     Header="Keyword"
+                                     PlaceholderText="Enter keyword here..." />
                         </StackPanel>
 
-                        <StackPanel x:Name="minimumVotes" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
-                            <ComboBox x:Name="minimumVotesCombo" Header="Minimum votes" Width="150" >
+                        <StackPanel x:Name="yearStack"
+                                    Margin="24, 0, 24, 15"
+                                    HorizontalAlignment="Center">
+                            <ComboBox x:Name="yearCombo"
+                                      Width="150"
+                                      Header="Year"
+                                      ItemsSource="{x:Bind years}" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="genreStack"
+                                    Margin="24, 0, 24, 15"
+                                    HorizontalAlignment="Center">
+                            <ComboBox x:Name="genreCombo"
+                                      Width="150"
+                                      Header="Genre"
+                                      ItemsSource="{x:Bind genres}" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="minimumVotes"
+                                    Margin="24, 0, 24, 15"
+                                    HorizontalAlignment="Center">
+                            <ComboBox x:Name="minimumVotesCombo"
+                                      Width="150"
+                                      Header="Minimum votes">
                                 <ComboBoxItem IsEnabled="True">
                                     <x:String>Votes</x:String>
                                 </ComboBoxItem>
@@ -102,8 +112,12 @@
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel x:Name="sortByStack" Margin="24, 0, 24, 15" HorizontalAlignment="Center">
-                            <ComboBox x:Name="sortByCombo" Header="Sort by" Width="250" >
+                        <StackPanel x:Name="sortByStack"
+                                    Margin="24, 0, 24, 15"
+                                    HorizontalAlignment="Center">
+                            <ComboBox x:Name="sortByCombo"
+                                      Width="250"
+                                      Header="Sort by">
                                 <ComboBoxItem IsEnabled="True">
                                     <x:String>TV Show Popularity</x:String>
                                 </ComboBoxItem>
@@ -112,11 +126,11 @@
                                     <x:String>First Air Date</x:String>
                                 </ComboBoxItem>
 
-                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                <ComboBoxItem Margin="{StaticResource MediumLeftMargin}" IsEnabled="True">
                                     <x:String>Newest First</x:String>
                                 </ComboBoxItem>
 
-                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                <ComboBoxItem Margin="{StaticResource MediumLeftMargin}" IsEnabled="True">
                                     <x:String>Earliest First</x:String>
                                 </ComboBoxItem>
 
@@ -124,46 +138,49 @@
                                     <x:String>Vote Average</x:String>
                                 </ComboBoxItem>
 
-                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                <ComboBoxItem Margin="{StaticResource MediumLeftMargin}" IsEnabled="True">
                                     <x:String>Highest Vote Average First</x:String>
                                 </ComboBoxItem>
 
-                                <ComboBoxItem IsEnabled="True" Margin="{StaticResource MediumLeftMargin}">
+                                <ComboBoxItem Margin="{StaticResource MediumLeftMargin}" IsEnabled="True">
                                     <x:String>Lowest Vote Average First</x:String>
                                 </ComboBoxItem>
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel x:Name="findStack" Margin="24, 23, 24, 0" HorizontalAlignment="Center">
-                            <Button x:Name="findButton" Click="FindButton_Click" Content="Find" Width="100"
-                            Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
-                            BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
-                            Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}"/>
+                        <StackPanel x:Name="findStack"
+                                    Margin="24, 23, 24, 0"
+                                    HorizontalAlignment="Center">
+                            <Button x:Name="findButton"
+                                    Width="100"
+                                    Background="{ThemeResource ComboBoxItemSelectedDisabledBackgroundThemeBrush}"
+                                    BorderBrush="{ThemeResource ComboBoxItemSelectedDisabledForegroundThemeBrush}"
+                                    Click="FindButton_Click"
+                                    Content="Find"
+                                    Foreground="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}" />
                         </StackPanel>
                     </StackPanel>
 
                 </RelativePanel>
 
                 <Grid x:Name="postersArea"
-                    Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-                    Margin="0, 50, 0, 0">
-                    <controls:AdaptiveGridView
-                        ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
-                        ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
-                        StretchContentForSingleRow="False"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True"
-                        animations:Connected.ListItemElementName="itemThumbnail"
-                        animations:Connected.ListItemKey="animationKeyPopular_Movies"
-                        DesiredWidth="240">
+                      Margin="0, 50, 0, 0"
+                      Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}">
+                    <controls:AdaptiveGridView animations:Connected.ListItemElementName="itemThumbnail"
+                                               animations:Connected.ListItemKey="animationKeyPopular_Movies"
+                                               DesiredWidth="240"
+                                               IsItemClickEnabled="True"
+                                               ItemClickCommand="{x:Bind ViewModel.ItemClickCommand}"
+                                               ItemsSource="{x:Bind ViewModel.Source, Mode=OneWay}"
+                                               SelectionMode="None"
+                                               StretchContentForSingleRow="False">
                         <controls:AdaptiveGridView.ItemTemplate>
                             <DataTemplate x:DataType="models:DiscoverItem">
-                                <Grid
-                                    x:Name="itemThumbnail">
+                                <Grid x:Name="itemThumbnail">
                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Image Source="{x:Bind poster_path}">
                                             <ToolTipService.ToolTip>
-                                                <TextBlock Text="{Binding titleShortDateTV}" TextWrapping="Wrap"/>
+                                                <TextBlock Text="{Binding titleShortDateTV}" TextWrapping="Wrap" />
                                             </ToolTipService.ToolTip>
                                         </Image>
                                         <!--<TextBlock
@@ -179,5 +196,19 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!--  641 is the default CompactModeThresholdWidth in NavigationView  -->
+                        <AdaptiveTrigger MinWindowWidth="1550" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="discover.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="true" />
+                        <Setter Target="discover.(RelativePanel.Orientation)" Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

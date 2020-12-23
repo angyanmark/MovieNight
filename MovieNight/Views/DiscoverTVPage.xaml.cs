@@ -7,11 +7,10 @@ using MovieNight.Core.Services;
 using MovieNight.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace MovieNight.Views
 {
-    public class dataContainerTV
+    public class DataContainerTV
     {
         public int YearIdx = 0;
         public int GenreIdx = 0;
@@ -19,14 +18,15 @@ namespace MovieNight.Views
         public int SortByIdx = 0;
         public string keyword = "";
     }
+
     public sealed partial class DiscoverTVPage : Page
     {
-        static dataContainerTV dc = new dataContainerTV();
-        int decade;
-        int year;
-        int genre;
-        int count;
-        string sortby;
+        private static readonly DataContainerTV dc = new DataContainerTV();
+        private int decade;
+        private int year;
+        private int genre;
+        private int count;
+        private string sortby;
 
         private DiscoverTVViewModel ViewModel
         {
@@ -36,8 +36,8 @@ namespace MovieNight.Views
         public DiscoverTVPage()
         {
             InitializeComponent();
-            fillYears();
-            fillGenres();
+            FillYears();
+            _ = FillGenresAsync();
 
             yearCombo.SelectedIndex = dc.YearIdx;
             genreCombo.SelectedIndex = dc.GenreIdx;
@@ -55,7 +55,7 @@ namespace MovieNight.Views
 
         public List<ComboBoxItem> years = new List<ComboBoxItem>();
 
-        public void fillYears()
+        public void FillYears()
         {
             int until = DateTime.Now.Year + 5;
 
@@ -86,11 +86,11 @@ namespace MovieNight.Views
         public List<string> genres = new List<string>();
         public Dictionary<string, int> genresDictionary = new Dictionary<string, int>();
 
-        public void fillGenres()
+        public async Task FillGenresAsync()
         {
             genres.Add("Genre");
 
-            ObservableCollection<Genres> genreList = APICalls.CallGenres("tv");
+            var genreList = await TMDbService.GetGenresAsync("tv");
 
             foreach (Genres g in genreList)
             {
@@ -99,7 +99,7 @@ namespace MovieNight.Views
             }
         }
 
-        private void setYear()
+        private void SetYear()
         {
             string yearValue = (string)(yearCombo.SelectedItem as ComboBoxItem).Content;
 
@@ -111,18 +111,18 @@ namespace MovieNight.Views
             else if (yearValue.Length == 5)
             {
                 year = 0;
-                decade = Int32.Parse(yearValue.Substring(0, 4));
+                decade = int.Parse(yearValue.Substring(0, 4));
             }
             else
             {
                 decade = 0;
-                year = Int32.Parse(yearValue);
+                year = int.Parse(yearValue);
             }
 
             dc.YearIdx = yearCombo.SelectedIndex;
         }
 
-        private void setGenre()
+        private void SetGenre()
         {
             string genreValue = genreCombo.SelectedItem.ToString();
 
@@ -131,10 +131,14 @@ namespace MovieNight.Views
             dc.GenreIdx = genreCombo.SelectedIndex;
         }
 
-        private void setCount()
+        private void SetCount()
         {
             var comboBoxItem = minimumVotesCombo.SelectedItem as ComboBoxItem;
-            if (comboBoxItem == null) return;
+            if (comboBoxItem == null)
+            {
+                return;
+            }
+            
             string countValue = comboBoxItem.Content as string;
 
             switch (countValue)
@@ -177,10 +181,14 @@ namespace MovieNight.Views
             dc.CountIdx = minimumVotesCombo.SelectedIndex;
         }
 
-        private void setSortBy()
+        private void SetSortBy()
         {
             var comboBoxItem = sortByCombo.SelectedItem as ComboBoxItem;
-            if (comboBoxItem == null) return;
+            if (comboBoxItem == null)
+            {
+                return;
+            }
+            
             string sortByValue = comboBoxItem.Content as string;
 
             switch (sortByValue)
@@ -208,10 +216,10 @@ namespace MovieNight.Views
         {
             findButton.IsEnabled = false;
             dc.keyword = keywordText.Text;
-            setYear();
-            setGenre();
-            setCount();
-            setSortBy();
+            SetYear();
+            SetGenre();
+            SetCount();
+            SetSortBy();
 
             ViewModel.Source.Clear();
             ViewModel.loadedPages = 0;
@@ -227,15 +235,15 @@ namespace MovieNight.Views
             else if (yearValue.Length == 5)
             {
                 year = 0;
-                decade = Int32.Parse(yearValue.Substring(0, 4));
+                decade = int.Parse(yearValue.Substring(0, 4));
             }
             else
             {
                 decade = 0;
-                year = Int32.Parse(yearValue);
+                year = int.Parse(yearValue);
             }
 
-            ViewModel.LoadTVShows(keywordText.Text, decade, year, genre, count, sortby);
+            _ = ViewModel.LoadTVShows(keywordText.Text, decade, year, genre, count, sortby);
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)

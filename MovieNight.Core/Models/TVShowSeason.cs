@@ -1,13 +1,8 @@
 ﻿using MovieNight.Core.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MovieNight.Core.Models
 {
-    /// <summary>
-    /// Class containing TV Show Season data.
-    /// </summary>
     public class TVShowSeason
     {
         public string _id { get; set; }
@@ -90,7 +85,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + Poster_path;
+                    return "https://image.tmdb.org/t/p/" + TMDbService.POSTER_SIZE + "/" + Poster_path;
                 }
             }
             set
@@ -132,9 +127,6 @@ namespace MovieNight.Core.Models
         public Credits credits { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show Season Episode data.
-    /// </summary>
     public class Episode
     {
         public string air_date { get; set; }
@@ -205,7 +197,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "https://image.tmdb.org/t/p/" + APICalls.STILL_SIZE + "/" + Still_path;
+                    return "https://image.tmdb.org/t/p/" + TMDbService.STILL_SIZE + "/" + Still_path;
                 }
             }
             set
@@ -221,9 +213,6 @@ namespace MovieNight.Core.Models
         public List<Guest_Stars> guest_stars { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show Season Episode Crew.
-    /// </summary>
     public class Crew1
     {
         public int id { get; set; }
@@ -235,9 +224,6 @@ namespace MovieNight.Core.Models
         public string profile_path { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show Season Episode Guest Stars.
-    /// </summary>
     public class Guest_Stars
     {
         public int id { get; set; }
@@ -248,5 +234,4 @@ namespace MovieNight.Core.Models
         public int gender { get; set; }
         public string profile_path { get; set; }
     }
-
 }

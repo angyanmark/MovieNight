@@ -1,7 +1,4 @@
-﻿using System;
-
-using Microsoft.UI.Xaml.Controls;
-
+﻿using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 
 namespace MovieNight.Helpers

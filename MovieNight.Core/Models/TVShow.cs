@@ -1,14 +1,8 @@
 ﻿using MovieNight.Core.Services;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace MovieNight.Core.Models
 {
-    /// <summary>
-    /// Class containing response data for TV Show.
-    /// </summary>
     public class TVShowsResponse
     {
         public int page { get; set; }
@@ -19,9 +13,6 @@ namespace MovieNight.Core.Models
         public int status_code { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show data.
-    /// </summary>
     public class TVShow
     {
         private string Backdrop_path;
@@ -29,7 +20,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "https://image.tmdb.org/t/p/" + APICalls.BACKDROP_SIZE + "/" + Backdrop_path;
+                return "https://image.tmdb.org/t/p/" + TMDbService.BACKDROP_SIZE + "/" + Backdrop_path;
             }
             set
             {
@@ -300,7 +291,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + Poster_path;
+                    return "https://image.tmdb.org/t/p/" + TMDbService.POSTER_SIZE + "/" + Poster_path;
                 }
             }
             set
@@ -527,9 +518,6 @@ namespace MovieNight.Core.Models
         }
     }
 
-    /// <summary>
-    /// Class containing data for Last Episode to Air.
-    /// </summary>
     public class Last_Episode_To_Air
     {
         public string air_date { get; set; }
@@ -545,7 +533,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "https://image.tmdb.org/t/p/" + APICalls.STILL_SIZE + "/" + Still_path;
+                return "https://image.tmdb.org/t/p/" + TMDbService.STILL_SIZE + "/" + Still_path;
             }
             set
             {
@@ -556,9 +544,6 @@ namespace MovieNight.Core.Models
         public int vote_count { get; set; }
     }
 
-    /// <summary>
-    /// Class containing data for Next Episode to Air.
-    /// </summary>
     public class Next_Episode_To_Air
     {
         public string air_date { get; set; }
@@ -574,7 +559,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "https://image.tmdb.org/t/p/" + APICalls.STILL_SIZE + "/" + Still_path;
+                return "https://image.tmdb.org/t/p/" + TMDbService.STILL_SIZE + "/" + Still_path;
             }
             set
             {
@@ -585,9 +570,6 @@ namespace MovieNight.Core.Models
         public int vote_count { get; set; }
     }
 
-    /// <summary>
-    /// Class containing External IDs.
-    /// </summary>
     public class External_Ids
     {
         public string imdb_id { get; set; }
@@ -600,9 +582,6 @@ namespace MovieNight.Core.Models
         public string twitter_id { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show Credits.
-    /// </summary>
     public class Credits
     {
         //public Cast[] cast { get; set; }
@@ -611,9 +590,6 @@ namespace MovieNight.Core.Models
         public List<Crew> crew { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Film recommendation Networks.
-    /// </summary>
     public class Network
     {
         public int id { get; set; }
@@ -622,9 +598,6 @@ namespace MovieNight.Core.Models
         public string origin_country { get; set; }
     }
 
-    /// <summary>
-    /// Class containing Network Logos.
-    /// </summary>
     public class Logo
     {
         private string Path;
@@ -632,7 +605,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "https://image.tmdb.org/t/p/" + APICalls.LOGO_SIZE + "/" + Path;
+                return "https://image.tmdb.org/t/p/" + TMDbService.LOGO_SIZE + "/" + Path;
             }
             set
             {
@@ -642,9 +615,6 @@ namespace MovieNight.Core.Models
         public float aspect_ratio { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show Creators.
-    /// </summary>
     public class Created_By
     {
         public int id { get; set; }
@@ -662,7 +632,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "https://image.tmdb.org/t/p/" + APICalls.PROFILE_SIZE + "/" + Profile_path;
+                    return "https://image.tmdb.org/t/p/" + TMDbService.PROFILE_SIZE + "/" + Profile_path;
                 }
             }
             set
@@ -672,9 +642,6 @@ namespace MovieNight.Core.Models
         }
     }
 
-    /// <summary>
-    /// Class containing TV Show Networks.
-    /// </summary>
     public class Network1
     {
         public string name { get; set; }
@@ -684,7 +651,7 @@ namespace MovieNight.Core.Models
         {
             get
             {
-                return "https://image.tmdb.org/t/p/" + APICalls.LOGO_SIZE + "/" + Logo_path;
+                return "https://image.tmdb.org/t/p/" + TMDbService.LOGO_SIZE + "/" + Logo_path;
             }
             set
             {
@@ -694,9 +661,6 @@ namespace MovieNight.Core.Models
         public string origin_country { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show Season data.
-    /// </summary>
     public class Season
     {
         public string air_date { get; set; }
@@ -750,7 +714,7 @@ namespace MovieNight.Core.Models
                 }
                 else
                 {
-                    return "https://image.tmdb.org/t/p/" + APICalls.POSTER_SIZE + "/" + Poster_path;
+                    return "https://image.tmdb.org/t/p/" + TMDbService.POSTER_SIZE + "/" + Poster_path;
                 }
             }
             set
@@ -768,22 +732,15 @@ namespace MovieNight.Core.Models
         }
     }
 
-    /// <summary>
-    /// Class containing TV Show certification results.
-    /// </summary>
     public class Content_Ratings
     {
         //public Result6[] results { get; set; }
         public List<Result6> results { get; set; }
     }
 
-    /// <summary>
-    /// Class containing TV Show certification data.
-    /// </summary>
     public class Result6
     {
         public string iso_3166_1 { get; set; }
         public string rating { get; set; }
     }
-
 }

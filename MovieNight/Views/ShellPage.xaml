@@ -1,15 +1,14 @@
-﻿<Page
-    x:Class="MovieNight.Views.ShellPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
-    xmlns:helpers="using:MovieNight.Helpers"
-    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:behaviors="using:MovieNight.Behaviors"
-    mc:Ignorable="d">
+﻿<Page x:Class="MovieNight.Views.ShellPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:MovieNight.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:helpers="using:MovieNight.Helpers"
+      xmlns:i="using:Microsoft.Xaml.Interactivity"
+      xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+      mc:Ignorable="d">
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
@@ -17,95 +16,94 @@
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
 
-    <winui:NavigationView
-        Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
-        x:Name="navigationView"
-        IsBackButtonVisible="Visible"
-        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
-        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True"
-        OpenPaneLength="215"
-        PaneDisplayMode="Top">
+    <winui:NavigationView x:Name="navigationView"
+                          Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
+                          IsBackButtonVisible="Visible"
+                          IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+                          IsSettingsVisible="True"
+                          OpenPaneLength="215"
+                          PaneDisplayMode="Top"
+                          SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}">
         <winui:NavigationView.MenuItems>
             <!--
-            More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
-            Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
-            Edit String/en-US/Resources.resw: Add a menu item title for each page
+                More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
+                Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
+                Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
 
-            <winui:NavigationViewItem x:Uid="Shell_Popular_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_MoviesViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Popular_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_MoviesViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Now_Playing_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Now_Playing_MoviesViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Now_Playing_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Now_Playing_MoviesViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Upcoming_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Upcoming_MoviesViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Upcoming_Movies" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Upcoming_MoviesViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Coming_Soon" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Coming_SoonViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Coming_Soon" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Coming_SoonViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItemSeparator/>
+            <winui:NavigationViewItemSeparator />
 
-            <winui:NavigationViewItem x:Uid="Shell_Popular_TV_Shows" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_TV_ShowsViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Popular_TV_Shows" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_TV_ShowsViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_TV_on_the_Air" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_on_the_AirViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_TV_on_the_Air" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_on_the_AirViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_TV_Airing_Today" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_Airing_TodayViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_TV_Airing_Today" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.TV_Airing_TodayViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItemSeparator/>
+            <winui:NavigationViewItemSeparator />
 
-            <winui:NavigationViewItem x:Uid="Shell_Popular_People" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_PeopleViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Popular_People" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.Popular_PeopleViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE716;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItemSeparator/>
+            <winui:NavigationViewItemSeparator />
 
-            <winui:NavigationViewItem x:Uid="Shell_Discover" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Discover" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_DiscoverTV" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverTVViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_DiscoverTV" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.DiscoverTVViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7F4;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
-            <winui:NavigationViewItem x:Uid="Shell_Search" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.SearchViewModel" >
+            <winui:NavigationViewItem x:Uid="Shell_Search" helpers:NavHelper.NavigateTo="MovieNight.ViewModels.SearchViewModel">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE721;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
         </winui:NavigationView.MenuItems>
-        
+
         <i:Interaction.Behaviors>
             <!--<behaviors:NavigationViewHeaderBehavior
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
